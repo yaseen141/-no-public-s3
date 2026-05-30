@@ -2825,3 +2825,92 @@ input[type="range"] { background: rgba(255,255,255,.1) !important; }
   margin-top: 14px;
 }
 
+
+/* ═══════════════════════════════════════════════════════════════════
+   SASSA CALCULATOR
+═══════════════════════════════════════════════════════════════════ */
+.grants-bg { background: linear-gradient(135deg,#BE185D 0%,#DB2777 100%) !important; }
+
+.sassa-note {
+  background: rgba(219,39,119,.08);
+  border-left: 3px solid #DB2777;
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(240,253,244,.8);
+  margin-top: 14px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   APPLIANCE ELECTRICITY CALCULATOR
+═══════════════════════════════════════════════════════════════════ */
+.app-header-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
+.app-header-row .field { flex: 1; min-width: 160px; }
+
+.app-col-labels {
+  display: grid;
+  grid-template-columns: 1fr 70px 90px 74px;
+  gap: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(240,253,244,.3);
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  padding: 8px 12px 4px;
+}
+
+.app-list { display: flex; flex-direction: column; gap: 6px; }
+
+.app-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: center;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 10px;
+  padding: 8px 12px;
+}
+
+.app-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.app-check input[type="checkbox"] { width:16px; height:16px; accent-color:#4ADE80; flex-shrink:0; }
+
+.app-name { font-size: 13px; font-weight: 500; color: rgba(240,253,244,.85); }
+
+.app-inputs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.app-watts-w input, .app-hrs-w input {
+  width: 54px !important;
+  text-align: center;
+  font-size: 13px;
+}
+.app-watts-w .isfx, .app-hrs-w .isfx { font-size: 11px; }
+
+.app-cost {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: #4ADE80;
+  min-width: 54px;
+  text-align: right;
+}
+
+@media (max-width: 500px) {
+  .app-row { grid-template-columns: 1fr; gap: 6px; }
+  .app-inputs { justify-content: flex-start; }
+  .app-col-labels { display: none; }
+}
+
+/* Car journey badge */
+.auto-bg { background: linear-gradient(135deg,#92400E 0%,#D97706 100%) !important; }

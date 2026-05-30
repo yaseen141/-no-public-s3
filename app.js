@@ -142,6 +142,9 @@ var JOURNEYS = [
     calcs: ['vat','electricity','loan','compound-interest']
   }
   ,{ id:'matric', label:'Matric & University', sub:'APS score, NSFAS bursary & student loans', icon:'graduation-cap', gradient:'135deg,#0C4A6E,#0284C7', calcs:['aps','nsfas','loan'] }
+  ,{ id:'car', label:'Buying a Car', sub:'Vehicle finance, fuel running costs & loan comparison', icon:'car', gradient:'135deg,#92400E,#D97706', calcs:['vehicle-finance','fuel','loan','trip-fuel'] }
+  ,{ id:'grants', label:'Social Grants & Support', sub:'SASSA eligibility, grant amounts & social relief', icon:'heart', gradient:'135deg,#BE185D,#DB2777', calcs:['sassa','nsfas','uif'] }
+  ,{ id:'utilities', label:'Home & Utilities', sub:'Electricity bill, appliances & running costs', icon:'zap', gradient:'135deg,#0F766E,#0D9488', calcs:['appliances','electricity'] }
 ];
 
 // ── Journey Article Content ───────────────────────────────────────
@@ -299,6 +302,80 @@ var JOURNEY_ARTICLES = {
       {
         heading: 'Other Ways to Fund Your Studies: Beyond NSFAS',
         body: 'Students whose household income exceeds the NSFAS threshold are often called the "missing middle" — they earn too much for NSFAS but too little to pay university fees. Options for this group include: the Funza Lushaka bursary (for teaching degrees — fully funded including allowances), SETA bursaries (sector-specific, linked to working in that industry after graduation), corporate bursaries (many large SA companies offer bursaries to students studying toward their industry), and personal loans from banks (ABSA, Standard Bank, Nedbank all offer study loans at prime rate). The Ikusasa Student Financial Aid Programme (ISFAP) specifically targets the missing middle.'
+      }
+    ]
+  },
+  car: {
+    title: 'Buying a Car in South Africa',
+    sub: 'Vehicle finance, running costs & what you can really afford',
+    gradient: 'linear-gradient(150deg,#92400E 0%,#D97706 100%)',
+    facts: [
+      { val: D.primeRate + '%', label: 'Prime Rate', note: 'Vehicle finance priced at prime + 0–3%', live: false },
+      { val: '72 mo', label: 'Max Term', note: 'Most banks cap vehicle finance at 72 months' },
+      { val: '10–20%', label: 'Deposit', note: 'Recommended deposit to reduce monthly cost' },
+      { val: 'R' + D.petrol95.toFixed(2), label: 'Petrol 95/L', note: 'Major running cost factor', live: true }
+    ],
+    sections: [
+      {
+        heading: 'How Vehicle Finance Works in South Africa',
+        body: 'Vehicle finance in South Africa comes in two main forms: Instalment Sale (IS) — you own the car throughout, pay fixed monthly instalments including interest, and the vehicle is yours outright when the term ends. A Lease (PFP/Operating Lease) — you pay to use the car and hand it back or settle a balloon payment at the end. Most consumers use Instalment Sale. Interest is charged at prime + a margin based on your credit score — with prime at ' + D.primeRate + '%, rates typically range from ' + D.primeRate + '% to ' + (D.primeRate + 3) + '%. A deposit of 10–20% significantly reduces your monthly repayment and the total interest paid.'
+      },
+      {
+        heading: 'The Real Cost of Owning a Car: Beyond Repayments',
+        body: 'Monthly repayments are only one part of the cost. Budget for: insurance (compulsory for financed vehicles, typically R600–R2,500/month depending on vehicle and driver), fuel (a car doing 1,500km/month at 10L/100km costs R' + Math.round(1500 * 0.1 * D.petrol95) + '/month at current prices), maintenance (R2,000–R5,000/year for services), licence and roadworthy fees, and tolls if you use the N1/N3/N4. Many buyers focus only on the monthly payment and underestimate total ownership cost by 40–60%.',
+        tip: 'Use the Vehicle Finance calculator to test different deposit amounts, terms and balloon payments. Then use the Fuel calculator to estimate your monthly running costs. Together these give you the true monthly cost of owning the car.'
+      },
+      {
+        heading: 'Balloon Payments: Tempting but Expensive',
+        body: 'A balloon (residual value) of 20–30% at the end of the term makes monthly payments much lower but means you either pay a large lump sum, refinance at the end (paying interest again), or hand back the car. Over 72 months with a 30% balloon, you can end up paying 40–50% more in total interest than a standard deal with no balloon. Banks and dealerships sometimes push high balloons because they look attractive on paper. Run the numbers in the calculator before signing.'
+      }
+    ]
+  },
+  grants: {
+    title: 'South African Social Grants & Support',
+    sub: 'SASSA grants, eligibility criteria and how to apply',
+    gradient: 'linear-gradient(150deg,#BE185D 0%,#DB2777 100%)',
+    facts: [
+      { val: 'R2,190', label: 'Old Age Grant', note: 'Per month for citizens aged 60–74 (2026)', live: false },
+      { val: 'R560', label: 'Child Support', note: 'Per child per month, ages 0–18', live: false },
+      { val: 'R93,192', label: 'Means Test (pa)', note: 'Max annual income for most SASSA grants', live: false },
+      { val: '18M+', label: 'Grant Recipients', note: 'South Africans receive SASSA grants monthly', live: false }
+    ],
+    sections: [
+      {
+        heading: 'Who Qualifies for SASSA Grants',
+        body: 'SASSA (South African Social Security Agency) administers seven permanent grants and one temporary relief grant. All require South African citizenship or permanent residency and a means test. The means test checks both income and assets: for the Old Age and Disability Grants, a single person\'s income must not exceed R93,192/year (R7,766/month), and movable assets cannot exceed R316,800. Your primary residence is excluded from the asset calculation. A married couple\'s combined income ceiling is R186,384/year. If you receive any other government pension, this counts toward the income limit.'
+      },
+      {
+        heading: 'Child Support Grant: The Largest Grant Programme',
+        body: 'The Child Support Grant (R560/month per child) is paid to the primary caregiver — not necessarily the biological parent. It covers children from birth to age 18. The means test for the caregiver is lower: R58,800/year single, R117,600/year married. There is no limit on how many children one caregiver can claim for, but each child must be registered individually. Apply at your nearest SASSA office with the child\'s birth certificate, your ID, and proof of income or an affidavit if unemployed. Many eligible families do not claim — if you have children and a household income below R10,000/month, check your eligibility.',
+        tip: 'You can apply for the Child Support Grant for up to one year before the child was born (during pregnancy). Apply as soon as possible — grants are not backdated beyond the application date. A late application means lost income you cannot recover.'
+      },
+      {
+        heading: 'How to Apply: SASSA Offices, Online and WhatsApp',
+        body: 'Most grants require in-person application at a SASSA office. Bring: SA ID, proof of income or SASSA affidavit if unemployed, proof of residence (utility bill or lease), and bank details. The SRD (Social Relief of Distress) R370/month grant is the exception — apply online at srd.sassa.gov.za or via WhatsApp on 082 046 8553. SASSA offices are present in all towns — use the SASSA office locator on sassa.gov.za. Grant payments are made on a monthly schedule via SASSA card, bank transfer, or approved retail pay points (Shoprite, Pick n Pay).'
+      }
+    ]
+  },
+  utilities: {
+    title: 'Home Electricity & Appliance Costs',
+    sub: 'See exactly what each appliance costs and where to cut your bill',
+    gradient: 'linear-gradient(150deg,#0F766E 0%,#0D9488 100%)',
+    facts: [
+      { val: 'R' + D.eskomDirect.toFixed(2) + '/kWh', label: 'Eskom Direct', note: 'Standard domestic rate 2025/26', live: false },
+      { val: 'R3.50/kWh', label: 'Municipal Avg', note: 'Most households pay muni rate R2.50–R4.50/kWh', live: false },
+      { val: '40–50%', label: 'Geyser Share', note: 'Geyser typically uses nearly half your electricity', live: false },
+      { val: '3–5 yrs', label: 'Solar Payback', note: 'Typical rooftop solar return at current prices', live: false }
+    ],
+    sections: [
+      {
+        heading: 'Understanding Your South African Electricity Bill',
+        body: 'Most South African households pay for electricity via their municipality, which buys in bulk from Eskom and adds a margin. Municipal tariffs typically range from R2.50 to R4.50/kWh. Prepaid meters show your balance in kWh — divide your purchase amount by the kWh received to find your effective rate. Many municipalities also charge a fixed service/availability fee regardless of consumption. If your bill seems high, start with the appliance calculator below: the geyser, stove and air conditioner together typically account for 60–70% of a household\'s total electricity use.'
+      },
+      {
+        heading: 'Your Biggest Electricity Users and How to Cut Costs',
+        body: 'The electric geyser is the single biggest target for savings. Installing a geyser timer (cutting heating to off-peak hours: 10pm–6am, 9am–4pm) alone reduces geyser electricity use by 25–30%. A heat pump geyser uses 60–70% less electricity than a standard element. LED bulbs use 80% less power than incandescent. If you have a pool, a variable-speed pump on a 6-hour timer (instead of running all day) can save R500–R1,500/month. Air conditioning costs 1.5–2.5kWh per hour — setting your thermostat to 24°C instead of 20°C can halve the running cost.',
+        tip: 'The 25C Solar Tax Incentive allows individual taxpayers to claim 25% of solar panel installation costs as a tax credit (capped at R15,000 per person). Available for the 2024/25 tax year for installations completed before 28 February 2025.'
       }
     ]
   }
@@ -1147,6 +1224,40 @@ var CALCS = [
     ]
   },
   render: renderNSFAS
+},
+{
+  id: 'sassa', iconName: 'heart', title: 'SASSA Grant Eligibility Calculator',
+  icon: '❤️', cat: 'grants', popular: true,
+  desc: 'Check which SASSA social grants you or your family qualify for — old age, disability, child support, care dependency and more',
+  info: '<h4>SASSA grants overview (2026)</h4><ul><li><strong>Old Age Grant:</strong> R2,190/month (60–74), R2,210/month (75+)</li><li><strong>Disability Grant:</strong> R2,190/month (18–59, SASSA medical assessment)</li><li><strong>Child Support Grant:</strong> R560/month per child (0–18)</li><li><strong>Foster Child Grant:</strong> R1,180/month per child (court order required)</li><li><strong>Care Dependency Grant:</strong> R2,190/month (child with severe disability)</li><li><strong>Grant-in-Aid:</strong> R530/month (additional for those needing full-time care)</li><li><strong>SRD Grant:</strong> R370/month (temporary relief while awaiting other grants)</li></ul>',
+  faqs: [
+    {q:'What income can I earn and still get an Old Age Grant?', a:'For the Old Age Grant (2026): single person income ≤ R93,192/year (R7,766/month). Married couple combined ≤ R186,384/year. Asset test also applies — movable assets ≤ R316,800 (single) or ≤ R633,600 (married). Your home does not count.'},
+    {q:'How do I apply for SASSA grants?', a:'Visit your nearest SASSA office with: SA ID, proof of income (payslip, bank statements, or affidavit if unemployed), proof of residence, and bank details. SASSA also has a WhatsApp line (082 046 8553) and the SRD grant can be applied for online at srd.sassa.gov.za.'},
+    {q:'Can I receive more than one SASSA grant?', a:'Usually only one main grant per person. However, you can receive the Grant-in-Aid in addition to an Old Age or Disability Grant if you need full-time care. Caregivers can receive a Child Support Grant for each qualifying child they care for.'}
+  ],
+  related: ['uif','nsfas'],
+  cta: { icon: '❤️', title: 'Apply for SASSA grants', sub: 'Visit your nearest SASSA office or apply online for the SRD grant', offers: [
+    {label:'SRD Grant online application', url:'https://srd.sassa.gov.za/'},
+    {label:'Find a SASSA office', url:'https://www.sassa.gov.za/Pages/Office-Locator.aspx', secondary:true}
+  ]},
+  render: renderSASSA
+},
+{
+  id: 'appliances', iconName: 'zap', title: 'Home Appliance Electricity Calculator',
+  icon: '🔌', cat: 'utilities', popular: true,
+  desc: 'Calculate your monthly electricity bill per appliance — see exactly which devices are costing you the most and where to save',
+  info: '<h4>Where your electricity goes</h4><p>In a typical SA household:</p><ul><li><strong>Geyser</strong> — 40–50% of your electricity bill</li><li><strong>Stove/oven</strong> — 10–15%</li><li><strong>Air conditioner</strong> — 10–20% (if used)</li><li><strong>Fridge/freezer</strong> — 8–12% (runs 24/7)</li><li><strong>Lighting</strong> — 5–10%</li></ul><p>Switching your geyser to a heat pump or solar can cut your bill by 30–40%.</p>',
+  faqs: [
+    {q:'What is the biggest electricity user in my home?', a:'In most South African homes, the geyser accounts for 40–50% of electricity consumption. A standard 150L geyser on for 2–3 hours/day uses about 6–10 kWh/day. Installing a timer (cutting heating to off-peak hours) alone can reduce geyser electricity use by 30%.'},
+    {q:'How do I read my prepaid electricity meter?', a:'Press the 0 button or # to see your current balance in kWh. Divide your prepaid purchase amount by the displayed kWh to get your effective rate (including admin fees). Compare this to the standard Eskom/muni rate to check for anomalies.'},
+    {q:'Will solar reduce my bill?', a:'A typical 3–5kWp rooftop solar system with battery can reduce grid electricity consumption by 60–80%, paying back the installation cost in 3–5 years at current electricity prices. The Section 25C tax credit allows 25% of solar installation cost (up to R15,000) as a tax rebate.'}
+  ],
+  related: ['electricity','loan'],
+  cta: { icon: '☀️', title: 'Consider solar and save', sub: 'Solar PV + battery payback is 3–5 years at current electricity rates', offers: [
+    {label:'Get solar quotes on HeatMap', url:'https://www.heatmap.co.za/'},
+    {label:'Compare inverters & batteries', url:'https://www.solar-shop.co.za/', secondary:true}
+  ]},
+  render: renderAppliances
 }
 ];
 
@@ -2450,9 +2561,9 @@ function showCalc(id) {
 }
 
 // ── Category metadata ────────────────────────────────────────────
-var CAT_LABELS    = { tax:'Tax & Income', property:'Property', loans:'Loans', auto:'Automotive', investment:'Investment', utilities:'Utilities', education:'Education & Study' };
-var CAT_ICON_NAMES = { tax:'file-text', property:'home', loans:'credit-card', auto:'car', investment:'trending-up', utilities:'zap', education:'graduation-cap' };
-var CAT_ORDER     = ['tax','property','loans','auto','investment','utilities','education'];
+var CAT_LABELS    = { tax:'Tax & Income', property:'Property', loans:'Loans', auto:'Automotive', investment:'Investment', utilities:'Utilities', education:'Education & Study', grants:'Social Grants' };
+var CAT_ICON_NAMES = { tax:'file-text', property:'home', loans:'credit-card', auto:'car', investment:'trending-up', utilities:'zap', education:'graduation-cap', grants:'heart' };
+var CAT_ORDER     = ['tax','property','loans','auto','investment','utilities','education','grants'];
 
 function _escHTML(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -3197,6 +3308,238 @@ function renderNSFAS() {
   window._calc = _calcNSFAS;
   on(['ns_income'], _calcNSFAS);
   _calcNSFAS();
+}
+
+// ═══════════════════════════════════════════════════════════════════
+//  SASSA Grant Eligibility Calculator
+// ═══════════════════════════════════════════════════════════════════
+var SASSA_GRANTS_DATA = {
+  oldAge:        { name:'Old Age Grant (60–74)',     amount:2190 },
+  oldAge75:      { name:'Old Age Grant (75+)',        amount:2210 },
+  disability:    { name:'Disability Grant',           amount:2190 },
+  childSupport:  { name:'Child Support Grant',        amount:560, perChild:true },
+  foster:        { name:'Foster Child Grant',         amount:1180, perChild:true },
+  careDep:       { name:'Care Dependency Grant',      amount:2190, perChild:true },
+  grantInAid:    { name:'Grant-in-Aid (add-on)',      amount:530 },
+  srd:           { name:'SRD Grant (temp. relief)',   amount:370 }
+};
+
+function renderSASSA() {
+  document.getElementById('calc-form').innerHTML =
+    fsect('About you') +
+    field('sa_age',  'Your age', plainInput('sa_age','35','35',' years')) +
+    field('sa_inc',  'Your monthly income (all sources)', moneyInput('sa_inc','0','0'), 'pensions, wages, rent etc. — 0 if unemployed') +
+    field('sa_marr', 'Marital status',
+      '<div class="radio-grp"><label class="ro"><input type="radio" name="sa_marr" id="sa_single" value="single" checked onchange="_calcSASSA()"><label for="sa_single">Single / unmarried</label></label>' +
+      '<label class="ro"><input type="radio" name="sa_marr" id="sa_married" value="married" onchange="_calcSASSA()"><label for="sa_married">Married / partner</label></label></div>') +
+    field('sa_spouse_inc', 'Spouse/partner monthly income', moneyInput('sa_spouse_inc','0','0'), 'if applicable') +
+    fsect('Disability & care') +
+    field('sa_dis', 'Do you have a disability (age 18–59)?',
+      '<div class="radio-grp"><label class="ro"><input type="radio" name="sa_dis" id="sa_dis_no" value="no" checked onchange="_calcSASSA()"><label for="sa_dis_no">No</label></label>' +
+      '<label class="ro"><input type="radio" name="sa_dis" id="sa_dis_yes" value="yes" onchange="_calcSASSA()"><label for="sa_dis_yes">Yes — SASSA medical assessment required</label></label></div>') +
+    field('sa_care', 'Do you need full-time care from another person?',
+      '<div class="radio-grp"><label class="ro"><input type="radio" name="sa_care" id="sa_care_no" value="no" checked onchange="_calcSASSA()"><label for="sa_care_no">No</label></label>' +
+      '<label class="ro"><input type="radio" name="sa_care" id="sa_care_yes" value="yes" onchange="_calcSASSA()"><label for="sa_care_yes">Yes</label></label></div>') +
+    fsect('Children') +
+    field('sa_kids', 'Number of children you support (0–18 years)', plainInput('sa_kids','0','0',' children')) +
+    field('sa_foster', 'Number of foster children (court order)', plainInput('sa_foster','0','0',' children')) +
+    field('sa_caredep', 'Children with severe disability (Care Dependency)', plainInput('sa_caredep','0','0',' children'));
+
+  function _calcSASSA() {
+    var age       = num('sa_age');
+    var myInc     = num('sa_inc');
+    var married   = document.getElementById('sa_married') && document.getElementById('sa_married').checked;
+    var spInc     = num('sa_spouse_inc');
+    var disabled  = document.getElementById('sa_dis_yes') && document.getElementById('sa_dis_yes').checked;
+    var needsCare = document.getElementById('sa_care_yes') && document.getElementById('sa_care_yes').checked;
+    var kids      = Math.max(0, intval('sa_kids'));
+    var foster    = Math.max(0, intval('sa_foster'));
+    var careDep   = Math.max(0, intval('sa_caredep'));
+
+    var annualInc = (myInc + (married ? spInc : 0)) * 12;
+
+    var grants = [];
+    var total  = 0;
+
+    // Old Age Grant — income thresholds (2026)
+    var oaLimit = married ? 186384 : 93192;
+    if (age >= 75 && annualInc <= oaLimit) {
+      grants.push({ name: 'Old Age Grant (75+)', amount: 2210, note: 'Highest rate for 75 and older' });
+      total += 2210;
+      if (needsCare) { grants.push({ name: 'Grant-in-Aid (add-on)', amount: 530, note: 'For those needing full-time care' }); total += 530; }
+    } else if (age >= 60 && annualInc <= oaLimit) {
+      grants.push({ name: 'Old Age Grant (60–74)', amount: 2190, note: 'Income within R' + oaLimit.toLocaleString() + '/yr threshold' });
+      total += 2190;
+      if (needsCare) { grants.push({ name: 'Grant-in-Aid (add-on)', amount: 530, note: 'For those needing full-time care' }); total += 530; }
+    }
+
+    // Disability Grant — age 18–59
+    var disLimit = married ? 186384 : 93192;
+    if (disabled && age >= 18 && age <= 59 && annualInc <= disLimit && grants.length === 0) {
+      grants.push({ name: 'Disability Grant', amount: 2190, note: 'Subject to SASSA medical assessment' });
+      total += 2190;
+      if (needsCare) { grants.push({ name: 'Grant-in-Aid (add-on)', amount: 530, note: 'For those needing full-time care' }); total += 530; }
+    }
+
+    // Child Support Grant — caregiver income threshold lower
+    var csLimit = married ? 117600 : 58800;
+    if (kids > 0 && annualInc <= csLimit) {
+      grants.push({ name: 'Child Support Grant ×' + kids, amount: 560 * kids, note: 'R560/child/month for ' + kids + ' child' + (kids > 1 ? 'ren' : '') });
+      total += 560 * kids;
+    } else if (kids > 0) {
+      grants.push({ name: 'Child Support Grant', amount: 0, note: 'Income R' + (annualInc/12).toLocaleString() + '/month may exceed R' + (csLimit/12).toLocaleString() + '/month threshold — verify at SASSA office' });
+    }
+
+    // Foster Child Grant
+    if (foster > 0) {
+      grants.push({ name: 'Foster Child Grant ×' + foster, amount: 1180 * foster, note: 'R1,180/child/month — court order required' });
+      total += 1180 * foster;
+    }
+
+    // Care Dependency Grant
+    if (careDep > 0) {
+      grants.push({ name: 'Care Dependency Grant ×' + careDep, amount: 2190 * careDep, note: 'R2,190/child/month for severely disabled children' });
+      total += 2190 * careDep;
+    }
+
+    // SRD fallback
+    if (grants.length === 0 && myInc === 0) {
+      grants.push({ name: 'SRD Grant (Social Relief of Distress)', amount: 370, note: 'Temporary — while unemployed and awaiting another grant. Apply at srd.sassa.gov.za' });
+      total += 370;
+    }
+
+    var rows = grants.map(function(g) {
+      return [g.name, g.amount > 0 ? R(g.amount) + '/month' : 'Check at SASSA', g.amount > 0 ? 'green' : ''];
+    });
+    rows.push(null);
+    rows.push(['Total SASSA income', R(total) + '/month', 'green', true]);
+
+    var sub = grants.length > 0 && total > 0
+      ? 'Estimated monthly SASSA income: ' + R(total)
+      : grants.length > 0 ? 'Some grants may apply — verify at your nearest SASSA office'
+      : 'No grants found based on inputs — verify at your nearest SASSA office';
+
+    showResult(resultCard(
+      grants.length > 0 && total > 0 ? 'Estimated Monthly SASSA Total' : 'SASSA Eligibility',
+      total > 0 ? R(total) + '/month' : 'Visit SASSA office',
+      sub, rows,
+      total > 0 ? Math.min(100, (total / 5000) * 100) : 0,
+      total > 0 ? 'bar-green' : 'bar-amber'
+    ) +
+    '<div class="sassa-note"><strong>Important:</strong> This is an estimate only. Final eligibility is determined by SASSA based on a full means test, asset assessment and (for disability) medical evaluation. All amounts are 2026 rates. Visit <a href="https://www.sassa.gov.za" target="_blank" rel="noopener" style="color:#4ADE80">sassa.gov.za</a> or call 0800 60 10 11 (toll-free).</div>');
+    updateMobileBar('SASSA Total', total > 0 ? R(total) + '/month' : 'Check at SASSA');
+  }
+
+  window._calc = _calcSASSA;
+  on(['sa_age','sa_inc','sa_spouse_inc','sa_kids','sa_foster','sa_caredep'], _calcSASSA);
+  _calcSASSA();
+}
+
+// ═══════════════════════════════════════════════════════════════════
+//  Home Appliance Electricity Calculator
+// ═══════════════════════════════════════════════════════════════════
+var APPLIANCE_LIST = [
+  { id:'geyser',  name:'Geyser (150L)',       watts:3500,  defaultHrs:2,   cat:'heating' },
+  { id:'stove',   name:'Electric Stove/Oven', watts:2500,  defaultHrs:1,   cat:'cooking' },
+  { id:'kettle',  name:'Kettle',              watts:2200,  defaultHrs:0.5, cat:'cooking' },
+  { id:'micro',   name:'Microwave',           watts:1100,  defaultHrs:0.25,cat:'cooking' },
+  { id:'fridge',  name:'Fridge/Freezer',      watts:150,   defaultHrs:24,  cat:'cooling', always:true },
+  { id:'aircon',  name:'Air Conditioner',     watts:1800,  defaultHrs:4,   cat:'cooling', off:true },
+  { id:'heater',  name:'Heater/Radiator',     watts:2000,  defaultHrs:4,   cat:'heating', off:true },
+  { id:'wash',    name:'Washing Machine',     watts:2000,  defaultHrs:1,   cat:'laundry' },
+  { id:'dryer',   name:'Tumble Dryer',        watts:2500,  defaultHrs:1,   cat:'laundry', off:true },
+  { id:'tv',      name:'TV (LED 50")',         watts:120,   defaultHrs:4,   cat:'entertainment' },
+  { id:'dstv',    name:'DStv Decoder',        watts:30,    defaultHrs:6,   cat:'entertainment' },
+  { id:'laptop',  name:'Laptop',              watts:65,    defaultHrs:8,   cat:'entertainment' },
+  { id:'lights',  name:'Lights (×8 LED)',     watts:64,    defaultHrs:5,   cat:'lighting' },
+  { id:'pool',    name:'Pool Pump',           watts:1200,  defaultHrs:6,   cat:'other', off:true },
+  { id:'iron',    name:'Iron',                watts:1800,  defaultHrs:0.5, cat:'laundry' },
+  { id:'hair',    name:'Hair Dryer',          watts:1800,  defaultHrs:0.25,cat:'other' },
+  { id:'dishw',   name:'Dishwasher',          watts:1500,  defaultHrs:1,   cat:'cooking', off:true },
+  { id:'eblanket',name:'Electric Blanket',    watts:120,   defaultHrs:8,   cat:'heating', off:true }
+];
+
+function renderAppliances() {
+  var tariffOpts = [['2.21','Eskom Direct (R2.21/kWh)'],['2.80','Muni Low (R2.80/kWh)'],['3.50','Muni Avg (R3.50/kWh)'],['4.20','Muni High (R4.20/kWh)'],['custom','Custom rate']];
+
+  var appRows = APPLIANCE_LIST.map(function(a) {
+    var checked = !a.off ? ' checked' : '';
+    return '<div class="app-row" id="approw_' + a.id + '">' +
+      '<label class="app-check"><input type="checkbox" id="app_on_' + a.id + '" ' + checked + ' onchange="_calcAppl()">' +
+        '<span class="app-name">' + _escHTML(a.name) + '</span>' +
+      '</label>' +
+      '<div class="app-inputs">' +
+        '<div class="iw sfx app-watts-w"><input type="number" id="app_w_' + a.id + '" value="' + a.watts + '" min="0" step="10" oninput="_calcAppl()"><span class="isfx">W</span></div>' +
+        '<div class="iw sfx app-hrs-w"><input type="number" id="app_h_' + a.id + '" value="' + a.defaultHrs + '" min="0" max="24" step="0.25" oninput="_calcAppl()"><span class="isfx">hrs/day</span></div>' +
+        '<span class="app-cost" id="app_cost_' + a.id + '">—</span>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+
+  document.getElementById('calc-form').innerHTML =
+    '<div class="app-header-row">' +
+      field('ap_tariff', 'Electricity rate', selectInput('ap_tariff', tariffOpts)) +
+      '<div id="ap_custom_wrap" style="display:none">' +
+        field('ap_custom', 'Custom rate', '<div class="iw sfx"><input type="number" id="ap_custom" value="3.50" step="0.01" min="0" oninput="_calcAppl()"><span class="isfx">R/kWh</span></div>') +
+      '</div>' +
+    '</div>' +
+    '<div class="app-col-labels"><span>Appliance</span><span>Watts</span><span>Hrs/day</span><span>R/month</span></div>' +
+    '<div class="app-list">' + appRows + '</div>';
+
+  document.getElementById('ap_tariff').addEventListener('change', function() {
+    var cw = document.getElementById('ap_custom_wrap');
+    if (cw) cw.style.display = this.value === 'custom' ? '' : 'none';
+    _calcAppl();
+  });
+
+  function _calcAppl() {
+    var tariffEl = document.getElementById('ap_tariff');
+    var tariffV  = tariffEl ? tariffEl.value : '3.50';
+    var rate = tariffV === 'custom' ? (num('ap_custom') || 3.50) : parseFloat(tariffV);
+
+    var items = [];
+    APPLIANCE_LIST.forEach(function(a) {
+      var onEl = document.getElementById('app_on_' + a.id);
+      var wEl  = document.getElementById('app_w_'  + a.id);
+      var hEl  = document.getElementById('app_h_'  + a.id);
+      var costEl = document.getElementById('app_cost_' + a.id);
+      if (!onEl || !wEl || !hEl) return;
+      var active = onEl.checked;
+      var watts  = parseFloat(wEl.value) || 0;
+      var hrs    = parseFloat(hEl.value) || 0;
+      var kwh_day  = (watts / 1000) * hrs;
+      var kwh_mo   = kwh_day * 30;
+      var cost_mo  = kwh_mo * rate;
+      if (costEl) costEl.textContent = active ? 'R ' + cost_mo.toFixed(0) : '—';
+      if (active && watts > 0 && hrs > 0) items.push({ name:a.name, kwhDay:kwh_day, costMo:cost_mo });
+    });
+
+    var totalKwh = items.reduce(function(s,i){ return s + i.kwhDay; }, 0);
+    var totalMo  = items.reduce(function(s,i){ return s + i.costMo; }, 0);
+    var totalAnn = totalMo * 12;
+
+    items.sort(function(a,b){ return b.costMo - a.costMo; });
+    var topRows = items.slice(0,8).map(function(i) {
+      return [i.name, 'R ' + i.costMo.toFixed(0) + '/mo  (' + (i.kwhDay * 30).toFixed(0) + ' kWh)'];
+    });
+    topRows.push(null);
+    topRows.push(['Total daily usage', (totalKwh).toFixed(2) + ' kWh/day']);
+    topRows.push(['Total monthly cost', R(Math.round(totalMo)), 'green', true]);
+    topRows.push(['Total annual cost', R(Math.round(totalAnn))]);
+
+    showResult(resultCard(
+      'Monthly Electricity Cost', R(Math.round(totalMo)),
+      (totalKwh * 30).toFixed(0) + ' kWh/month · at R' + rate.toFixed(2) + '/kWh',
+      topRows,
+      Math.min(100, (totalMo / 5000) * 100),
+      totalMo < 1000 ? 'bar-green' : totalMo < 2500 ? 'bar-amber' : 'bar-red'
+    ));
+    updateMobileBar('Monthly Cost', R(Math.round(totalMo)));
+  }
+
+  window._calcAppl = _calcAppl;
+  window._calc = _calcAppl;
+  _calcAppl();
 }
 
 // ── Init ───────────────────────────────────────────────────────────
