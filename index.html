@@ -253,6 +253,21 @@
   </div>
 </div>
 
+<!-- Site Disclaimer Banner -->
+<div class="disc-banner" id="disc-banner" role="alert" aria-live="polite">
+  <div class="container disc-inner">
+    <svg class="disc-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    <p class="disc-text">
+      <strong>Educational use only.</strong> All figures are estimates based on official data from
+      <span class="disc-sources">SARS · SARB · DMRE · Stats SA · SASSA · NHBRC</span>.
+      Always verify with a registered tax practitioner, financial adviser, or the relevant authority before making financial decisions.
+    </p>
+    <button class="disc-close" onclick="dismissDisclaimer()" aria-label="Dismiss disclaimer" title="Dismiss">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+</div>
+
 <main>
 
 <!-- HOME VIEW -->
@@ -260,13 +275,22 @@
 
   <!-- Hero Section -->
   <section class="hero" aria-label="Mzanzi Cals introduction">
+    <!-- South African Flag background (CSS-drawn, pure SVG) -->
+    <svg class="hero-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+      <rect width="900" height="300" fill="#DE3831"/>
+      <rect y="300" width="900" height="300" fill="#002395"/>
+      <polygon points="0,0 270,300 0,600" fill="#000000"/>
+      <polygon points="0,183 900,0 900,183 295,300 900,417 900,600 0,417" fill="#FFB612"/>
+      <polygon points="0,204 900,20 900,200 300,300 900,400 900,580 0,396" fill="#007A4D"/>
+    </svg>
+    <div class="hero-overlay" aria-hidden="true"></div>
     <div class="container hero-inner">
       <div class="hero-eyebrow">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
         Updated SARS 2026/27 · No sign-up · Free forever
       </div>
       <h1 class="hero-title">South Africa's Free<br>Financial Calculators</h1>
-      <p class="hero-sub">23 calculators — PAYE, bond, VAT, APS score, SASSA grants, vehicle finance, electricity & more. SARS 2026/27 data. No sign-up.</p>
+      <p class="hero-sub">24 calculators — PAYE, bond, building costs, APS score, SASSA grants, vehicle finance, electricity & more. SARS 2026/27 data. No sign-up.</p>
       <div class="hero-chips" role="list" aria-label="Key features">
         <span class="hero-chip" role="listitem">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
@@ -278,7 +302,7 @@
         </span>
         <span class="hero-chip" role="listitem">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
-          20 free calculators
+          24 free calculators
         </span>
         <span class="hero-chip" role="listitem">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
@@ -304,7 +328,7 @@
           <div class="hb-note">Standard rate</div>
         </div>
         <div class="hb-card hb-count">
-          <div class="hb-big">23</div>
+          <div class="hb-big">24</div>
           <div class="hb-label">Free calculators</div>
         </div>
       </div>
@@ -368,7 +392,7 @@
         </div>
         <div class="form-card" id="calc-form"></div>
         <div id="cv-chart"></div>
-        <p class="disclaimer">For informational purposes only. Consult a registered tax practitioner or financial adviser for personalised advice.</p>
+        <p class="disclaimer" id="calc-disclaimer">For informational purposes only. Data sourced from official South African authorities (SARS, SARB, DMRE, Stats SA). All calculations are estimates — consult a registered tax practitioner or financial adviser for personalised advice.</p>
       </div>
       <div class="calc-right">
         <div id="result-area" aria-live="polite">

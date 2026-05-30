@@ -104,10 +104,10 @@ var JOURNEYS = [
   {
     id: 'homebuyer',
     label: 'Buying a Home',
-    sub: 'Bond, transfer duty & rental yield',
+    sub: 'Bond, transfer duty, building costs & rental yield',
     icon: 'home',
     gradient: '135deg,#0D9488,#0F766E',
-    calcs: ['bond','transfer-duty','rental-yield']
+    calcs: ['bond','transfer-duty','building-cost','rental-yield']
   },
   {
     id: 'mypay',
@@ -150,13 +150,13 @@ var JOURNEYS = [
 // ── Journey Article Content ───────────────────────────────────────
 var JOURNEY_ARTICLES = {
   homebuyer: {
-    title: 'Buying a Home in South Africa',
-    sub: '2026/27 guide to bonds, transfer duty and property costs',
+    title: 'Buying or Building a Home in SA',
+    sub: '2026/27 guide to bonds, transfer duty, building costs and property',
     gradient: 'linear-gradient(150deg,#065F46 0%,#0D9488 100%)',
     facts: [
       { val: '10.25%', label: 'Prime Rate', note: 'Home loans priced at prime ± margin' },
       { val: 'R0', label: 'Transfer Duty', note: 'On properties under R1,100,000' },
-      { val: '~30%', label: 'Bond-to-Income', note: 'Max banks typically approve' },
+      { val: 'R12,000', label: 'Standard Build/m²', note: 'ASAQS 2026 benchmark rate' },
       { val: '10–20%', label: 'Ideal Deposit', note: 'Secures a better interest rate' }
     ],
     sections: [
@@ -172,6 +172,11 @@ var JOURNEY_ARTICLES = {
         heading: 'Full Cost Breakdown: Beyond the Purchase Price',
         body: 'Budget an extra 7–10% of the purchase price for: conveyancing attorney fees (R15,000–R40,000+), bond registration costs (R10,000–R30,000+), rates clearance certificates, and occupational rent if you move in before registration. These costs must be paid from your own funds — they cannot be financed with the bond. Transfer duty is also settled from your own pocket, not from the loan. Most buyers are caught off-guard by these costs.',
         tip: 'Making just R500/month extra on a R1.5M bond at 10.25% saves over R250,000 in total interest and cuts 2–3 years off your loan. The bond calculator below shows the exact numbers.'
+      },
+      {
+        heading: 'Building Your Own Home: Costs & What to Expect',
+        body: 'Building a new home in South Africa typically costs R8,500–R23,000 per m² depending on finish quality and province, based on 2026 ASAQS benchmark rates. A standard 150m² home in Gauteng runs roughly R1.8 million in construction costs. Add architect fees (~8% of construction), a structural engineer (~2.5%), NHBRC enrolment (R2,500 + 1.3% of insured value), and municipality plan approval (R3,000–R12,000). Budget R2.2–R2.5 million all-in for a standard 150m² build. The Building Cost Calculator below estimates your full project cost.',
+        tip: 'Always enrol your new home with the NHBRC (nhbrc.org.za) before construction starts. NHBRC enrolment is a legal requirement and provides a 5-year structural warranty. Never pay a builder who is not NHBRC-registered.'
       }
     ]
   },
@@ -882,6 +887,27 @@ var CALCS = [
       ]
     },
     render: renderRentalYield
+  },
+  {
+    id: 'building-cost', iconName: 'home', title: 'Building Cost Calculator South Africa',
+    icon: '🏗️', cat: 'property', popular: false,
+    desc: 'Estimate the full cost to build a new home — construction, architect, engineer & NHBRC fees',
+    info: '<h4>SA Building Cost Rates (2026)</h4><p>Construction costs per m² vary widely by finish quality and province. The ASAQS (Association of SA Quantity Surveyors) publishes annual benchmarks.</p><ul><li><strong>Economy:</strong> R7,500–R9,500/m² — basic finishes</li><li><strong>Standard:</strong> R10,000–R14,000/m² — mid-range</li><li><strong>Prestige:</strong> R14,000–R19,000/m² — high-end</li><li><strong>Luxury:</strong> R19,000–R27,000/m² — top-spec</li></ul><p>Add 8–12% architect fees (SACAP), 2–3% structural engineer, NHBRC enrolment, and municipality plan approval. Always get 3 comparative quotes from registered builders.</p><p class="src-row"><span class="src-badge">ASAQS 2026</span><span class="src-badge">SACAP guidelines</span><span class="src-badge">NHBRC Act 29/1998</span></p>',
+    faqs: [
+      {q:'Do I need an architect to build a new home?', a:'Yes — a SACAP-registered architect or building professional is required to draw and certify building plans for new residential construction in South Africa. Plan approval from your local municipality is mandatory before any construction may begin.'},
+      {q:'What is the NHBRC and why must I register?', a:'The National Home Builders Registration Council (NHBRC) is a statutory body that protects homeowners. All new homes must be enrolled with the NHBRC before construction. Developers/builders must be registered with the NHBRC. The fee is approximately 1.3% of the insured value plus a R2,500 registration fee. The enrolment provides a 5-year structural warranty and a 1-year finish warranty.'},
+      {q:'How accurate is this estimate?', a:'This provides a planning-level estimate based on ASAQS published benchmarks. Actual costs depend heavily on site conditions (slope, soil), service connections, builder margins, and market demand. Always commission a professional quantity surveyor for a detailed estimate before applying for finance.'}
+    ],
+    related: ['bond','transfer-duty','rental-yield'],
+    cta: {
+      icon: '🏗️', title: 'Ready to build? Get a bond for your new home',
+      sub: 'Many banks offer construction loans that pay out in stages as your home is built',
+      offers: [
+        {label: 'Apply via ooba', url: 'https://www.ooba.co.za/'},
+        {label: 'SA Home Loans', url: 'https://www.sahomeloans.com/', secondary: true}
+      ]
+    },
+    render: renderBuildingCost
   },
   {
     id: 'loan', iconName: 'credit-card', title: 'Loan / Personal Loan Calculator',
@@ -2524,6 +2550,26 @@ function showCalc(id) {
   document.title = calc.title + ' | Mzanzi Cals';
   _currentCTA = calc.cta || null;
 
+  // Source attribution
+  var CAT_SOURCES = {
+    tax:        ['SARS 2026/27','SARB','NCA'],
+    property:   ['SARS 2026/27','SARB','ASAQS 2026','NHBRC'],
+    loans:      ['SARB','NCR 2026'],
+    auto:       ['DMRE 2026','SARB','NCR'],
+    investment: ['SARS 2026/27','SARB','JSE data'],
+    utilities:  ['Eskom 2025/26','Stats SA CPI'],
+    education:  ['DHET 2026','NSFAS','NSC/CAPS'],
+    grants:     ['SASSA 2026/27','DSD']
+  };
+  var sources = CAT_SOURCES[calc.cat] || ['Official SA data'];
+  var discEl = document.getElementById('calc-disclaimer');
+  if (discEl) {
+    discEl.innerHTML = 'For informational purposes only. All calculations are estimates. ' +
+      '<span class="src-row">' +
+      sources.map(function(s) { return '<span class="src-badge">' + s + '</span>'; }).join('') +
+      '</span>';
+  }
+
   // Related
   var rel = document.getElementById('cv-related');
   if (calc.related && calc.related.length) {
@@ -3542,8 +3588,151 @@ function renderAppliances() {
   _calcAppl();
 }
 
+// ── Building Cost Calculator ───────────────────────────────────────
+var BUILDING_QUALITY = [
+  { id:'economy',  label:'Economy',   rate:8500,  note:'Basic finishes, brick & mortar, standard fixtures' },
+  { id:'standard', label:'Standard',  rate:12000, note:'Mid-range finishes, tiled floors, decent kitchen' },
+  { id:'prestige', label:'Prestige',  rate:16500, note:'High-end finishes, granite, aluminium windows' },
+  { id:'luxury',   label:'Luxury',    rate:23000, note:'Top-spec, custom design, premium everything' }
+];
+var BUILDING_PROVINCES = [
+  ['gauteng','Gauteng (baseline)',1.00],
+  ['western-cape','Western Cape',1.08],
+  ['kwazulu-natal','KwaZulu-Natal',0.96],
+  ['eastern-cape','Eastern Cape',0.93],
+  ['free-state','Free State',0.90],
+  ['north-west','North West',0.90],
+  ['mpumalanga','Mpumalanga',0.93],
+  ['limpopo','Limpopo',0.89],
+  ['northern-cape','Northern Cape',0.91]
+];
+
+function renderBuildingCost() {
+  var _quality = 'standard';
+
+  var qualityCards = BUILDING_QUALITY.map(function(q) {
+    return '<button class="bc-q-card' + (q.id === _quality ? ' active' : '') + '" id="bcq_' + q.id + '" onclick="_selectBCQ(\'' + q.id + '\')" type="button">' +
+      '<span class="bc-q-name">' + q.label + '</span>' +
+      '<span class="bc-q-rate">R' + q.rate.toLocaleString() + '/m²</span>' +
+      '<span class="bc-q-note">' + q.note + '</span>' +
+    '</button>';
+  }).join('');
+
+  var provOpts = BUILDING_PROVINCES.map(function(p) { return [p[0], p[1]]; });
+
+  document.getElementById('calc-form').innerHTML =
+    '<div class="fsect">Build quality</div>' +
+    '<div class="bc-quality-grid" id="bc_quality_grid">' + qualityCards + '</div>' +
+
+    fsect('Project details') +
+    field('bc_area', 'Floor area', plainInput('bc_area', '150', '150', 'm²'), 'total floor area incl. garage') +
+    '<div class="frow">' +
+      field('bc_storey', 'Storeys', selectInput('bc_storey', [['single','Single storey'],['double','Double storey (+15%)']])) +
+      field('bc_province', 'Province', selectInput('bc_province', provOpts)) +
+    '</div>' +
+
+    fsect('Professional fees') +
+    '<div class="frow">' +
+      sliderField('bc_arch', 'Architect fee', 4, 12, 0.5, 8, '% of construction cost', '', '%',
+        'SACAP minimum: 8% for full service. Some firms charge 6–10% depending on project size.') +
+      sliderField('bc_eng', 'Structural engineer', 1, 5, 0.5, 2.5, '% of construction cost', '', '%',
+        'Required for all new builds. Fees range from 2–3% of construction cost.') +
+    '</div>' +
+
+    fsect('Additional costs') +
+    '<div class="frow">' +
+      field('bc_plans', 'Building plans approval', moneyInput('bc_plans', '8000', '8000'), 'municipality charge') +
+      field('bc_nhbrc', 'NHBRC enrolment fee', '<div class="iw"><input type="text" id="bc_nhbrc_disp" readonly style="cursor:default" tabindex="-1"></div>', 'auto-calculated') +
+    '</div>';
+
+  function _selectBCQ(id) {
+    _quality = id;
+    BUILDING_QUALITY.forEach(function(q) {
+      var btn = document.getElementById('bcq_' + q.id);
+      if (btn) btn.classList.toggle('active', q.id === id);
+    });
+    _calcBC();
+  }
+  window._selectBCQ = _selectBCQ;
+
+  function _calcBC() {
+    var qualObj = BUILDING_QUALITY.find(function(q) { return q.id === _quality; }) || BUILDING_QUALITY[1];
+    var area = num('bc_area') || 150;
+    var storeyEl = document.getElementById('bc_storey');
+    var provEl   = document.getElementById('bc_province');
+    var archPct  = (num('bc_arch') || 8) / 100;
+    var engPct   = (num('bc_eng')  || 2.5) / 100;
+    var plansAmt = num('bc_plans') || 8000;
+
+    var storeyMult = (storeyEl && storeyEl.value === 'double') ? 1.15 : 1.0;
+    var provPair = BUILDING_PROVINCES.find(function(p) { return p[0] === (provEl ? provEl.value : 'gauteng'); });
+    var provMult = provPair ? provPair[2] : 1.0;
+
+    var baseRate = qualObj.rate;
+    var adjRate  = baseRate * storeyMult * provMult;
+    var construction = adjRate * area;
+
+    // NHBRC: R2,500 registration + 1.3% of insured value (capped at R1.5M home value)
+    var nhbrcInsured = Math.min(construction, 1500000);
+    var nhbrc = 2500 + nhbrcInsured * 0.013;
+    var nhbrcDisp = document.getElementById('bc_nhbrc_disp');
+    if (nhbrcDisp) nhbrcDisp.value = 'R ' + Math.round(nhbrc).toLocaleString();
+
+    var archFee   = construction * archPct;
+    var engFee    = construction * engPct;
+    var profFees  = archFee + engFee;
+    var totalProj = construction + profFees + nhbrc + plansAmt;
+    var perSqm    = Math.round(totalProj / area);
+
+    updateMobileBar('Project Total', R(Math.round(totalProj)));
+    showResult(resultCard(
+      'Total Project Cost', R(Math.round(totalProj)),
+      qualObj.label + ' finish · ' + area + 'm² · R' + Math.round(perSqm).toLocaleString() + '/m² all-in',
+      [
+        ['Floor area', area + ' m²'],
+        ['Build quality', qualObj.label],
+        ['Adjusted rate (incl. storey & province)', R(Math.round(adjRate)) + '/m²'],
+        ['Construction cost', R(Math.round(construction)), 'blue', true],
+        null,
+        ['Architect fee (' + pct(archPct*100, 1) + ')', R(Math.round(archFee))],
+        ['Structural engineer (' + pct(engPct*100, 1) + ')', R(Math.round(engFee))],
+        ['NHBRC enrolment fee', R(Math.round(nhbrc))],
+        ['Building plan approval', R(Math.round(plansAmt))],
+        ['Total professional & admin', R(Math.round(profFees + nhbrc + plansAmt)), 'red', true],
+        null,
+        ['Total project cost', R(Math.round(totalProj)), 'green', true],
+        ['Cost per m² (all-in)', R(perSqm) + '/m²'],
+      ],
+      Math.min(100, (totalProj / 5000000) * 100),
+      'bar-green'
+    ));
+  }
+
+  window._calc = _calcBC;
+  on(['bc_area','bc_storey','bc_province','bc_arch','bc_eng','bc_plans'], _calcBC);
+  _calcBC();
+}
+
+// ── Disclaimer dismiss ─────────────────────────────────────────────
+function dismissDisclaimer() {
+  var el = document.getElementById('disc-banner');
+  if (el) {
+    el.classList.add('dismissed');
+    try { localStorage.setItem('mzanzi_disc_dismissed', '1'); } catch(e) {}
+  }
+}
+function _initDisclaimer() {
+  try {
+    if (localStorage.getItem('mzanzi_disc_dismissed') === '1') {
+      var el = document.getElementById('disc-banner');
+      if (el) el.style.display = 'none';
+    }
+  } catch(e) {}
+}
+
 // ── Init ───────────────────────────────────────────────────────────
 function init() {
+  _initDisclaimer();
   initScrollAnimations();
   renderRates();
   renderJourneys();

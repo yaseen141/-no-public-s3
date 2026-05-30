@@ -2914,3 +2914,267 @@ input[type="range"] { background: rgba(255,255,255,.1) !important; }
 
 /* Car journey badge */
 .auto-bg { background: linear-gradient(135deg,#92400E 0%,#D97706 100%) !important; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   SA FLAG HERO — Replace animated orbs with SA flag design
+═══════════════════════════════════════════════════════════════════ */
+
+/* Remove old orbs */
+.hero::before, .hero::after { display: none !important; }
+
+/* New hero base */
+.hero {
+  background: #040905 !important;
+  padding: 5rem 0 4.5rem !important;
+}
+
+/* The SA flag SVG — full-bleed background */
+.hero-flag {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  opacity: 0.2 !important;
+  pointer-events: none !important;
+  transition: opacity 1s ease !important;
+}
+
+/* Dark gradient overlay — preserves text readability */
+.hero-overlay {
+  position: absolute !important;
+  inset: 0 !important;
+  background:
+    linear-gradient(160deg,
+      rgba(4,9,5,0.90) 0%,
+      rgba(4,9,5,0.78) 45%,
+      rgba(4,9,5,0.88) 100%) !important;
+  pointer-events: none !important;
+}
+
+/* Hero content sits above both layers */
+.hero .container.hero-inner {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* Hero title — larger, more impact */
+.hero-title {
+  font-size: clamp(2.6rem, 7vw, 4.5rem) !important;
+  font-weight: 900 !important;
+  letter-spacing: -.04em !important;
+  background: linear-gradient(135deg,
+    #ffffff 0%,
+    #86efac 35%,
+    #FFB612 70%,
+    #ffffff 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  line-height: 1.05 !important;
+  margin-bottom: 1.25rem !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SITE DISCLAIMER BANNER
+═══════════════════════════════════════════════════════════════════ */
+
+.disc-banner {
+  background: rgba(10, 20, 12, 0.97);
+  border-bottom: 1px solid rgba(255, 182, 18, 0.25);
+  border-top: 2px solid rgba(255, 182, 18, 0.4);
+  padding: .65rem 0;
+  position: sticky;
+  top: 60px;
+  z-index: 90;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform .3s ease, opacity .3s ease;
+}
+.disc-banner.dismissed {
+  transform: translateY(-110%);
+  opacity: 0;
+  pointer-events: none;
+  position: static;
+  display: none;
+}
+.disc-inner {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+.disc-icon {
+  color: #FFB612;
+  flex-shrink: 0;
+  opacity: .85;
+}
+.disc-text {
+  flex: 1;
+  font-size: .75rem;
+  color: rgba(240, 253, 244, .65);
+  line-height: 1.5;
+  margin: 0;
+}
+.disc-text strong {
+  color: #FFB612;
+  font-weight: 700;
+}
+.disc-sources {
+  display: inline;
+  color: rgba(134, 239, 172, .75);
+  font-weight: 600;
+  font-size: .72rem;
+}
+.disc-close {
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 6px;
+  color: rgba(255,255,255,.55);
+  cursor: pointer;
+  flex-shrink: 0;
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .15s, color .15s;
+  font-family: var(--font);
+}
+.disc-close:hover { background: rgba(255,255,255,.15); color: #fff; }
+.disc-close:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+@media (max-width: 600px) {
+  .disc-text { font-size: .7rem; }
+  .disc-sources { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SOURCE ATTRIBUTION BADGE — in calc disclaimer
+═══════════════════════════════════════════════════════════════════ */
+
+.disclaimer {
+  background: rgba(255,182,18,.05) !important;
+  border-left: 3px solid rgba(255,182,18,.3) !important;
+  color: rgba(240,253,244,.4) !important;
+  font-size: .72rem !important;
+  line-height: 1.6 !important;
+}
+
+.src-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem;
+  margin-top: .65rem;
+  padding-top: .6rem;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+.src-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 6px;
+  color: rgba(240,253,244,.5);
+  font-size: .68rem;
+  font-weight: 600;
+  padding: .2rem .55rem;
+  letter-spacing: .02em;
+}
+.src-badge::before {
+  content: '';
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #86efac;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   BUILDING COST CALCULATOR STYLES
+═══════════════════════════════════════════════════════════════════ */
+
+.bc-quality-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: .55rem;
+  margin-bottom: .25rem;
+}
+.bc-q-card {
+  background: rgba(255,255,255,.04);
+  border: 2px solid rgba(255,255,255,.08);
+  border-radius: 12px;
+  padding: .85rem 1rem;
+  cursor: pointer;
+  transition: background .18s, border-color .18s, transform .18s;
+  text-align: left;
+  font-family: var(--font);
+}
+.bc-q-card:hover {
+  background: rgba(255,255,255,.07);
+  border-color: rgba(255,255,255,.16);
+  transform: translateY(-2px);
+}
+.bc-q-card.active {
+  background: rgba(0,122,77,.12) !important;
+  border-color: var(--primary) !important;
+  transform: translateY(-2px) !important;
+}
+.bc-q-name {
+  font-size: .83rem;
+  font-weight: 700;
+  color: #F0FDF4;
+  display: block;
+  margin-bottom: .25rem;
+}
+.bc-q-rate {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .78rem;
+  font-weight: 700;
+  color: #86efac;
+}
+.bc-q-note {
+  font-size: .68rem;
+  color: rgba(240,253,244,.4);
+  display: block;
+  margin-top: .2rem;
+  line-height: 1.4;
+}
+.bc-q-card.active .bc-q-note { color: rgba(134,239,172,.6); }
+@media (max-width: 480px) {
+  .bc-quality-grid { grid-template-columns: 1fr; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   HERO EYEBROW SHIMMER + POLISH
+═══════════════════════════════════════════════════════════════════ */
+
+.hero-eyebrow {
+  animation: eyebrow-in .6s cubic-bezier(.16,1,.3,1) both !important;
+}
+@keyframes eyebrow-in {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-title {
+  animation: title-in .7s cubic-bezier(.16,1,.3,1) .08s both;
+}
+@keyframes title-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-sub {
+  animation: title-in .7s cubic-bezier(.16,1,.3,1) .14s both;
+}
+.hero-chips {
+  animation: title-in .6s cubic-bezier(.16,1,.3,1) .2s both;
+}
+.hero-bento {
+  animation: title-in .6s cubic-bezier(.16,1,.3,1) .26s both !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   REDUCED MOTION — disable all hero animations
+═══════════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .hero-eyebrow, .hero-title, .hero-sub, .hero-chips, .hero-bento {
+    animation: none !important;
+  }
+  .hero-flag { opacity: 0.18 !important; transition: none !important; }
+}
