@@ -255,6 +255,33 @@ var JOURNEY_ARTICLES = {
       {
         heading: 'Inflation: The Silent Wealth Destroyer',
         body: 'R1,000 in the year 2000 bought what costs R3,740 today — a 73% loss in purchasing power over 25 years. Any investment returning less than inflation is losing real value. The SARB targets CPI within the 3–6% band, but SA has historically averaged closer to 5–6%. This is why cash savings accounts (paying 7–8%) barely break even in real terms. Equity investments targeting CPI + 5% to CPI + 7% are the standard benchmark for long-term wealth accumulation in South Africa.'
+      },
+      {
+        heading: 'Two-Pot Retirement System: Everything South Africans Need to Know (September 2024)',
+        body: 'The Two-Pot Retirement System — created by the Revenue Laws Amendment Act 12/2024 and Pension Funds Amendment Act 31/2024 — took effect on 1 September 2024 (T-Day). All new contributions after T-Day are now split: one-third into the Savings Pot and two-thirds into the Retirement Pot. Your pre-September 2024 savings form a separate Vested Pot, which continues under the old rules (accessible on resignation, retrenchment or retirement). On T-Day, your fund automatically transferred 10% of your pre-T-Day balance, capped at R30,000, into your Savings Pot — this is the seeding amount. GEPF (Government Employees Pension Fund) members were seeded at R25,000 maximum. The Savings Pot can be accessed once per tax year (1 March to 28 February), with a minimum withdrawal of R2,000. The Retirement Pot is locked until retirement age — typically 55 under the Pension Funds Act — and cannot be accessed for any reason before then, including resignation, retrenchment or financial hardship. At retirement, your Savings Pot balance can be taken as a cash lump sum (within the R550,000 lump-sum tax table). Your Retirement Pot must be used to purchase an annuity if it exceeds R165,000 at retirement.',
+        tip: 'The National Treasury and FSCA estimated that over 1.8 million South Africans made withdrawals within the first three months after T-Day, withdrawing approximately R40 billion collectively. Financial advisers report that the majority of early withdrawers were in higher tax brackets and received significantly less than expected once marginal tax was applied.'
+      },
+      {
+        heading: 'Should You Withdraw from Your Savings Pot? The Real Decision Framework',
+        body: 'The Savings Pot is not designed as an emergency fund — it is retirement savings with early-access allowed, not a bank account. Before withdrawing, calculate the exact net amount using the Two-Pot Calculator above. Consider: (1) Your marginal tax rate — at R500,000 annual salary, a R20,000 withdrawal yields only about R12,900 after admin fees and tax (35% loss). (2) Compound growth lost — R20,000 withdrawn at age 35 forfeits approximately R200,000 in retirement value by age 65 at 10% annual returns. (3) Admin fees are deducted before tax, making them effectively more expensive: a R300 fee on a R3,000 withdrawal means only R2,700 is taxable, but you still lose R300 off the top. When withdrawal may make sense: genuine financial emergency with no other options, you are nearing retirement and your marginal rate is low, or you face imminent loss greater than the tax cost. When it does not make sense: the tax alone exceeds what a personal loan would cost, you are more than 10 years from retirement, or the amount is small (admin fees represent a large percentage of small withdrawals).',
+        tip: 'Compare the cost: A R10,000 withdrawal at a 36% marginal rate costs you R300 admin fee + R3,492 tax = R3,792 in total costs — you receive R6,208. A 12-month personal loan for R10,000 at prime+5% (17.75%) costs approximately R950 in total interest. The loan is cheaper. The Two-Pot withdrawal makes sense only when credit is unavailable or the alternative cost is higher.'
+      },
+      {
+        heading: 'Admin Fees & Tax at Every Income Level: The Real Numbers',
+        html: '<p class="ja-section-body">Admin fees are deducted <strong>before</strong> tax is calculated, making them more expensive than they appear. Using a R300 admin fee and a R10,000 withdrawal request:</p>' +
+          '<div class="ja-tp-table-wrap"><table class="ja-tp-table">' +
+            '<thead><tr><th>Annual Salary</th><th>Marginal Rate</th><th>Admin Fee</th><th>Tax Withheld</th><th>Net Received</th><th>% Kept</th></tr></thead>' +
+            '<tbody>' +
+            '<tr><td>R120,000</td><td>18%</td><td>R300</td><td>R1,746</td><td>R7,954</td><td class="tp-green-cell">79.5%</td></tr>' +
+            '<tr><td>R250,000</td><td>26%</td><td>R300</td><td>R2,522</td><td>R7,178</td><td>71.8%</td></tr>' +
+            '<tr><td>R400,000</td><td>31%</td><td>R300</td><td>R3,007</td><td>R6,693</td><td>66.9%</td></tr>' +
+            '<tr><td>R600,000</td><td>36%</td><td>R300</td><td>R3,492</td><td>R6,208</td><td class="tp-amber-cell">62.1%</td></tr>' +
+            '<tr><td>R900,000</td><td>39%</td><td>R300</td><td>R3,783</td><td>R5,917</td><td class="tp-amber-cell">59.2%</td></tr>' +
+            '<tr><td>R1,817,001+</td><td>45%</td><td>R300</td><td>R4,365</td><td>R5,335</td><td class="tp-red-cell">53.4%</td></tr>' +
+            '</tbody>' +
+          '</table></div>' +
+          '<p class="ja-section-body" style="margin-top:1rem"><strong>Admin fee comparison (2024/25):</strong> Old Mutual R250–R300 &nbsp;·&nbsp; Momentum R250 digital / R350 paper &nbsp;·&nbsp; 10X Investments R300 excl VAT (≈R345 incl) &nbsp;·&nbsp; Sanlam R330 + VAT (≈R380) &nbsp;·&nbsp; Discovery Retirement R300 &nbsp;·&nbsp; GEPF — no direct admin fee cited. GEPF members should allow up to 60 working days (≈ 3 months) for processing. All other funds are typically processed within 10 working days.</p>' +
+          '<p class="ja-section-body">Sources: <strong>SARS Two-Pot withdrawal tax</strong> (sars.gov.za/two-pot) · <strong>National Treasury FAQ</strong> August 2024 · <strong>FSCA guidance</strong> on admin fees · Provider websites confirmed January 2025.</p>'
       }
     ]
   },
@@ -1213,19 +1240,33 @@ var CALCS = [
 },{
   id: 'two-pot', iconName: 'layers', title: 'Two-Pot Retirement Calculator',
   icon: '🏦', cat: 'investment', popular: true,
-  desc: 'Calculate your savings pot balance, withdrawal tax and retirement component growth under South Africa\'s two-pot retirement system (effective 1 Sept 2024)',
-  info: '<h4>How the two-pot system works</h4><p>From <strong>1 September 2024</strong>, all new retirement contributions are split: <strong>1/3 → Savings Pot</strong> (accessible once/year, min R2,000) and <strong>2/3 → Retirement Pot</strong> (locked until age 55+).</p><p>A once-off <strong>seeding</strong> of 10% of your pre-Sept 2024 balance (max R30,000) was moved into your savings pot on day one.</p>',
+  desc: 'South Africa\'s most accurate Two-Pot calculator — exact withdrawal tax, seeding, pot projections and the real rand cost of accessing your savings pot early',
+  info: '<h4>The Three-Pot System Explained (1 Sep 2024)</h4>' +
+    '<p>From <strong>1 September 2024</strong> all new retirement fund contributions are split into three pots:</p>' +
+    '<ul>' +
+    '<li><strong>Savings Pot (1/3)</strong> — accessible once per tax year, minimum R2,000 withdrawal. Taxed at your marginal rate.</li>' +
+    '<li><strong>Retirement Pot (2/3)</strong> — locked until retirement. Cannot be accessed for any reason before age 55+.</li>' +
+    '<li><strong>Vested Pot</strong> — all savings before 31 Aug 2024 (less seeding). Old rules apply on resignation/retirement.</li>' +
+    '</ul>' +
+    '<p><strong>Seeding:</strong> On 1 Sept 2024, <em>10% of your pre-Sept 2024 balance (max R30,000)</em> was automatically moved into your Savings Pot.</p>' +
+    '<p><strong>Tax Process:</strong> Your fund requests a SARS Tax Directive. The withdrawal is added to your annual taxable income. Admin fees are deducted first, then tax is withheld at your marginal rate. SARS also deducts any outstanding tax debt.</p>' +
+    '<p class="src-row"><span class="src-badge">Revenue Laws Amendment Act 12/2024</span><span class="src-badge">Pension Funds Act 31/2024</span><span class="src-badge">SARS Two-Pot</span><span class="src-badge">National Treasury FAQ Aug 2024</span></p>',
   faqs: [
-    {q:'How much tax do I pay on a two-pot withdrawal?', a:'Withdrawals from the savings pot are taxed at your marginal income tax rate for that year. The withdrawal amount is added to your other income, and SARS taxes the combined amount. This means high earners pay more tax on withdrawals — the calculator shows the exact rand amount.'},
-    {q:'When can I access my retirement pot?', a:'The retirement pot is locked until you reach retirement (typically age 55 under the Pension Funds Act). It cannot be accessed for any reason before then — not retrenchment, not financial emergency. This is by design to preserve retirement savings.'},
-    {q:'What was the seeding amount?', a:'On 1 September 2024, each member received a once-off seeding: 10% of their accumulated vested savings up to a maximum of R30,000. If you had R200,000 saved, your seeding was R20,000. If you had R500,000, the seeding was capped at R30,000.'}
+    {q:'How much tax will I pay on a Two-Pot withdrawal?', a:'Your withdrawal is added to your annual employment income and taxed at your combined marginal rate (18%–45%). There is no separate tax table or R27,500 exemption — it is fully included in your income for the year. High earners pay much more. An admin fee (typically R250–R350 + VAT) is deducted before tax. The calculator shows you the exact rand amount you will actually receive.'},
+    {q:'Can I withdraw from my savings pot more than once per year?', a:'No. You may make only ONE withdrawal per tax year (1 March to end of February). You can withdraw the entire savings pot balance in one go, or a partial amount — but you cannot make a second withdrawal until the next tax year.'},
+    {q:'What was the seeding amount and when did it happen?', a:'On 1 September 2024 (T-Day), your fund automatically transferred 10% of your accumulated retirement savings as at 31 August 2024 into your Savings Pot. This was capped at R30,000. GEPF defined-benefit members were capped at R25,000. No action was required — it happened automatically.'},
+    {q:'When can I access my retirement pot?', a:'Never before retirement age (typically age 55 under the Pension Funds Act). The retirement pot is locked regardless of resignation, retrenchment, financial hardship or any other reason. This is the core design of the system — protecting two-thirds of contributions for actual retirement.'},
+    {q:'Is GEPF (government employees) subject to the Two-Pot rules?', a:'Yes — GEPF is fully subject to the Two-Pot system. For every year of future pensionable service, 4 months are allocated to the savings component and 8 months to the retirement component. GEPF members who withdraw their full savings pot annually lose 4 months of pension service per year. Processing time: up to 60 working days.'},
+    {q:'What happens to my savings pot at retirement?', a:'Any remaining savings pot balance at retirement can be taken as a cash lump sum (unlike the retirement pot which must be annuitised if over R165,000). This makes it a useful tax-deferred savings vehicle if you don\'t withdraw early — you get it tax-free at retirement within the R550,000 lump sum table.'},
+    {q:'What admin fees do the major providers charge?', a:'Old Mutual: R250–R300; Momentum: R250 (digital) / R350 (paper); 10X: R300 excl. VAT; Sanlam: R330 + VAT; GEPF: no direct admin fee cited. Fees are deducted BEFORE tax is calculated. The FSCA has flagged concerns about high fees and is reviewing.'},
+    {q:'Does my vested pot disappear?', a:'No. Your vested pot (all savings before 1 September 2024, less the seeding amount) remains intact under the old rules. It is preserved until retirement, resignation, retrenchment or death — the same rules as before September 2024. It is NOT split going forward.'}
   ],
   related: ['retirement-annuity','compound-interest','paye'],
   cta: {
-    icon: '🏦', title: 'Grow your retirement savings',
-    sub: 'Low-fee retirement annuities and provident funds — compare SA\'s top options',
+    icon: '🏦', title: 'Don\'t pay more tax than you need to',
+    sub: 'Low-fee RAs mean more in your retirement pot — compare SA\'s top-rated providers',
     offers: [
-      {label: 'Compare with 10X Investments', url: 'https://www.10x.co.za/'},
+      {label: 'Invest with 10X (low fees)', url: 'https://www.10x.co.za/'},
       {label: 'Allan Gray retirement fund', url: 'https://www.allangray.co.za/', secondary: true}
     ]
   },
@@ -2972,7 +3013,7 @@ function showJourneyArticle(id) {
     var tip = s.tip ? '<div class="ja-tip-box">' + _escHTML(s.tip) + '</div>' : '';
     return '<div class="ja-section">' +
       '<h3 class="ja-section-heading">' + _escHTML(s.heading) + '</h3>' +
-      '<p class="ja-section-body">' + _escHTML(s.body) + '</p>' +
+      (s.html ? '<div class="ja-section-body ja-section-html">' + s.html + '</div>' : '<p class="ja-section-body">' + _escHTML(s.body) + '</p>') +
       tip +
     '</div>';
   }).join('');
@@ -3185,87 +3226,185 @@ function renderAPS() {
 //  Two-Pot Retirement Calculator
 // ═══════════════════════════════════════════════════════════════════
 function renderTwoPot() {
+  // T-Day: 1 September 2024 (Revenue Laws Amendment Act 12/2024)
+  var TDAY = new Date(2024, 8, 1);
+  var NOW  = new Date();
+  var monthsSinceTDay = Math.max(0,
+    (NOW.getFullYear() - TDAY.getFullYear()) * 12 + (NOW.getMonth() - TDAY.getMonth()));
+
   document.getElementById('calc-form').innerHTML =
     fsect('Your retirement fund') +
-    field('tp_vested','Fund value at 1 Sept 2024',moneyInput('tp_vested','500000','500000'),'accumulated savings before two-pot started',
-      'Enter your total retirement fund balance as at 31 August 2024. 10% (max R30,000) was seeded to your savings pot.') +
-    field('tp_contrib','Monthly contribution',moneyInput('tp_contrib','3000','3000'),'your share only') +
-    sliderField('tp_rate','Expected annual return',4,18,0.5,10,'','','%','Balanced fund 8–12% · Conservative 5–8% · Aggressive 12–16%') +
+    '<div class="tp-fund-row">' +
+      '<span class="tp-fund-label">Fund type</span>' +
+      '<div class="radio-grp tp-fund-grp">' +
+        '<label class="ro"><input type="radio" name="tp_ft" id="tp_ft_pen" value="pension" checked onchange="_calcTwoPot()"><label for="tp_ft_pen">Pension Fund</label></label>' +
+        '<label class="ro"><input type="radio" name="tp_ft" id="tp_ft_pro" value="provident" onchange="_calcTwoPot()"><label for="tp_ft_pro">Provident Fund</label></label>' +
+        '<label class="ro"><input type="radio" name="tp_ft" id="tp_ft_ra" value="ra" onchange="_calcTwoPot()"><label for="tp_ft_ra">Retirement Annuity</label></label>' +
+        '<label class="ro"><input type="radio" name="tp_ft" id="tp_ft_gep" value="gepf" onchange="_calcTwoPot()"><label for="tp_ft_gep">GEPF (Government)</label></label>' +
+      '</div>' +
+    '</div>' +
+    field('tp_vested','Balance at 31 August 2024',moneyInput('tp_vested','','500000'),'total fund on T-Day · seeding was automatic on 1 Sep 2024',
+      'Your total retirement fund balance as at 31 August 2024. The system automatically transferred 10% (max R30,000; GEPF: R25,000) to your Savings Pot on 1 September 2024.') +
+    field('tp_contrib','Monthly contribution (your share)',moneyInput('tp_contrib','','3000'),'after T-Day: 1/3 → savings pot · 2/3 → retirement pot') +
+    sliderField('tp_rate','Expected annual return',4,18,0.5,10,'','','%','Balanced 8–12% · Conservative 5–8% · Aggressive 12–16% · SA equity avg ≈ CPI+7%') +
+    field('tp_age','Current age',plainInput('tp_age','35','35',' yrs')) +
     sliderField('tp_years','Years until retirement',1,40,1,20,'','','yrs') +
-    field('tp_age','Your current age',plainInput('tp_age','35','35',' yrs')) +
-    fsect('Savings pot withdrawal (optional)') +
+
+    fsect('Savings pot withdrawal (this tax year)') +
+    '<p class="field-hint">Once per tax year (1 Mar–28 Feb) · Minimum R2,000 · Admin fee deducted before tax · Taxed at your marginal rate · SARS Tax Directive issued by your fund</p>' +
     '<div class="radio-grp">' +
       '<label class="ro"><input type="radio" name="tp_wopt" id="tp_wno" value="no" checked onchange="_calcTwoPot()"><label for="tp_wno">No withdrawal this year</label></label>' +
-      '<label class="ro"><input type="radio" name="tp_wopt" id="tp_wyes" value="yes" onchange="document.getElementById(\'tp_wsec\').style.display=\'\';_calcTwoPot()"><label for="tp_wyes">Make a withdrawal from savings pot</label></label>' +
+      '<label class="ro"><input type="radio" name="tp_wopt" id="tp_wyes" value="yes" onchange="document.getElementById(\'tp_wsec\').style.display=\'\';_calcTwoPot()"><label for="tp_wyes">Calculate a withdrawal</label></label>' +
     '</div>' +
     '<div id="tp_wsec" style="display:none">' +
-      field('tp_wamt','Amount to withdraw',moneyInput('tp_wamt','','10000'),'minimum R2,000') +
-      field('tp_salary','Your annual taxable income',moneyInput('tp_salary','','350000'),'used to calculate marginal tax on withdrawal') +
+      field('tp_wamt','Amount to withdraw',moneyInput('tp_wamt','','10000'),'minimum R2,000 · cannot exceed your savings pot balance') +
+      field('tp_salary','Annual taxable income (before withdrawal)',moneyInput('tp_salary','','350000'),'salary/wages before the withdrawal — withdrawal adds on top for marginal rate calculation',
+        'Enter your gross employment income. The Two-Pot withdrawal amount is added on top and the combined total determines your marginal tax rate for the withdrawal.') +
+      field('tp_admin','Admin fee charged by your fund',moneyInput('tp_admin','','300'),'deducted BEFORE tax · Old Mutual R250–R300 · Momentum R250–R350 · 10X R300 excl VAT · Sanlam R330+VAT') +
     '</div>';
 
   function _calcTwoPot() {
-    var vested  = num('tp_vested');
-    var contrib = num('tp_contrib');
-    var rate    = (num('tp_rate') || 10) / 100;
-    var years   = intval('tp_years') || 20;
-    var age     = num('tp_age') || 35;
-    var wNo     = document.getElementById('tp_wno');
-    var doWithdraw = wNo && !wNo.checked;
-    var wAmt    = num('tp_wamt');
-    var salary  = num('tp_salary');
+    var vested   = num('tp_vested')  || 0;
+    var contrib  = num('tp_contrib') || 0;
+    var rate     = (num('tp_rate')   || 10) / 100;
+    var years    = intval('tp_years')|| 20;
+    var age      = num('tp_age')     || 35;
+    var wNo      = document.getElementById('tp_wno');
+    var doW      = wNo && !wNo.checked;
+    var wAmt     = num('tp_wamt')    || 0;
+    var salary   = num('tp_salary')  || 0;
+    var adminFee = num('tp_admin')   || 300;
+    var gepfEl   = document.getElementById('tp_ft_gep');
+    var isGEPF   = gepfEl && gepfEl.checked;
 
-    var seeding = Math.min((vested || 0) * 0.10, 30000);
-    var vestedRemainder = Math.max(0, (vested || 0) - seeding);
+    // Seeding: 10% of vested balance, capped at R30,000 (GEPF: R25,000)
+    var seedCap   = isGEPF ? 25000 : 30000;
+    var seeding   = Math.min(vested * 0.10, seedCap);
+    var vestedRem = Math.max(0, vested - seeding);
 
-    var mRate  = rate / 12;
-    var months = years * 12;
-    var savC   = contrib / 3;
-    var retC   = contrib * 2 / 3;
+    // Contribution split: 1/3 savings pot, 2/3 retirement pot
+    var mRate = rate / 12;
+    var savC  = contrib / 3;
+    var retC  = contrib * 2 / 3;
 
-    var savPot = seeding;
-    var retPot = vestedRemainder;
-    for (var m = 0; m < months; m++) {
+    // Current pot estimates (compound growth since T-Day + monthly contributions)
+    var curSav = seeding;
+    var curRet = vestedRem;
+    for (var m = 0; m < monthsSinceTDay; m++) {
+      curSav = curSav * (1 + mRate) + savC;
+      curRet = curRet * (1 + mRate) + retC;
+    }
+
+    // Project both pots forward to retirement
+    var savPot = curSav;
+    var retPot = curRet;
+    var futMo  = years * 12;
+    for (var m2 = 0; m2 < futMo; m2++) {
       savPot = savPot * (1 + mRate) + savC;
       retPot = retPot * (1 + mRate) + retC;
     }
 
-    var withdrawTax = 0;
-    var netW = 0;
-    if (doWithdraw && wAmt >= 2000) {
-      var txTotal  = calcTax(salary + wAmt, age, 0).tax;
-      var txSalary = calcTax(salary,        age, 0).tax;
-      withdrawTax  = Math.max(0, txTotal - txSalary);
-      netW         = wAmt - withdrawTax;
+    // Withdrawal tax: admin fee deducted FIRST, then marginal tax on remainder
+    var adminDed = 0, withdrawTax = 0, netW = 0;
+    var margPct = 0, salTax = 0, combTax = 0, bracketWarn = false;
+    if (doW && wAmt >= 2000) {
+      adminDed     = Math.min(adminFee, wAmt);
+      var taxableW = Math.max(0, wAmt - adminDed);
+      salTax       = calcTax(salary, age, 0).tax;
+      combTax      = calcTax(salary + taxableW, age, 0).tax;
+      withdrawTax  = Math.max(0, combTax - salTax);
+      netW         = wAmt - adminDed - withdrawTax;
+      margPct      = taxableW > 0 ? (withdrawTax / taxableW) : 0;
+      bracketWarn  = margPct >= 0.36;
     }
 
     var retireAge = Math.min(100, age + years);
-    var rows = [
-      ['Seeding (Sept 2024)',            R(Math.round(seeding))],
-      ['Savings pot balance at ' + retireAge, R(Math.round(savPot)), 'green'],
-      ['Retirement pot at ' + retireAge, R(Math.round(retPot)), 'green', true],
-      null,
-      ['Monthly → savings pot (1/3)',   R(Math.round(savC))],
-      ['Monthly → retirement pot (2/3)',R(Math.round(retC))],
-    ];
-    if (doWithdraw && wAmt >= 2000) {
-      rows.push(null);
-      rows.push(['Withdrawal requested',      R(wAmt)]);
-      rows.push(['Tax on withdrawal',          R(Math.round(withdrawTax)), 'red']);
-      rows.push(['Net amount received',        R(Math.round(netW)), 'green', true]);
+
+    // ── Pot visualisation bar ──────────────────────────────────
+    var totalNow = curSav + curRet + vestedRem;
+    var pieHTML  = '';
+    if (totalNow > 0 && vested > 0) {
+      var sp = Math.round((curSav   / totalNow) * 100);
+      var rp = Math.round((curRet   / totalNow) * 100);
+      var vp = Math.max(0, 100 - sp - rp);
+      pieHTML =
+        '<div class="tp-pots-visual">' +
+          '<div class="tp-pots-title">Estimated current pot breakdown</div>' +
+          '<div class="tp-pot-bar">' +
+            '<div class="tp-pot-seg tp-seg-sav" style="width:' + sp + '%" title="Savings Pot: ' + R(Math.round(curSav)) + '"></div>' +
+            '<div class="tp-pot-seg tp-seg-ret" style="width:' + rp + '%" title="Retirement Pot: ' + R(Math.round(curRet)) + '"></div>' +
+            (vp > 0 ? '<div class="tp-pot-seg tp-seg-ves" style="width:' + vp + '%" title="Vested Pot: ' + R(Math.round(vestedRem)) + '"></div>' : '') +
+          '</div>' +
+          '<div class="tp-pot-legend">' +
+            '<span class="tp-leg tp-leg-sav">Savings Pot <strong>' + R(Math.round(curSav)) + '</strong><em>accessible once/year</em></span>' +
+            '<span class="tp-leg tp-leg-ret">Retirement Pot <strong>' + R(Math.round(curRet)) + '</strong><em>locked until 55+</em></span>' +
+            (vestedRem > 0 ? '<span class="tp-leg tp-leg-ves">Vested Pot <strong>' + R(Math.round(vestedRem)) + '</strong><em>old rules</em></span>' : '') +
+          '</div>' +
+        '</div>';
     }
 
-    showResult(resultCard(
-      'Retirement pot at age ' + retireAge, R(Math.round(retPot)),
-      'Savings pot: ' + R(Math.round(savPot)) + ' · ' + years + ' years at ' + (rate*100).toFixed(1) + '%',
-      rows,
-      Math.min(100,(retPot/(retPot+savPot+1))*100), 'bar-green'
-    ));
+    // ── Withdrawal breakdown panel ─────────────────────────────
+    var wdrawHTML = '';
+    if (doW && wAmt >= 2000) {
+      var effPct  = (margPct * 100).toFixed(1);
+      var keepPct = Math.max(0, 100 - margPct * 100).toFixed(0);
+      var netSafe = Math.max(0, netW);
+      wdrawHTML =
+        '<div class="tp-withdraw-result">' +
+          '<div class="tp-net-box">' +
+            '<span class="tp-net-label">You\'ll actually receive</span>' +
+            '<span class="tp-net-value' + (netW < 0 ? ' tp-red' : '') + '">' + R(Math.round(netSafe)) + '</span>' +
+            '<span class="tp-net-pct">You keep ' + keepPct + 'c of every rand withdrawn</span>' +
+          '</div>' +
+          '<table class="tp-tax-table">' +
+            '<tr><td>Withdrawal requested</td><td>' + R(wAmt) + '</td></tr>' +
+            '<tr class="tp-row-fee"><td>Admin fee (deducted first)</td><td class="tp-red">&#8722;' + R(Math.round(adminDed)) + '</td></tr>' +
+            '<tr><td>Taxable withdrawal amount</td><td>' + R(Math.round(wAmt - adminDed)) + '</td></tr>' +
+            '<tr><td class="tp-muted" colspan="2"></td></tr>' +
+            '<tr class="tp-muted"><td>PAYE on salary only (' + R(salary) + ')</td><td>' + R(Math.round(salTax)) + '</td></tr>' +
+            '<tr class="tp-muted"><td>PAYE on salary + withdrawal</td><td>' + R(Math.round(combTax)) + '</td></tr>' +
+            '<tr class="tp-row-tax"><td>Tax withheld (marginal ' + effPct + '%)</td><td class="tp-red">&#8722;' + R(Math.round(withdrawTax)) + '</td></tr>' +
+            '<tr class="tp-row-net"><td><strong>Net amount received</strong></td><td class="tp-green"><strong>' + R(Math.round(netSafe)) + '</strong></td></tr>' +
+          '</table>' +
+          (bracketWarn ?
+            '<div class="tp-warn-box"><strong>High-tax alert:</strong> At your income level, ' + effPct + '% of every rand withdrawn goes to SARS. You keep only ' + keepPct + 'c per rand. Consider withdrawing less, or wait until a lower-income year (e.g. after retirement when you may be in a lower bracket).</div>'
+          : (margPct >= 0.26 ?
+            '<div class="tp-info-box">At a ' + effPct + '% marginal rate you keep ' + keepPct + 'c of every rand. Factor this into your decision — a personal loan at prime+5% may cost less in total than the tax on this withdrawal.</div>'
+          : '')) +
+          (isGEPF ? '<div class="tp-info-box"><strong>GEPF:</strong> Allow up to 60 working days for processing. Each annual withdrawal reduces your GEPF pension by approximately 4 months of pensionable service.</div>' : '') +
+        '</div>';
+    }
+
+    // ── Main result rows ───────────────────────────────────────
+    var rows = [
+      ['Seeding on 1 Sep 2024',              R(Math.round(seeding))],
+      ['Estimated savings pot (now)',        R(Math.round(curSav)),  'green'],
+      ['Estimated retirement pot (now)',     R(Math.round(curRet)),  'green'],
+      null,
+      ['Savings pot at age ' + retireAge,    R(Math.round(savPot)),  'green'],
+      ['Retirement pot at age ' + retireAge, R(Math.round(retPot)),  'green', true],
+      ['Vested pot (pre-Sep 2024, old rules)',R(Math.round(vestedRem))],
+      null,
+      ['Monthly → savings (1/3)',            R(Math.round(savC))],
+      ['Monthly → retirement (2/3)',         R(Math.round(retC))],
+    ];
+
+    showResult(
+      pieHTML +
+      resultCard(
+        'Retirement pot at age ' + retireAge, R(Math.round(retPot)),
+        'Savings pot: ' + R(Math.round(savPot)) + ' · ' + years + ' yrs at ' + (rate*100).toFixed(1) + '% p.a.',
+        rows,
+        Math.min(100, (retPot / (retPot + savPot + 1)) * 100), 'bar-green'
+      ) +
+      wdrawHTML
+    );
     updateMobileBar('Retirement Pot', R(Math.round(retPot)));
   }
 
   window._calcTwoPot = _calcTwoPot;
   window._calc = _calcTwoPot;
-  on(['tp_vested','tp_contrib','tp_rate','tp_rate_sl','tp_years','tp_years_sl','tp_wamt','tp_salary','tp_age'], _calcTwoPot);
+  on(['tp_vested','tp_contrib','tp_rate','tp_rate_sl','tp_years','tp_years_sl','tp_wamt','tp_salary','tp_age','tp_admin'], _calcTwoPot);
   syncAllSliders();
   _calcTwoPot();
 }

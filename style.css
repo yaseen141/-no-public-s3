@@ -3178,3 +3178,212 @@ input[type="range"] { background: rgba(255,255,255,.1) !important; }
   }
   .hero-flag { opacity: 0.18 !important; transition: none !important; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   TWO-POT CALCULATOR — enhanced UI
+═══════════════════════════════════════════════════════════════════ */
+
+/* Field hint text */
+.field-hint {
+  font-size: .78rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: -.2rem 0 .8rem;
+  padding: .5rem .75rem;
+  border-left: 3px solid rgba(255,182,18,.35);
+  background: rgba(255,182,18,.04);
+  border-radius: 0 6px 6px 0;
+}
+
+/* Fund type radio row */
+.tp-fund-row {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  margin-bottom: 1.25rem;
+}
+.tp-fund-label {
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.tp-fund-grp { flex-wrap: wrap; gap: .4rem; }
+
+/* ── Pot visualisation bar ────────────────────────────────────── */
+.tp-pots-visual {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 12px;
+  padding: 1rem 1.25rem 1.1rem;
+  margin-bottom: 1.25rem;
+}
+.tp-pots-title {
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: .75rem;
+}
+.tp-pot-bar {
+  display: flex;
+  height: 14px;
+  border-radius: 7px;
+  overflow: hidden;
+  gap: 2px;
+  background: rgba(255,255,255,.06);
+  margin-bottom: .75rem;
+}
+.tp-pot-seg {
+  height: 100%;
+  border-radius: 6px;
+  transition: width .4s cubic-bezier(.16,1,.3,1);
+  min-width: 4px;
+}
+.tp-seg-sav { background: #22c55e; }
+.tp-seg-ret { background: #FFB612; }
+.tp-seg-ves { background: rgba(255,255,255,.25); }
+
+.tp-pot-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem .9rem;
+}
+.tp-leg {
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+  font-size: .8rem;
+  color: var(--text-sub);
+}
+.tp-leg strong { color: var(--text-primary); font-weight: 600; }
+.tp-leg em { color: var(--text-muted); font-style: normal; font-size: .72rem; }
+.tp-leg::before {
+  content: '';
+  display: inline-block;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.tp-leg-sav::before { background: #22c55e; }
+.tp-leg-ret::before { background: #FFB612; }
+.tp-leg-ves::before { background: rgba(255,255,255,.28); }
+
+/* ── Withdrawal result panel ──────────────────────────────────── */
+.tp-withdraw-result {
+  margin-top: 1.1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.1);
+  overflow: hidden;
+}
+
+/* "You'll actually receive" hero box */
+.tp-net-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.4rem 1.25rem 1.2rem;
+  background: linear-gradient(160deg, rgba(34,197,94,.1) 0%, rgba(34,197,94,.04) 100%);
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  gap: .25rem;
+}
+.tp-net-label {
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: #86efac;
+}
+.tp-net-value {
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  font-weight: 700;
+  color: #4ade80;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+.tp-net-value.tp-red { color: #f87171; }
+.tp-net-pct {
+  font-size: .78rem;
+  color: var(--text-muted);
+}
+
+/* Tax breakdown table */
+.tp-tax-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .84rem;
+}
+.tp-tax-table td {
+  padding: .55rem 1.1rem;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+  color: var(--text-sub);
+}
+.tp-tax-table td:last-child {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.tp-muted td { opacity: .6; font-size: .8rem; }
+.tp-row-fee td, .tp-row-tax td { background: rgba(239,68,68,.04); }
+.tp-row-net td {
+  background: rgba(34,197,94,.06);
+  font-size: .9rem;
+  border-bottom: none;
+}
+.tp-red  { color: #f87171 !important; }
+.tp-green{ color: #4ade80 !important; }
+
+/* Warning / info boxes */
+.tp-warn-box, .tp-info-box {
+  font-size: .82rem;
+  line-height: 1.55;
+  padding: .8rem 1.1rem;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+.tp-warn-box {
+  color: #fde68a;
+  background: rgba(234,179,8,.07);
+}
+.tp-info-box {
+  color: var(--text-sub);
+  background: rgba(255,255,255,.03);
+}
+
+/* ── Journey article: admin fee comparison table ──────────────── */
+.ja-section-html { }
+.ja-tp-table-wrap {
+  overflow-x: auto;
+  margin: .75rem 0;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.1);
+}
+.ja-tp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .83rem;
+  min-width: 520px;
+}
+.ja-tp-table th {
+  background: rgba(255,255,255,.06);
+  padding: .55rem .9rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: .74rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.ja-tp-table td {
+  padding: .55rem .9rem;
+  border-top: 1px solid rgba(255,255,255,.05);
+  color: var(--text-sub);
+  font-variant-numeric: tabular-nums;
+}
+.ja-tp-table tr:hover td { background: rgba(255,255,255,.03); }
+.tp-green-cell { color: #4ade80; font-weight: 600; }
+.tp-amber-cell { color: #fbbf24; font-weight: 600; }
+.tp-red-cell   { color: #f87171; font-weight: 600; }
