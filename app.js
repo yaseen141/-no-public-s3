@@ -87,7 +87,10 @@ var ICONS = {
   'clock':        '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
   'zap':          '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
   'activity':     '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',
-  'calculator':   '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="10" y2="14"/><line x1="8" y1="18" x2="10" y2="18"/><line x1="14" y1="14" x2="16" y2="18"/></svg>'
+  'calculator':   '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="10" y2="14"/><line x1="8" y1="18" x2="10" y2="18"/><line x1="14" y1="14" x2="16" y2="18"/></svg>',
+  'graduation-cap': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>',
+  'layers': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>',
+  'book-open': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
 };
 
 // ── Search State ──────────────────────────────────────────────────
@@ -128,7 +131,7 @@ var JOURNEYS = [
     sub: 'TFSA, RA, CGT & inflation calculator',
     icon: 'trending-up',
     gradient: '135deg,#7C3AED,#6D28D9',
-    calcs: ['compound-interest','retirement-annuity','cgt','inflation']
+    calcs: ['compound-interest','retirement-annuity','two-pot','cgt','inflation']
   },
   {
     id: 'business',
@@ -138,6 +141,7 @@ var JOURNEYS = [
     gradient: '135deg,#EA580C,#C2410C',
     calcs: ['vat','electricity','loan','compound-interest']
   }
+  ,{ id:'matric', label:'Matric & University', sub:'APS score, NSFAS bursary & student loans', icon:'graduation-cap', gradient:'135deg,#0C4A6E,#0284C7', calcs:['aps','nsfas','loan'] }
 ];
 
 // ── Journey Article Content ───────────────────────────────────────
@@ -269,6 +273,32 @@ var JOURNEY_ARTICLES = {
       {
         heading: 'BCEA Overtime: Your Legal Obligations',
         body: 'The Basic Conditions of Employment Act covers employees earning below R254,371/year. For covered employees: ordinary hours are capped at 45/week, overtime is capped at 10 hours/week, weekday overtime must be paid at 1.5× the hourly rate, and Sunday work (on a non-working day) at 2×. Employees above the BCEA earnings threshold are not covered by these minimum overtime rates — pay rates are negotiable but should always be agreed in writing. Non-compliance with BCEA can result in CCMA claims and Department of Labour penalties.'
+      }
+    ]
+  }
+  ,matric: {
+    title: 'Matric, University Entry & Student Finance',
+    sub: '2026 guide to APS scores, NSFAS eligibility and how to fund your studies',
+    gradient: 'linear-gradient(150deg,#0C4A6E 0%,#0284C7 100%)',
+    facts: [
+      { val: '42', label: 'Max APS Score', note: '6 subjects × Level 7 (80%+) excluding Life Orientation' },
+      { val: 'R600,000', label: 'NSFAS University', note: 'Max combined household income for university NSFAS' },
+      { val: 'R350,000', label: 'NSFAS TVET', note: 'Max combined household income for TVET college NSFAS' },
+      { val: '26', label: 'Public Universities', note: 'Each with different APS requirements by faculty' }
+    ],
+    sections: [
+      {
+        heading: 'How APS Works: From Marks to University Entry',
+        body: 'Your Admission Point Score (APS) converts each of your NSC matric marks into a numerical level from 1 to 7. Level 7 requires 80% or above. You take your 6 best results — excluding Life Orientation — and add the levels together for a maximum of 42. Most degree programmes require between 24 and 36 APS points. Medicine, Engineering and Law at top universities (UCT, Wits, Stellenbosch) typically require 36–42. First-generation students: many universities offer foundational year programmes for students with lower APS who show potential — ask the admissions office directly.'
+      },
+      {
+        heading: 'NSFAS: Who Qualifies, What You Get, and How to Apply',
+        body: 'NSFAS provides non-repayable bursaries (not loans) to South African citizens at DHET-funded public universities and TVET colleges. To qualify, your combined household income must be R600,000 or less per year for university, or R350,000 or less for TVET. Qualifying students receive: living allowance (R15,750/year), book allowance (R5,460/year), accommodation support (up to R53,550/year at accredited residences), and transport support. Applications open in August each year — do not miss this window. Apply at nsfas.org.za using your ID number.',
+        tip: 'Apply in August/September — even before you receive your matric results. You can submit conditional applications. Missing the November deadline means waiting a full year. Never pay anyone to apply on your behalf — the NSFAS application is free.'
+      },
+      {
+        heading: 'Other Ways to Fund Your Studies: Beyond NSFAS',
+        body: 'Students whose household income exceeds the NSFAS threshold are often called the "missing middle" — they earn too much for NSFAS but too little to pay university fees. Options for this group include: the Funza Lushaka bursary (for teaching degrees — fully funded including allowances), SETA bursaries (sector-specific, linked to working in that industry after graduation), corporate bursaries (many large SA companies offer bursaries to students studying toward their industry), and personal loans from banks (ABSA, Standard Bank, Nedbank all offer study loans at prime rate). The Ikusasa Student Financial Aid Programme (ISFAP) specifically targets the missing middle.'
       }
     ]
   }
@@ -1057,6 +1087,67 @@ var CALCS = [
     },
     render: renderInflation
   }
+,{
+  id: 'aps', iconName: 'graduation-cap', title: 'APS / Matric Score Calculator',
+  icon: '🎓', cat: 'education', popular: true,
+  desc: 'Calculate your NSC Admission Point Score and see which of South Africa\'s 26 public universities you qualify for',
+  info: '<h4>How APS works</h4><p>Your <strong>Admission Point Score (APS)</strong> is the sum of the NSC achievement levels for your best 6 subjects, <em>excluding</em> Life Orientation. The maximum APS is <strong>42</strong> (6 × Level 7).</p><table class="aps-scale-table"><tr><th>%</th><th>Level</th><th>Description</th></tr><tr><td>80–100</td><td>7</td><td>Outstanding</td></tr><tr><td>70–79</td><td>6</td><td>Meritorious</td></tr><tr><td>60–69</td><td>5</td><td>Substantial</td></tr><tr><td>50–59</td><td>4</td><td>Adequate</td></tr><tr><td>40–49</td><td>3</td><td>Moderate</td></tr><tr><td>30–39</td><td>2</td><td>Elementary</td></tr><tr><td>0–29</td><td>1</td><td>Not Achieved</td></tr></table>',
+  faqs: [
+    {q:'Does Life Orientation count toward my APS?', a:'No. Life Orientation (LO) is a compulsory subject but is excluded from your APS calculation at all 26 public universities. Your APS is based on your best 6 other subjects.'},
+    {q:'What APS do I need for medicine?', a:'Medicine is the most competitive programme. UCT and Wits typically require an APS of 40+ with exceptional marks in Physical Sciences and Mathematics. Stellenbosch requires a perfect or near-perfect APS. Most medical schools have additional selection requirements beyond APS.'},
+    {q:'What if I have more than 6 subjects?', a:'Your best 6 subjects (excluding LO) are used. If you take 7 electives plus HL, FAL, Math and LO, only your 6 highest-scoring non-LO subjects count toward your APS.'}
+  ],
+  related: ['nsfas','loan','compound-interest'],
+  cta: {
+    icon: '🎓', title: 'Fund your university studies',
+    sub: 'Apply for bursaries and student loans — many are available beyond NSFAS',
+    offers: [
+      {label: 'Apply for NSFAS', url: 'https://www.nsfas.org.za/'},
+      {label: 'Find bursaries on Bursaries SA', url: 'https://www.bursariesportal.co.za/', secondary: true}
+    ]
+  },
+  render: renderAPS
+},{
+  id: 'two-pot', iconName: 'layers', title: 'Two-Pot Retirement Calculator',
+  icon: '🏦', cat: 'investment', popular: true,
+  desc: 'Calculate your savings pot balance, withdrawal tax and retirement component growth under South Africa\'s two-pot retirement system (effective 1 Sept 2024)',
+  info: '<h4>How the two-pot system works</h4><p>From <strong>1 September 2024</strong>, all new retirement contributions are split: <strong>1/3 → Savings Pot</strong> (accessible once/year, min R2,000) and <strong>2/3 → Retirement Pot</strong> (locked until age 55+).</p><p>A once-off <strong>seeding</strong> of 10% of your pre-Sept 2024 balance (max R30,000) was moved into your savings pot on day one.</p>',
+  faqs: [
+    {q:'How much tax do I pay on a two-pot withdrawal?', a:'Withdrawals from the savings pot are taxed at your marginal income tax rate for that year. The withdrawal amount is added to your other income, and SARS taxes the combined amount. This means high earners pay more tax on withdrawals — the calculator shows the exact rand amount.'},
+    {q:'When can I access my retirement pot?', a:'The retirement pot is locked until you reach retirement (typically age 55 under the Pension Funds Act). It cannot be accessed for any reason before then — not retrenchment, not financial emergency. This is by design to preserve retirement savings.'},
+    {q:'What was the seeding amount?', a:'On 1 September 2024, each member received a once-off seeding: 10% of their accumulated vested savings up to a maximum of R30,000. If you had R200,000 saved, your seeding was R20,000. If you had R500,000, the seeding was capped at R30,000.'}
+  ],
+  related: ['retirement-annuity','compound-interest','paye'],
+  cta: {
+    icon: '🏦', title: 'Grow your retirement savings',
+    sub: 'Low-fee retirement annuities and provident funds — compare SA\'s top options',
+    offers: [
+      {label: 'Compare with 10X Investments', url: 'https://www.10x.co.za/'},
+      {label: 'Allan Gray retirement fund', url: 'https://www.allangray.co.za/', secondary: true}
+    ]
+  },
+  render: renderTwoPot
+},{
+  id: 'nsfas', iconName: 'book-open', title: 'NSFAS Eligibility Calculator',
+  icon: '📚', cat: 'education', popular: true,
+  desc: 'Check if your household qualifies for NSFAS bursary funding — the R600,000 university and R350,000 TVET income thresholds explained',
+  info: '<h4>NSFAS in brief</h4><p>The <strong>National Student Financial Aid Scheme</strong> provides bursaries (not loans) to qualifying South African students at public universities and TVET colleges.</p><ul><li>University students: household income ≤ <strong>R600,000/year</strong></li><li>TVET students: household income ≤ <strong>R350,000/year</strong></li><li>Maximum funding: up to <strong>R80,000+/year</strong> (accommodation, living, books, transport)</li></ul>',
+  faqs: [
+    {q:'Is NSFAS a loan or a bursary?', a:'NSFAS funding is a bursary — you do not repay it. Previous NSFAS loans issued before 2018 were converted to bursaries. Post-2018 NSFAS funding for DHET-funded programmes is entirely non-repayable if you pass your modules.'},
+    {q:'What is the NSFAS application window?', a:'NSFAS applications typically open in August and close in November for the following academic year. Apply early — late applications are not accepted. Apply via the NSFAS website using your ID number and myNSFAS account.'},
+    {q:'What documents do I need to apply?', a:'South African ID, parents\'/guardians\' salary slips or SASSA letter (if applicable), proof of household income (IRP5 or employer letter), proof of registration at a DHET-funded institution, and banking details.'}
+  ],
+  related: ['aps','loan'],
+  cta: {
+    icon: '📚', title: 'Apply for NSFAS and bursaries',
+    sub: 'Don\'t miss the window — apply before November for the following year\'s funding',
+    offers: [
+      {label: 'Apply on nsfas.org.za', url: 'https://www.nsfas.org.za/'},
+      {label: 'Find bursaries on Bursaries Portal', url: 'https://www.bursariesportal.co.za/', secondary: true}
+    ]
+  },
+  render: renderNSFAS
+}
 ];
 
 // ═══════════════════════════════════════════════════════════════════
@@ -2359,9 +2450,9 @@ function showCalc(id) {
 }
 
 // ── Category metadata ────────────────────────────────────────────
-var CAT_LABELS    = { tax:'Tax & Income', property:'Property', loans:'Loans', auto:'Automotive', investment:'Investment', utilities:'Utilities' };
-var CAT_ICON_NAMES = { tax:'file-text', property:'home', loans:'credit-card', auto:'car', investment:'trending-up', utilities:'zap' };
-var CAT_ORDER     = ['tax','property','loans','auto','investment','utilities'];
+var CAT_LABELS    = { tax:'Tax & Income', property:'Property', loans:'Loans', auto:'Automotive', investment:'Investment', utilities:'Utilities', education:'Education & Study' };
+var CAT_ICON_NAMES = { tax:'file-text', property:'home', loans:'credit-card', auto:'car', investment:'trending-up', utilities:'zap', education:'graduation-cap' };
+var CAT_ORDER     = ['tax','property','loans','auto','investment','utilities','education'];
 
 function _escHTML(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -2790,6 +2881,322 @@ function updateHeroBento() {
       : '';
     elP95.innerHTML = 'R' + D.petrol95.toFixed(2) + live;
   }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+//  APS — Admission Point Score Calculator
+// ═══════════════════════════════════════════════════════════════════
+
+var UNI_APS_DATA = [
+  { name:'UCT',              min:28, diploma:0,  notes:'Science/Eng/Med: 38–42' },
+  { name:'Wits',             min:26, diploma:0,  notes:'Eng/Med/Law: 38+' },
+  { name:'Stellenbosch',     min:28, diploma:0,  notes:'Medicine: 42; Law: 36' },
+  { name:'UP (Pretoria)',    min:24, diploma:0,  notes:'Engineering: 34+' },
+  { name:'UJ',               min:26, diploma:20, notes:'Engineering: 32+' },
+  { name:'UKZN',             min:24, diploma:18, notes:'' },
+  { name:'NWU',              min:24, diploma:20, notes:'' },
+  { name:'UFS',              min:24, diploma:20, notes:'' },
+  { name:'UWC',              min:25, diploma:20, notes:'' },
+  { name:'Nelson Mandela',   min:24, diploma:20, notes:'' },
+  { name:'Rhodes',           min:25, diploma:0,  notes:'Degree university only' },
+  { name:'Fort Hare',        min:22, diploma:20, notes:'' },
+  { name:'WSU',              min:20, diploma:18, notes:'' },
+  { name:'Limpopo (UL)',     min:22, diploma:20, notes:'' },
+  { name:'UNIZULU',          min:20, diploma:18, notes:'' },
+  { name:'UNIVEN',           min:20, diploma:18, notes:'' },
+  { name:'SMU',              min:22, diploma:20, notes:'Health sciences focus' },
+  { name:'Sol Plaatje',      min:20, diploma:18, notes:'' },
+  { name:'UMP',              min:20, diploma:18, notes:'' },
+  { name:'UNISA',            min:23, diploma:20, notes:'Distance learning; uses all 7 subjs' },
+  { name:'DUT',              min:24, diploma:20, notes:'' },
+  { name:'TUT',              min:20, diploma:18, notes:'' },
+  { name:'CPUT',             min:22, diploma:18, notes:'' },
+  { name:'CUT',              min:20, diploma:18, notes:'' },
+  { name:'VUT',              min:20, diploma:18, notes:'' },
+  { name:'MUT',              min:20, diploma:18, notes:'' }
+];
+
+var APS_ROWS = [
+  { id:'hl',   label:'Home Language',               lo:false },
+  { id:'fal',  label:'First Additional Language',   lo:false },
+  { id:'math', label:'Mathematics / Math Literacy', lo:false },
+  { id:'s4',   label:'Subject 4 (Elective)',         lo:false },
+  { id:'s5',   label:'Subject 5 (Elective)',         lo:false },
+  { id:'s6',   label:'Subject 6 (Elective)',         lo:false },
+  { id:'lo',   label:'Life Orientation',             lo:true  }
+];
+
+function _markToLevel(m) {
+  if (m >= 80) return 7;
+  if (m >= 70) return 6;
+  if (m >= 60) return 5;
+  if (m >= 50) return 4;
+  if (m >= 40) return 3;
+  if (m >= 30) return 2;
+  return 1;
+}
+
+function renderAPS() {
+  var rows = APS_ROWS.map(function(s) {
+    var rightEl = s.lo
+      ? '<span class="aps-lo-tag">not counted</span>'
+      : '<span class="aps-lvl" id="aps_' + s.id + '_lvl">–</span>';
+    return '<div class="aps-row">' +
+      '<span class="aps-row-lbl">' + _escHTML(s.label) + '</span>' +
+      '<div class="aps-row-right">' +
+        '<div class="iw sfx">' +
+          '<input type="number" id="aps_' + s.id + '" min="0" max="100" placeholder="%" ' +
+            'class="aps-pct" oninput="_calcAPS()">' +
+          '<span class="isfx">%</span>' +
+        '</div>' +
+        rightEl +
+      '</div>' +
+    '</div>';
+  }).join('');
+
+  document.getElementById('calc-form').innerHTML =
+    '<div class="aps-intro">Enter your NSC percentage for each subject. Life Orientation is excluded. ' +
+    'APS = sum of levels for your 6 counted subjects (max <strong>42</strong>).</div>' +
+    '<div class="aps-scale">' +
+      '<span class="asc asc-7">80%+ = L7</span><span class="asc asc-6">70–79% = L6</span>' +
+      '<span class="asc asc-5">60–69% = L5</span><span class="asc asc-4">50–59% = L4</span>' +
+      '<span class="asc asc-3">40–49% = L3</span><span class="asc asc-2">30–39% = L2</span>' +
+    '</div>' +
+    '<div class="aps-subjects">' + rows + '</div>';
+
+  window._calcAPS = function() {
+    var scored = APS_ROWS.filter(function(s){ return !s.lo; }).map(function(s) {
+      var el = document.getElementById('aps_' + s.id);
+      var v  = el ? parseFloat(el.value) : NaN;
+      var m  = (!isNaN(v) && v >= 0 && v <= 100) ? v : null;
+      var lvl = m !== null ? _markToLevel(m) : 0;
+      var badge = document.getElementById('aps_' + s.id + '_lvl');
+      if (badge) {
+        badge.textContent = m !== null ? 'L' + lvl : '–';
+        badge.className   = 'aps-lvl' + (m !== null ? ' alvl-' + lvl : '');
+      }
+      return { label: s.label, mark: m, level: lvl, entered: m !== null };
+    });
+
+    var entered = scored.filter(function(s){ return s.entered; });
+    if (!entered.length) return;
+
+    var aps = entered.reduce(function(sum,s){ return sum + s.level; }, 0);
+    var note = entered.length >= 6 ? 'All 6 subjects entered' : entered.length + ' of 6 subjects — enter all for a complete APS';
+
+    var studyGuide;
+    if      (aps >= 36) studyGuide = 'Eligible for Medicine, Law and Engineering at UCT, Wits and Stellenbosch. Top programmes in any faculty.';
+    else if (aps >= 30) studyGuide = 'Eligible for degree programmes at most SA universities. Competitive professional degrees need 36–42.';
+    else if (aps >= 26) studyGuide = 'Eligible for degree programmes at UJ, UKZN, NWU, UFS, UNISA and many others.';
+    else if (aps >= 22) studyGuide = 'Eligible for diploma programmes at universities of technology. UNISA distance degrees may be an option.';
+    else if (aps >= 18) studyGuide = 'TVET N1–N6 programmes and certificate courses. Consider a bridging year at some universities.';
+    else                studyGuide = 'Focus on supplementary exams or rewriting key subjects. TVET colleges offer bridging and skills programmes.';
+
+    var breakdownRows = entered.map(function(s){
+      return [s.label, 'Level ' + s.level + ' (' + s.mark + '%)'];
+    });
+    breakdownRows.push(null);
+    breakdownRows.push(['APS Total', aps + ' / ' + (entered.length * 7), aps >= 28 ? 'green' : aps >= 20 ? '' : 'red', true]);
+
+    var qualDeg = UNI_APS_DATA.filter(function(u){ return u.min > 0 && aps >= u.min; }).length;
+
+    var uniGrid = '<div class="aps-uni-grid">' +
+      UNI_APS_DATA.map(function(u) {
+        var deg = u.min > 0 && aps >= u.min;
+        var dip = u.diploma > 0 && aps >= u.diploma && !deg;
+        var cls = deg ? 'au-deg' : (dip ? 'au-dip' : 'au-no');
+        return '<div class="aps-uni ' + cls + '">' +
+          '<span class="au-name">' + _escHTML(u.name) + '</span>' +
+          '<span class="au-status">' + (deg ? 'Degree ✓' : dip ? 'Diploma ○' : 'Below min') + '</span>' +
+          (u.notes ? '<span class="au-note">' + _escHTML(u.notes) + '</span>' : '') +
+        '</div>';
+      }).join('') +
+    '</div>';
+
+    showResult(
+      resultCard('Your APS Score', aps + ' / 42', note, breakdownRows, (aps/42)*100, aps>=28?'bar-green':aps>=20?'bar-amber':'bar-red') +
+      '<div class="aps-study-box"><strong>What you can study:</strong> ' + studyGuide + '</div>' +
+      '<h4 class="aps-uni-heading">University Eligibility &mdash; ' + qualDeg + '/26 for degree</h4>' +
+      uniGrid
+    );
+    updateMobileBar('APS Score', aps + ' / 42');
+  };
+  window._calc = window._calcAPS;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+//  Two-Pot Retirement Calculator
+// ═══════════════════════════════════════════════════════════════════
+function renderTwoPot() {
+  document.getElementById('calc-form').innerHTML =
+    fsect('Your retirement fund') +
+    field('tp_vested','Fund value at 1 Sept 2024',moneyInput('tp_vested','500000','500000'),'accumulated savings before two-pot started',
+      'Enter your total retirement fund balance as at 31 August 2024. 10% (max R30,000) was seeded to your savings pot.') +
+    field('tp_contrib','Monthly contribution',moneyInput('tp_contrib','3000','3000'),'your share only') +
+    sliderField('tp_rate','Expected annual return',4,18,0.5,10,'','','%','Balanced fund 8–12% · Conservative 5–8% · Aggressive 12–16%') +
+    sliderField('tp_years','Years until retirement',1,40,1,20,'','','yrs') +
+    field('tp_age','Your current age',plainInput('tp_age','35','35',' yrs')) +
+    fsect('Savings pot withdrawal (optional)') +
+    '<div class="radio-grp">' +
+      '<label class="ro"><input type="radio" name="tp_wopt" id="tp_wno" value="no" checked onchange="_calcTwoPot()"><label for="tp_wno">No withdrawal this year</label></label>' +
+      '<label class="ro"><input type="radio" name="tp_wopt" id="tp_wyes" value="yes" onchange="document.getElementById(\'tp_wsec\').style.display=\'\';_calcTwoPot()"><label for="tp_wyes">Make a withdrawal from savings pot</label></label>' +
+    '</div>' +
+    '<div id="tp_wsec" style="display:none">' +
+      field('tp_wamt','Amount to withdraw',moneyInput('tp_wamt','','10000'),'minimum R2,000') +
+      field('tp_salary','Your annual taxable income',moneyInput('tp_salary','','350000'),'used to calculate marginal tax on withdrawal') +
+    '</div>';
+
+  function _calcTwoPot() {
+    var vested  = num('tp_vested');
+    var contrib = num('tp_contrib');
+    var rate    = (num('tp_rate') || 10) / 100;
+    var years   = intval('tp_years') || 20;
+    var age     = num('tp_age') || 35;
+    var wNo     = document.getElementById('tp_wno');
+    var doWithdraw = wNo && !wNo.checked;
+    var wAmt    = num('tp_wamt');
+    var salary  = num('tp_salary');
+
+    var seeding = Math.min((vested || 0) * 0.10, 30000);
+    var vestedRemainder = Math.max(0, (vested || 0) - seeding);
+
+    var mRate  = rate / 12;
+    var months = years * 12;
+    var savC   = contrib / 3;
+    var retC   = contrib * 2 / 3;
+
+    var savPot = seeding;
+    var retPot = vestedRemainder;
+    for (var m = 0; m < months; m++) {
+      savPot = savPot * (1 + mRate) + savC;
+      retPot = retPot * (1 + mRate) + retC;
+    }
+
+    var withdrawTax = 0;
+    var netW = 0;
+    if (doWithdraw && wAmt >= 2000) {
+      var txTotal  = calcTax(salary + wAmt, age, 0).tax;
+      var txSalary = calcTax(salary,        age, 0).tax;
+      withdrawTax  = Math.max(0, txTotal - txSalary);
+      netW         = wAmt - withdrawTax;
+    }
+
+    var retireAge = Math.min(100, age + years);
+    var rows = [
+      ['Seeding (Sept 2024)',            R(Math.round(seeding))],
+      ['Savings pot balance at ' + retireAge, R(Math.round(savPot)), 'green'],
+      ['Retirement pot at ' + retireAge, R(Math.round(retPot)), 'green', true],
+      null,
+      ['Monthly → savings pot (1/3)',   R(Math.round(savC))],
+      ['Monthly → retirement pot (2/3)',R(Math.round(retC))],
+    ];
+    if (doWithdraw && wAmt >= 2000) {
+      rows.push(null);
+      rows.push(['Withdrawal requested',      R(wAmt)]);
+      rows.push(['Tax on withdrawal',          R(Math.round(withdrawTax)), 'red']);
+      rows.push(['Net amount received',        R(Math.round(netW)), 'green', true]);
+    }
+
+    showResult(resultCard(
+      'Retirement pot at age ' + retireAge, R(Math.round(retPot)),
+      'Savings pot: ' + R(Math.round(savPot)) + ' · ' + years + ' years at ' + (rate*100).toFixed(1) + '%',
+      rows,
+      Math.min(100,(retPot/(retPot+savPot+1))*100), 'bar-green'
+    ));
+    updateMobileBar('Retirement Pot', R(Math.round(retPot)));
+  }
+
+  window._calcTwoPot = _calcTwoPot;
+  window._calc = _calcTwoPot;
+  on(['tp_vested','tp_contrib','tp_rate','tp_rate_sl','tp_years','tp_years_sl','tp_wamt','tp_salary','tp_age'], _calcTwoPot);
+  syncAllSliders();
+  _calcTwoPot();
+}
+
+// ═══════════════════════════════════════════════════════════════════
+//  NSFAS Eligibility Calculator
+// ═══════════════════════════════════════════════════════════════════
+function renderNSFAS() {
+  document.getElementById('calc-form').innerHTML =
+    field('ns_income','Combined annual household income',moneyInput('ns_income','','180000'),
+      'all earners in your home — salaries, grants, rentals, SASSA', 'Include income from parents, guardians and any other adults in the household.') +
+    field('ns_type','Programme type',
+      '<div class="radio-grp">' +
+        '<label class="ro"><input type="radio" name="ns_type" id="ns_uni" value="university" checked onchange="_calcNSFAS()"><label for="ns_uni">University (degree / diploma)</label></label>' +
+        '<label class="ro"><input type="radio" name="ns_type" id="ns_tvet" value="tvet" onchange="_calcNSFAS()"><label for="ns_tvet">TVET College (N1–N6)</label></label>' +
+      '</div>') +
+    field('ns_dis','Disability',
+      '<div class="radio-grp">' +
+        '<label class="ro"><input type="radio" name="ns_dis" id="ns_dis_no" value="no" checked onchange="_calcNSFAS()"><label for="ns_dis_no">No disability</label></label>' +
+        '<label class="ro"><input type="radio" name="ns_dis" id="ns_dis_yes" value="yes" onchange="_calcNSFAS()"><label for="ns_dis_yes">I qualify for disability allowance</label></label>' +
+      '</div>');
+
+  function _calcNSFAS() {
+    var income = num('ns_income');
+    var uniEl  = document.getElementById('ns_uni');
+    var disEl  = document.getElementById('ns_dis_yes');
+    var isUni  = !uniEl || uniEl.checked;
+    var isDis  = disEl && disEl.checked;
+
+    if (!income) return;
+
+    var threshold = isUni ? 600000 : 350000;
+    var eligible  = income <= threshold;
+
+    var allocs = {
+      living:  15750,
+      books:    5460,
+      accomm:  isUni ? 53550 : 25000,
+      transport: 7700,
+      disability: isDis ? 8950 : 0
+    };
+    var totalMax = allocs.living + allocs.books + allocs.accomm + allocs.transport + allocs.disability;
+
+    var rows, extra;
+    if (eligible) {
+      rows = [
+        ['Living allowance / year',         R(allocs.living)],
+        ['Book allowance / year',            R(allocs.books)],
+        ['Accommodation support / year',     'Up to ' + R(allocs.accomm)],
+        ['Transport support / year',         'Up to ' + R(allocs.transport)],
+        isDis ? ['Disability allowance / year', R(allocs.disability)] : null,
+        null,
+        ['Maximum NSFAS funding / year',     R(totalMax), 'green', true],
+      ];
+      extra = '<div class="nsfas-tip">' +
+        '<strong>Apply at nsfas.org.za</strong> — window opens August, closes November. ' +
+        'Applications are free. Required: SA ID, household income proof (salary slips or SASSA letter), proof of registration or acceptance letter.' +
+      '</div>';
+    } else {
+      rows = [
+        ['Your household income',    R(income)],
+        [isUni ? 'University threshold' : 'TVET threshold', R(threshold)],
+        ['Above threshold by',       R(income - threshold), 'red', true],
+      ];
+      extra = '<div class="nsfas-tip">' +
+        '<strong>You may be "missing middle".</strong> Options: Funza Lushaka (teaching bursary — fully funded), ' +
+        'ISFAP bursary programme, SETA sector bursaries, corporate bursaries (FNB, Nedbank, Sasol, etc.), ' +
+        'and student loans from ABSA, Standard Bank or Nedbank at prime rate.' +
+      '</div>';
+    }
+
+    showResult(
+      resultCard(
+        'NSFAS Eligibility',
+        eligible ? 'Likely qualifies' : 'Income too high',
+        'Household income ' + R(income) + ' vs ' + (isUni?'university':'TVET') + ' threshold ' + R(threshold),
+        rows,
+        Math.min(100, (threshold / income) * 100),
+        eligible ? 'bar-green' : 'bar-red'
+      ) + extra
+    );
+    updateMobileBar('NSFAS', eligible ? 'Likely qualifies' : 'Above threshold');
+  }
+
+  window._calcNSFAS = _calcNSFAS;
+  window._calc = _calcNSFAS;
+  on(['ns_income'], _calcNSFAS);
+  _calcNSFAS();
 }
 
 // ── Init ───────────────────────────────────────────────────────────
