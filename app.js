@@ -2107,7 +2107,11 @@ function showCalc(id) {
   if (!calc) { showHome(); return; }
 
   document.getElementById('home-view').style.display = 'none';
-  document.getElementById('calc-view').style.display = '';
+  var cv = document.getElementById('calc-view');
+  cv.style.display = '';
+  cv.classList.remove('calc-view-entering');
+  void cv.offsetWidth; // reflow to restart animation
+  cv.classList.add('calc-view-entering');
   var iconEl = document.getElementById('cv-icon');
   iconEl.innerHTML = ICONS[calc.iconName] || calc.icon;
   iconEl.className = 'calc-icon-big ' + calc.cat + '-bg';
@@ -2221,6 +2225,17 @@ function renderGrid() {
   });
 
   grid.innerHTML = html;
+
+  // Trigger scroll animations for newly rendered sections
+  if (_scrollObserver) {
+    document.querySelectorAll('.cat-section').forEach(function(el) {
+      _scrollObserver.observe(el);
+    });
+  } else {
+    document.querySelectorAll('.cat-section').forEach(function(el) {
+      el.classList.add('visible');
+    });
+  }
 }
 
 // ── Search & Filter ───────────────────────────────────────────────
@@ -2320,10 +2335,35 @@ function renderRates() {
     '<div class="rate-item rates-updated"><span class="rl">SARS 2026/27 &middot; May 2026</span></div>';
 }
 
+// ── Scroll animations (IntersectionObserver) ─────────────────────
+var _scrollObserver = null;
+
+function initScrollAnimations() {
+  if (typeof IntersectionObserver === 'undefined') {
+    document.querySelectorAll('.cat-section').forEach(function(el) {
+      el.classList.add('visible');
+    });
+    return;
+  }
+  _scrollObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        _scrollObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.cat-section').forEach(function(el) {
+    _scrollObserver.observe(el);
+  });
+}
+
 // ── Init ───────────────────────────────────────────────────────────
 function init() {
   renderGrid();
   initSearch();
+  initScrollAnimations();
   renderRates();
   fetchLiveFuel();
   var hash = window.location.hash.replace('#', '');
