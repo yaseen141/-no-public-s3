@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="17 free South African financial calculators — PAYE income tax, bond repayments, VAT, UIF, transfer duty, Eskom electricity, fuel and more. Updated with official SARS 2026/27 rates. No sign-up needed.">
+  <meta name="keywords" content="PAYE calculator South Africa, tax calculator 2026, income tax calculator South Africa, bond repayment calculator, VAT calculator South Africa, UIF calculator, transfer duty calculator, Eskom electricity calculator, fuel cost calculator, compound interest calculator, retirement annuity calculator, salary calculator South Africa">
+  <meta name="author" content="Mzanzi Cals">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <title>Mzanzi Cals — South Africa's Free Financial Calculator Suite | PAYE, Bond, VAT & More</title>
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://zacalc.co.za/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://zacalc.co.za/">
+  <meta property="og:title" content="Mzanzi Cals — South Africa's Free Financial Calculators | 2026/27 SARS Data">
+  <meta property="og:description" content="17 free South African financial calculators — PAYE tax, bond repayments, VAT, UIF, transfer duty, Eskom electricity & more. 2026/27 SARS rates. No sign-up.">
+  <meta property="og:site_name" content="Mzanzi Cals">
+  <meta property="og:locale" content="en_ZA">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Mzanzi Cals — South Africa's Free Financial Calculators">
+  <meta name="twitter:description" content="17 free calculators — PAYE tax, bond, VAT, UIF, transfer duty, Eskom, fuel & more. Updated 2026/27 SARS data. Free forever.">
+
+  <!-- Performance: preconnect before stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+  <!-- ═══════════════════════════════════════════════════════
+       STRUCTURED DATA — JSON-LD
+  ════════════════════════════════════════════════════════ -->
+
+  <!-- WebSite -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Mzanzi Cals",
+    "url": "https://zacalc.co.za",
+    "description": "17 free South African financial calculators updated with official SARS 2026/27 tax tables, SARB rates, and DMRE fuel prices.",
+    "inLanguage": "en-ZA",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Mzanzi Cals",
+      "url": "https://zacalc.co.za"
+    }
+  }
+  </script>
+
+  <!-- WebApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Mzanzi Cals — South Africa's Free Calculator Suite",
+    "url": "https://zacalc.co.za",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript",
+    "description": "17 free South African financial calculators covering income tax (PAYE), bond repayments, VAT, UIF, transfer duty, rental yield, personal loans, vehicle finance, compound interest, retirement annuity, capital gains tax, medical aid credits, overtime pay, Eskom electricity costs, fuel costs, and inflation adjustment. Updated with SARS 2026/27 data.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "ZAR",
+      "availability": "https://schema.org/InStock"
+    },
+    "featureList": [
+      "PAYE Income Tax Calculator (SARS 2026/27)",
+      "Salary Take-Home Pay Calculator",
+      "VAT Calculator (15%)",
+      "UIF Contribution and Benefit Calculator",
+      "Bond / Home Loan Repayment Calculator with Amortisation",
+      "Transfer Duty Calculator",
+      "Rental Yield Calculator",
+      "Personal Loan Calculator",
+      "Vehicle Finance Calculator with Balloon Payment",
+      "Fuel Cost Calculator",
+      "Compound Interest and Savings Calculator",
+      "Retirement Annuity Tax Saving Calculator",
+      "Capital Gains Tax Calculator",
+      "Medical Aid Tax Credit Calculator",
+      "Overtime Pay Calculator (BCEA)",
+      "Eskom Electricity Cost Calculator",
+      "Inflation / CPI Value Calculator"
+    ]
+  }
+  </script>
+
+  <!-- FAQPage — rich results for Google search -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I calculate my PAYE tax in South Africa for 2026/27?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "South Africa uses a progressive income tax system with 7 brackets from 18% to 45%. For 2026/27: subtract your primary rebate (R17,820), any secondary or tertiary rebates if you are 65+, and your medical aid tax credit. The tax threshold for individuals under 65 is R99,000 — income below this is tax-free. Use the Mzanzi Cals PAYE calculator to get an instant calculation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the income tax threshold in South Africa for 2026/27?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For the 2026/27 tax year, the income tax threshold is R99,000 for individuals under 65, R153,250 for those aged 65–74, and R171,300 for those aged 75 and older. Income below these amounts is exempt from income tax."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the VAT rate in South Africa?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The standard VAT rate in South Africa is 15%. This applies to most goods and services. Basic food items such as brown bread, maize meal, fresh milk, eggs, dried beans, and fresh fruit and vegetables are zero-rated (0% VAT). To remove VAT from a price, divide by 1.15."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I calculate bond repayments in South Africa?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the formula: M = P × [r(1+r)^n] / [(1+r)^n - 1], where P is the loan amount, r is the monthly interest rate (annual rate ÷ 12), and n is the number of months. For example, a R1,500,000 bond at 10.25% prime over 20 years gives monthly repayments of approximately R14,700. South African banks typically approve bonds up to 30% of gross monthly income."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much is UIF and who must pay it?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "UIF (Unemployment Insurance Fund) is 1% of your monthly salary, capped at R177.12 per month (earnings ceiling R17,712/month). Your employer also contributes 1%. Both permanent and part-time employees must register for UIF if they work more than 24 hours per month. Domestic workers and farm workers are also covered."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is transfer duty in South Africa?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Transfer duty is a SARS tax paid when buying property. For 2026/27, properties up to R1,100,000 are exempt. Above R1.1M the rate scales from 3% to 13% for properties over R12.1M. Transfer duty does not apply to new developments sold by VAT-registered developers — VAT applies instead. The tax must be paid within 6 months of the transaction date."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does electricity cost in South Africa in 2026?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Eskom direct customers pay R2.2092 per kWh (220.92 cents/kWh) as of April 2025, a 12.74% increase. Most South Africans receive electricity from their municipality at higher rates — typically R2.50 to R4.50 per kWh. The average South African household uses 600–900 kWh per month."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the maximum retirement annuity deduction?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can deduct up to 27.5% of the greater of your taxable income or gross remuneration, capped at R350,000 per year. This reduces your taxable income and directly lowers the tax you pay. For example, if you are in the 36% bracket and contribute R1,000/month to an RA, your tax saving is approximately R360/month — SARS subsidises 36% of your contribution."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the current prime interest rate in South Africa?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The SARB prime lending rate is 10.25% as of May 2026, after six consecutive repo rate cuts since September 2024. The repo rate is 6.75%. Home loans and personal loans in South Africa are typically priced at prime minus or prime plus a percentage, depending on your credit profile."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does a balloon payment on a car work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A balloon payment is a lump sum deferred to the end of your vehicle finance term, typically 20–30% of the vehicle price. It reduces your monthly instalments but the full amount must be settled at the end — either by paying cash, refinancing, or trading in the vehicle. A balloon payment increases total interest paid over the loan term."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is South Africa's current fuel price?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "As of May 2026, petrol 95 (inland) costs R26.63 per litre and diesel 50ppm (inland) costs R32.30 per litre. South African fuel prices are set monthly by the Department of Mineral Resources and Energy (DMRE) based on international crude oil prices and the rand/dollar exchange rate."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does capital gains tax (CGT) work in South Africa?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "In South Africa, 40% of your net capital gain (after the R40,000 annual exclusion) is added to your taxable income and taxed at your marginal rate. The maximum effective CGT rate is 18% (45% top bracket × 40% inclusion). The first R2 million of gain on your primary residence is excluded. CGT applies to shares, investment properties, and most other assets."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- BreadcrumbList for calculator pages -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "South African Financial Calculators",
+    "description": "Complete suite of free South African financial calculators",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"PAYE Income Tax Calculator","url":"https://zacalc.co.za/#paye"},
+      {"@type":"ListItem","position":2,"name":"Salary Take-Home Calculator","url":"https://zacalc.co.za/#salary"},
+      {"@type":"ListItem","position":3,"name":"VAT Calculator","url":"https://zacalc.co.za/#vat"},
+      {"@type":"ListItem","position":4,"name":"UIF Calculator","url":"https://zacalc.co.za/#uif"},
+      {"@type":"ListItem","position":5,"name":"Bond Repayment Calculator","url":"https://zacalc.co.za/#bond"},
+      {"@type":"ListItem","position":6,"name":"Transfer Duty Calculator","url":"https://zacalc.co.za/#transfer-duty"},
+      {"@type":"ListItem","position":7,"name":"Rental Yield Calculator","url":"https://zacalc.co.za/#rental-yield"},
+      {"@type":"ListItem","position":8,"name":"Personal Loan Calculator","url":"https://zacalc.co.za/#loan"},
+      {"@type":"ListItem","position":9,"name":"Vehicle Finance Calculator","url":"https://zacalc.co.za/#vehicle-finance"},
+      {"@type":"ListItem","position":10,"name":"Fuel Cost Calculator","url":"https://zacalc.co.za/#fuel"},
+      {"@type":"ListItem","position":11,"name":"Compound Interest Calculator","url":"https://zacalc.co.za/#compound-interest"},
+      {"@type":"ListItem","position":12,"name":"Retirement Annuity Calculator","url":"https://zacalc.co.za/#retirement-annuity"},
+      {"@type":"ListItem","position":13,"name":"Capital Gains Tax Calculator","url":"https://zacalc.co.za/#cgt"},
+      {"@type":"ListItem","position":14,"name":"Medical Aid Tax Credit Calculator","url":"https://zacalc.co.za/#medical-aid"},
+      {"@type":"ListItem","position":15,"name":"Overtime Pay Calculator","url":"https://zacalc.co.za/#overtime"},
+      {"@type":"ListItem","position":16,"name":"Eskom Electricity Cost Calculator","url":"https://zacalc.co.za/#electricity"},
+      {"@type":"ListItem","position":17,"name":"Inflation / CPI Calculator","url":"https://zacalc.co.za/#inflation"}
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="#" class="logo" onclick="showHome();return false;" aria-label="Mzanzi Cals home">
+      <div class="logo-mark" aria-hidden="true">M</div>
+      <span>Mzanzi <strong>Cals</strong></span>
+    </a>
+  </div>
+</header>
+
+<!-- Live Rates Strip -->
+<div class="rates-strip" id="rates-strip" role="banner" aria-label="Current SA financial rates">
+  <div class="container">
+    <div class="rates-inner" id="rates-inner">
+      <div class="rate-item"><span class="rv">10.25%</span><span class="rl">Prime Rate</span></div>
+      <div class="rate-item"><span class="rv">6.75%</span><span class="rl">Repo Rate</span></div>
+      <div class="rate-item"><span class="rv">15%</span><span class="rl">VAT Rate</span></div>
+      <div class="rate-item"><span class="rv">3.4%</span><span class="rl">CPI Inflation</span></div>
+      <div class="rate-item"><span class="rv">R26.63</span><span class="rl">Petrol 95/L</span></div>
+      <div class="rate-item"><span class="rv">R32.30</span><span class="rl">Diesel/L</span></div>
+      <div class="rate-item rates-updated"><span class="rl">SARS 2026/27 · Updated May 2026</span></div>
+    </div>
+  </div>
+</div>
+
+<main>
+
+<!-- HOME VIEW -->
+<div id="home-view">
+
+  <!-- Hero Section -->
+  <section class="hero" aria-label="Mzanzi Cals introduction">
+    <div class="container hero-inner">
+      <div class="hero-eyebrow">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        Updated SARS 2026/27 · No sign-up · Free forever
+      </div>
+      <h1 class="hero-title">South Africa's Free<br>Financial Calculators</h1>
+      <p class="hero-sub">17 calculators — PAYE tax, bond repayments, VAT, UIF, transfer duty, fuel & more. Accurate SARS 2026/27 data, no account required.</p>
+      <div class="hero-chips" role="list" aria-label="Key features">
+        <span class="hero-chip" role="listitem">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+          SARS 2026/27
+        </span>
+        <span class="hero-chip" role="listitem">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+          Live fuel prices
+        </span>
+        <span class="hero-chip" role="listitem">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+          17 free calculators
+        </span>
+        <span class="hero-chip" role="listitem">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+          No login needed
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Static calculator list — visible to search crawlers before JS executes -->
+  <noscript>
+    <div style="padding:2rem;max-width:1180px;margin:0 auto">
+      <h2>All Calculators</h2>
+      <ul>
+        <li><a href="#paye">Income Tax / PAYE Calculator</a></li>
+        <li><a href="#salary">Salary / Take-Home Pay Calculator</a></li>
+        <li><a href="#vat">VAT Calculator South Africa</a></li>
+        <li><a href="#uif">UIF Calculator South Africa</a></li>
+        <li><a href="#medical-aid">Medical Aid Tax Credit Calculator</a></li>
+        <li><a href="#overtime">Overtime Pay Calculator</a></li>
+        <li><a href="#bond">Bond / Home Loan Calculator</a></li>
+        <li><a href="#transfer-duty">Transfer Duty Calculator</a></li>
+        <li><a href="#rental-yield">Rental Yield Calculator</a></li>
+        <li><a href="#loan">Personal Loan Calculator</a></li>
+        <li><a href="#vehicle-finance">Vehicle Finance Calculator</a></li>
+        <li><a href="#compound-interest">Compound Interest Calculator</a></li>
+        <li><a href="#retirement-annuity">Retirement Annuity Tax Saving Calculator</a></li>
+        <li><a href="#cgt">Capital Gains Tax Calculator</a></li>
+        <li><a href="#inflation">Inflation / CPI Calculator</a></li>
+        <li><a href="#trip-fuel">Trip Fuel Cost Calculator</a></li>
+        <li><a href="#fuel">Fuel Cost Calculator</a></li>
+        <li><a href="#electricity">Eskom Electricity Cost Calculator</a></li>
+      </ul>
+    </div>
+  </noscript>
+
+  <div class="container home-grid-wrap">
+    <!-- Search + Filters -->
+    <div class="search-section">
+      <div class="search-wrap" role="search">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="search" id="search" placeholder="Search calculators — PAYE, bond, VAT, fuel…" autocomplete="off" aria-label="Search calculators" spellcheck="false">
+        <button class="search-clear" id="search-clear" aria-label="Clear search" tabindex="-1">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="cat-pills" id="cat-pills" role="group" aria-label="Filter by category"></div>
+      <p class="calc-count" id="calc-count" aria-live="polite"></p>
+    </div>
+
+    <div class="calc-grid" id="calc-grid" aria-label="Calculator categories"></div>
+  </div>
+
+  <!-- About Section -->
+  <div class="container">
+    <section class="about-section">
+      <h2>About Mzanzi Cals</h2>
+      <p>Mzanzi Cals is South Africa's most complete free financial calculator suite — built for South Africans, by South Africans. Every calculator uses official data from SARS, SARB, DMRE and Stats SA.</p>
+      <h3>Why use Mzanzi Cals?</h3>
+      <ul class="about-list">
+        <li><strong>Accurate 2026/27 data</strong> — Updated with the latest SARS tax tables, SARB rates, and DMRE fuel prices</li>
+        <li><strong>Completely free</strong> — No subscriptions, no sign-up, no hidden fees. Free forever.</li>
+        <li><strong>Privacy first</strong> — All calculations happen in your browser. No data is ever sent to any server.</li>
+        <li><strong>17 calculators</strong> — PAYE, salary, VAT, UIF, bond, transfer duty, vehicle finance, compound interest, CGT, and more</li>
+      </ul>
+      <h3>Data sources</h3>
+      <p>Tax tables: <strong>SARS 2026/27</strong> · Interest rates: <strong>SARB</strong> · Fuel prices: <strong>DMRE</strong> · Inflation: <strong>Stats SA CPI</strong> · Eskom tariffs: <strong>NERSA</strong></p>
+      <p><em>For informational purposes only. Not financial advice. Consult a registered tax practitioner or financial adviser for personalised guidance.</em></p>
+    </section>
+  </div>
+</div>
+
+<!-- CALCULATOR VIEW -->
+<div id="calc-view" style="display:none">
+  <div class="container">
+    <button class="back-btn" onclick="showHome()" aria-label="Back to all calculators">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+      All Calculators
+    </button>
+    <div class="calc-layout">
+      <div class="calc-left">
+        <div class="calc-heading">
+          <div class="calc-icon-big" id="cv-icon" aria-hidden="true"></div>
+          <div>
+            <h1 id="cv-title"></h1>
+            <p id="cv-desc" class="cv-desc"></p>
+          </div>
+        </div>
+        <div class="form-card" id="calc-form"></div>
+        <div id="cv-chart"></div>
+        <p class="disclaimer">For informational purposes only. Consult a registered tax practitioner or financial adviser for personalised advice.</p>
+      </div>
+      <div class="calc-right">
+        <div id="result-area" aria-live="polite">
+          <div class="result-placeholder">
+            <div class="placeholder-icon" aria-hidden="true">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg>
+            </div>
+            <p>Fill in the fields to see your result</p>
+            <p class="placeholder-sub">Results update instantly as you type</p>
+          </div>
+        </div>
+        <div class="info-card" id="cv-info"></div>
+        <div id="cv-related"></div>
+      </div>
+    </div>
+    <div id="cv-faq"></div>
+  </div>
+  <!-- Mobile sticky result bar -->
+  <div class="mobile-result-bar" id="mobile-bar" aria-live="polite">
+    <div>
+      <div class="mrb-label" id="mobile-bar-label">Result</div>
+      <div class="mrb-value" id="mobile-bar-value">—</div>
+    </div>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>
+  </div>
+</div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo-mark" aria-hidden="true">M</div>
+        <div>
+          <div class="footer-brand-name">Mzanzi <strong>Cals</strong></div>
+          <div class="footer-brand-sub">South Africa's Free Calculator Suite</div>
+        </div>
+      </div>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <span class="footer-nav-head">Tax & Income</span>
+        <a href="#paye" onclick="showCalc('paye');return false;">PAYE Calculator</a>
+        <a href="#salary" onclick="showCalc('salary');return false;">Salary Calculator</a>
+        <a href="#vat" onclick="showCalc('vat');return false;">VAT Calculator</a>
+        <a href="#uif" onclick="showCalc('uif');return false;">UIF Calculator</a>
+      </nav>
+      <nav class="footer-nav" aria-label="Property calculators">
+        <span class="footer-nav-head">Property</span>
+        <a href="#bond" onclick="showCalc('bond');return false;">Bond Calculator</a>
+        <a href="#transfer-duty" onclick="showCalc('transfer-duty');return false;">Transfer Duty</a>
+        <a href="#rental-yield" onclick="showCalc('rental-yield');return false;">Rental Yield</a>
+      </nav>
+      <nav class="footer-nav" aria-label="Investment calculators">
+        <span class="footer-nav-head">Invest &amp; Save</span>
+        <a href="#compound-interest" onclick="showCalc('compound-interest');return false;">Compound Interest</a>
+        <a href="#retirement-annuity" onclick="showCalc('retirement-annuity');return false;">Retirement Annuity</a>
+        <a href="#cgt" onclick="showCalc('cgt');return false;">Capital Gains Tax</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Mzanzi Cals &nbsp;·&nbsp; SARS 2026/27 &nbsp;·&nbsp; SARB prime 10.25% &nbsp;·&nbsp; Not financial advice &nbsp;·&nbsp; Free forever</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
