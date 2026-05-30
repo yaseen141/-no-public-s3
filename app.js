@@ -2528,18 +2528,29 @@ function fetchLiveFuel() {
 function renderRates() {
   var inner = document.getElementById('rates-inner');
   if (!inner) return;
-  var live = D._fuelLive
+  var fuelLive = D._fuelLive
     ? ' <span class="rate-live" title="Live market data" aria-label="live">&#9679;</span>'
     : '';
+  var rateLive = D._ratesLive
+    ? ' <span class="rate-live" title="Live data" aria-label="live">&#9679;</span>'
+    : '';
+  var inflLive = D._inflationLive
+    ? ' <span class="rate-live" title="Live data" aria-label="live">&#9679;</span>'
+    : '';
   inner.innerHTML =
-    '<div class="rate-item"><span class="rv">' + D.primeRate + '%</span><span class="rl">Prime Rate</span></div>' +
-    '<div class="rate-item"><span class="rv">' + D.repoRate + '%</span><span class="rl">Repo Rate</span></div>' +
+    '<div class="rate-item"><span class="rv">' + D.primeRate + '%' + rateLive + '</span><span class="rl">Prime Rate</span></div>' +
+    '<div class="rate-item"><span class="rv">' + D.repoRate + '%' + rateLive + '</span><span class="rl">Repo Rate</span></div>' +
     '<div class="rate-item"><span class="rv">' + (D.vatRate * 100) + '%</span><span class="rl">VAT Rate</span></div>' +
-    '<div class="rate-item"><span class="rv">' + D.inflation + '%</span><span class="rl">CPI Inflation</span></div>' +
-    '<div class="rate-item"><span class="rv">R' + D.petrol95.toFixed(2) + live + '</span><span class="rl">Petrol 95/L</span></div>' +
-    '<div class="rate-item"><span class="rv">R' + D.diesel50i.toFixed(2) + live + '</span><span class="rl">Diesel/L</span></div>' +
-    '<div class="rate-item rates-updated"><span class="rl">SARS 2026/27 &middot; May 2026</span></div>';
+    '<div class="rate-item"><span class="rv">' + D.inflation + '%' + inflLive + '</span><span class="rl">CPI Inflation</span></div>' +
+    '<div class="rate-item"><span class="rv">R' + D.petrol95.toFixed(2) + fuelLive + '</span><span class="rl">Petrol 95/L</span></div>' +
+    '<div class="rate-item"><span class="rv">R' + D.diesel50i.toFixed(2) + fuelLive + '</span><span class="rl">Diesel/L</span></div>' +
+    '<div class="rate-item rates-updated"><span class="rl">SARS 2026/27</span></div>';
   updateHeroBento();
+  // Refresh open journey article facts in-place
+  if (_activeJourney) {
+    var factsEl = document.getElementById('ja-facts-' + _activeJourney);
+    if (factsEl) factsEl.innerHTML = _buildFactsHTML(_activeJourney);
+  }
 }
 
 // ── Scroll animations (IntersectionObserver) ─────────────────────
@@ -2595,6 +2606,96 @@ function renderJourneys() {
     '</button>';
 }
 
+// Returns live-sourced fact objects for a journey (reads from D)
+function buildJourneyFacts(id) {
+  var fuel = D._fuelLive;
+  var rates = D._ratesLive;
+  var infl  = D._inflationLive;
+  var zarStr = D._zarRate ? 'R' + D._zarRate + '/USD' : 'First Wed';
+  var zarLbl = D._zarRate ? 'USD/ZAR Live' : 'Price Change';
+  var zarNote = D._zarRate ? 'Live exchange rate · Brent calc' : 'DMRE adjusts fuel monthly';
+  return {
+    homebuyer: [
+      { val: D.primeRate + '%',          label: 'Prime Rate',        note: 'Home loans priced at prime ± margin',             live: rates },
+      { val: 'R0',                        label: 'Transfer Duty',     note: 'On properties under R1,100,000 · SARS 2026/27',   live: false },
+      { val: '~30%',                      label: 'Bond-to-Income',    note: 'Max banks typically approve',                     live: false },
+      { val: '10–20%',                    label: 'Ideal Deposit',     note: 'Secures a better interest rate',                  live: false }
+    ],
+    mypay: [
+      { val: 'R' + D.thresholds.u65.toLocaleString(), label: 'Tax Threshold', note: 'Under-65s pay no tax below this · SARS 2026/27', live: false },
+      { val: 'R' + D.rebates.primary.toLocaleString(), label: 'Primary Rebate', note: 'Everyone gets this off their tax bill',          live: false },
+      { val: (D.uifRate * 100) + '%',     label: 'UIF Rate',          note: 'Capped at R' + (D.uifCeiling * D.uifRate).toFixed(2) + '/mo', live: false },
+      { val: 'R' + D.medCredits.main + '/mo', label: 'Med Aid Credit', note: 'Per main member — rand-for-rand PAYE reduction', live: false }
+    ],
+    roadtrip: [
+      { val: 'R' + D.petrol95.toFixed(2), label: 'Petrol 95/L',      note: 'DMRE inland' + (fuel ? ' · Live est. via Brent/ZAR' : ''), live: fuel },
+      { val: 'R' + D.diesel50i.toFixed(2), label: 'Diesel 50ppm/L',  note: 'Inland pump price' + (fuel ? ' · Live est.' : ''),        live: fuel },
+      { val: zarStr,                       label: zarLbl,              note: zarNote,                                                   live: !!D._zarRate },
+      { val: '8–14 L',                     label: 'Typical /100km',   note: 'Sedan 8–10 · SUV 10–13 · Bakkie 12–15',                  live: false }
+    ],
+    investing: [
+      { val: 'R36,000',   label: 'TFSA Annual Limit',  note: 'All growth, income and withdrawals tax-free · SARS 2026/27', live: false },
+      { val: 'R500,000',  label: 'TFSA Lifetime Cap',  note: 'Penalties apply if exceeded — track carefully',              live: false },
+      { val: 'R350,000',  label: 'RA Max Deduction',   note: '27.5% of income — reduces taxable income now',              live: false },
+      { val: D.inflation + '%', label: 'CPI Inflation', note: 'SARB target 3–6%' + (infl ? ' · World Bank ' + (D._inflationYear || '') : ''), live: infl }
+    ],
+    business: [
+      { val: 'R1M',                         label: 'VAT Threshold',    note: 'Compulsory registration above R1M taxable turnover',    live: false },
+      { val: (D.vatRate * 100) + '%',        label: 'VAT Rate',         note: 'Zero-rated: basic foods, exports, public transport',    live: false },
+      { val: 'R' + D.eskomDirect.toFixed(2) + '/kWh', label: 'Eskom Direct', note: 'Most businesses pay muni rate R2.50–R4.50/kWh', live: false },
+      { val: (D.repoRate + 21).toFixed(2) + '%', label: 'NCR Loan Cap', note: 'Max unsecured: Repo (' + D.repoRate + '%) + 21%',      live: rates }
+    ]
+  }[id] || [];
+}
+
+function _buildFactsHTML(id) {
+  return buildJourneyFacts(id).map(function(f) {
+    var liveTag = f.live ? ' <span class="jaf-live" title="Live data">&#9679;</span>' : '';
+    return '<div class="ja-fact">' +
+      '<div class="jaf-val">' + _escHTML(f.val) + liveTag + '</div>' +
+      '<div class="jaf-label">' + _escHTML(f.label) + '</div>' +
+      '<div class="jaf-note">' + _escHTML(f.note) + '</div>' +
+    '</div>';
+  }).join('');
+}
+
+// Fetch live SA rates from World Bank (free, CORS-open, annual data)
+function fetchLiveRates() {
+  // SA CPI inflation
+  fetch('https://api.worldbank.org/v2/country/ZA/indicator/FP.CPI.TOTL.ZG?format=json&mrv=3')
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      var rows = d && d[1];
+      if (!rows) return;
+      var latest = rows.filter(function(r) { return r.value != null; })
+                       .sort(function(a, b) { return b.date - a.date; })[0];
+      if (!latest) return;
+      D.inflation = Math.round(latest.value * 10) / 10;
+      D._inflationLive = true;
+      D._inflationYear = latest.date;
+      renderRates();
+    }).catch(function() {});
+
+  // SA lending rate (prime-rate proxy, annual avg)
+  fetch('https://api.worldbank.org/v2/country/ZA/indicator/FR.INR.LEND?format=json&mrv=3')
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      var rows = d && d[1];
+      if (!rows) return;
+      var latest = rows.filter(function(r) { return r.value != null; })
+                       .sort(function(a, b) { return b.date - a.date; })[0];
+      if (!latest) return;
+      var p = Math.round(latest.value * 100) / 100;
+      if (p < 5 || p > 30) return; // sanity check
+      D.primeRate = p;
+      D.repoRate  = Math.round((p - 3.5) * 100) / 100;
+      D._ratesLive = true;
+      D._ratesYear = latest.date;
+      renderRates();
+      updateHeroBento();
+    }).catch(function() {});
+}
+
 function showJourneyArticle(id) {
   var journey = JOURNEYS.find(function(j) { return j.id === id; });
   var article = JOURNEY_ARTICLES[id];
@@ -2603,28 +2704,22 @@ function showJourneyArticle(id) {
   _activeJourney = id;
   _journeyCalcs  = journey.calcs;
 
-  // Build calculator tiles for this journey
-  var tiles = journey.calcs.map(function(cid) {
+  // Full calc cards (primary content — this is a calculator site)
+  var calcCards = journey.calcs.map(function(cid) {
     var c = CALCS.find(function(x) { return x.id === cid; });
     if (!c) return '';
-    var ico = ICONS[c.iconName] || '';
-    return '<button class="ja-calc-tile" onclick="showCalc(\'' + c.id + '\')" aria-label="Open ' + _escHTML(c.title) + '">' +
-      '<span class="ja-tile-icon">' + ico + '</span>' +
-      '<span class="ja-tile-label">' + _escHTML(c.title.split('/')[0].trim()) + '</span>' +
-      '<span class="ja-tile-arrow">&#8594;</span>' +
+    var ico = (ICONS[c.iconName] || '').replace(/width="20" height="20"/g, 'width="28" height="28"');
+    return '<button class="ja-calc-card" onclick="showCalc(\'' + c.id + '\')" aria-label="Open ' + _escHTML(c.title) + '">' +
+      '<div class="ja-cc-icon ' + c.cat + '-bg">' + ico + '</div>' +
+      '<div class="ja-cc-body">' +
+        '<div class="ja-cc-title">' + _escHTML(c.title) + '</div>' +
+        '<div class="ja-cc-desc">' + _escHTML(c.desc) + '</div>' +
+      '</div>' +
+      '<div class="ja-cc-arrow">&#8594;</div>' +
     '</button>';
   }).join('');
 
-  // Build facts strip
-  var facts = article.facts.map(function(f) {
-    return '<div class="ja-fact">' +
-      '<div class="jaf-val">' + _escHTML(f.val) + '</div>' +
-      '<div class="jaf-label">' + _escHTML(f.label) + '</div>' +
-      '<div class="jaf-note">' + _escHTML(f.note) + '</div>' +
-    '</div>';
-  }).join('');
-
-  // Build article sections
+  // Article sections (at bottom — supplementary context)
   var sections = article.sections.map(function(s) {
     var tip = s.tip ? '<div class="ja-tip-box">' + _escHTML(s.tip) + '</div>' : '';
     return '<div class="ja-section">' +
@@ -2633,6 +2728,8 @@ function showJourneyArticle(id) {
       tip +
     '</div>';
   }).join('');
+
+  var sourceSuffix = D._ratesYear ? ' · World Bank ' + D._ratesYear : '';
 
   var html =
     '<div class="ja-wrap">' +
@@ -2647,19 +2744,18 @@ function showJourneyArticle(id) {
         '</div>' +
       '</div>' +
 
-      '<div class="ja-facts-strip">' + facts + '</div>' +
+      '<div class="ja-facts-strip" id="ja-facts-' + id + '">' + _buildFactsHTML(id) + '</div>' +
 
       '<div class="ja-body">' +
         '<div class="ja-calcs-section">' +
-          '<h2 class="ja-calcs-heading">Jump straight to a calculator</h2>' +
-          '<div class="ja-calcs-grid">' + tiles + '</div>' +
+          '<p class="ja-section-label">Calculators</p>' +
+          '<div class="ja-calcs-list">' + calcCards + '</div>' +
         '</div>' +
 
+        '<div class="ja-guide-separator"><span class="ja-guide-label">SA Financial Guide</span></div>' +
         '<div class="ja-article">' + sections + '</div>' +
 
-        '<div class="ja-sources">' +
-          'Sources: SARS 2026/27 · DMRE · SARB · Stats SA CPI · National Credit Act' +
-        '</div>' +
+        '<div class="ja-sources">Sources: SARS 2026/27 · DMRE · SARB · Stats SA · National Credit Act' + sourceSuffix + '</div>' +
       '</div>' +
     '</div>';
 
@@ -2703,6 +2799,7 @@ function init() {
   renderJourneys();
   updateHeroBento();
   fetchLiveFuel();
+  fetchLiveRates();
   var hash = window.location.hash.replace('#', '');
   if (hash && CALCS.find(function(c) { return c.id === hash; })) {
     showCalc(hash);
