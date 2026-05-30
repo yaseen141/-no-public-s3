@@ -140,6 +140,140 @@ var JOURNEYS = [
   }
 ];
 
+// ── Journey Article Content ───────────────────────────────────────
+var JOURNEY_ARTICLES = {
+  homebuyer: {
+    title: 'Buying a Home in South Africa',
+    sub: '2026/27 guide to bonds, transfer duty and property costs',
+    gradient: 'linear-gradient(150deg,#065F46 0%,#0D9488 100%)',
+    facts: [
+      { val: '10.25%', label: 'Prime Rate', note: 'Home loans priced at prime ± margin' },
+      { val: 'R0', label: 'Transfer Duty', note: 'On properties under R1,100,000' },
+      { val: '~30%', label: 'Bond-to-Income', note: 'Max banks typically approve' },
+      { val: '10–20%', label: 'Ideal Deposit', note: 'Secures a better interest rate' }
+    ],
+    sections: [
+      {
+        heading: 'How South African Home Loans Work',
+        body: 'South African home loans (bonds) are priced at the prime lending rate plus or minus a margin based on your deposit and credit profile. With prime at 10.25% in 2026, most buyers pay between 9.75% and 11.25% per annum on a standard 20-year term. Banks use a guideline of roughly 30% of gross monthly income for bond repayments — so a R1.5 million bond at 10.25% requires around R55,000/month gross income for approval. Pre-approval from a bond originator (ooba, BetterBond) costs nothing and tells you your real budget before you fall in love with a property.'
+      },
+      {
+        heading: 'Transfer Duty: What You Will Actually Pay',
+        body: 'Transfer duty is the government\'s tax on property purchases. In 2026/27, properties priced at R1,100,000 or below pay zero transfer duty — a major saving for first-time buyers. Above that, a sliding scale runs from 3% on the amount over R1.1M up to 13% on amounts over R12.1M. If the seller is a VAT-registered developer (like many new developments), VAT at 15% replaces transfer duty and is usually built into the advertised price. Always ask your attorney which applies.'
+      },
+      {
+        heading: 'Full Cost Breakdown: Beyond the Purchase Price',
+        body: 'Budget an extra 7–10% of the purchase price for: conveyancing attorney fees (R15,000–R40,000+), bond registration costs (R10,000–R30,000+), rates clearance certificates, and occupational rent if you move in before registration. These costs must be paid from your own funds — they cannot be financed with the bond. Transfer duty is also settled from your own pocket, not from the loan. Most buyers are caught off-guard by these costs.',
+        tip: 'Making just R500/month extra on a R1.5M bond at 10.25% saves over R250,000 in total interest and cuts 2–3 years off your loan. The bond calculator below shows the exact numbers.'
+      }
+    ]
+  },
+  mypay: {
+    title: 'My Pay, Tax & Take-Home',
+    sub: 'PAYE, UIF, RA contributions and medical aid credits — decoded',
+    gradient: 'linear-gradient(150deg,#1E3A5F 0%,#2563EB 100%)',
+    facts: [
+      { val: 'R99,000', label: 'Tax Threshold', note: 'Under-65s pay no tax below this' },
+      { val: 'R17,820', label: 'Primary Rebate', note: 'Everyone gets this off their tax bill' },
+      { val: '1%', label: 'UIF Rate', note: 'Capped at R177.12/month (ceiling R17,712)' },
+      { val: 'R376/mo', label: 'Med Aid Credit', note: 'Per main member — rand-for-rand PAYE reduction' }
+    ],
+    sections: [
+      {
+        heading: 'How PAYE Works: The Seven Brackets',
+        body: 'South Africa uses a progressive income tax system with seven brackets ranging from 18% on the first R245,100 of taxable income to 45% on amounts above R1,878,600 (2026/27 rates). The primary rebate of R17,820 per year is deducted directly from your tax — not from your income — which is why the effective tax-free threshold is R99,000/year, not zero. Your employer deducts estimated PAYE monthly based on your annual expected earnings, then you settle any difference when you file your annual return via SARS eFiling.'
+      },
+      {
+        heading: 'Your Two Biggest Legal Tax Savers: RA and Medical Aid',
+        body: 'Retirement Annuity (RA) contributions are deductible up to 27.5% of your taxable income, capped at R350,000/year. At a 36% marginal tax rate, a R1,000 RA contribution costs you only R640 — SARS funds the other R360. The medical scheme fees tax credit is not a deduction but a direct rand-for-rand reduction in your PAYE: R376/month for the main member, R376 for the first dependant, and R254 for each additional dependant. These credits are the same regardless of your income level.',
+        tip: 'Maximise your RA contribution before end of February — the tax year runs March to February and contributions made before the deadline reduce your current year\'s tax. You may get a significant refund when you file.'
+      },
+      {
+        heading: 'UIF: What It Is and Why It Matters',
+        body: 'The Unemployment Insurance Fund deducts 1% of your monthly salary (capped at R177.12/month) and your employer matches it. This entitles you to claim income replacement if you are retrenched, dismissed, or unable to work due to illness. Maternity leave qualifies for 121 days of UIF benefit. You accumulate one credit day for every four days worked — the maximum claim period is 238 days (about eight months) after four consecutive years of contributions. All employees including domestic workers who work over 24 hours/month must be registered.'
+      }
+    ]
+  },
+  roadtrip: {
+    title: 'SA Road Trip Cost Planner',
+    sub: 'Fuel prices, vehicle running costs and trip budgets for South African roads',
+    gradient: 'linear-gradient(150deg,#7C1D1D 0%,#DC2626 100%)',
+    facts: [
+      { val: 'R26.63', label: 'Petrol 95/L', note: 'DMRE inland pump price, May 2026' },
+      { val: 'R32.30', label: 'Diesel 50ppm/L', note: 'Inland pump price, May 2026' },
+      { val: 'First Wed', label: 'Price Change Day', note: 'DMRE adjusts prices monthly' },
+      { val: '8–14 L', label: 'Typical Use /100km', note: 'Sedan: 8–10L · SUV: 10–13L · Bakkie: 12–15L' }
+    ],
+    sections: [
+      {
+        heading: 'How South African Fuel Prices Are Set',
+        body: 'The Department of Mineral Resources and Energy (DMRE) sets South African fuel prices on the first Wednesday of each month. The formula is based on the international Brent crude oil price, the ZAR/USD exchange rate over the preceding month, and fixed statutory levies: the General Fuel Levy (R4.04/L), the Road Accident Fund levy (R2.18/L), customs and excise duties, and transport costs from coast to inland (which is why inland prices are slightly higher than coastal). When the rand weakens or Brent rises, South Africans pay more within weeks.'
+      },
+      {
+        heading: 'Planning Your Trip Budget Accurately',
+        body: 'To calculate fuel cost: total distance ÷ your vehicle\'s consumption (L/100km) × price per litre. Always add 10–15% for city traffic, headwinds, and air conditioning. Don\'t overlook toll fees — the N3 from Johannesburg to Durban (569km) costs approximately R600+ in e-tolls for a standard car. The N1 Cape Town to Johannesburg (1,402km) has multiple toll plazas. Budget R0.50–R1.00/km for tolls on major national routes. The Mzanzi Trip Calculator uses real OpenStreetMap road routing for accurate distances.',
+        tip: 'In rural areas, fill up whenever you pass a petrol station. Some stretches of the N14, R30 and R37 have 100km+ gaps between fuel stops. Never start a rural leg with less than half a tank.'
+      },
+      {
+        heading: 'Petrol vs Diesel: Real Running Costs Compared',
+        body: 'Although diesel costs more per litre than petrol, diesel engines typically achieve 20–30% better fuel economy, making them cost-competitive over long distances. A diesel bakkie averaging 9L/100km at R32.30/L costs R2.91/km. A petrol SUV averaging 12L/100km at R26.63/L costs R3.20/km. Over a 1,000km trip that\'s R2,910 vs R3,200 — the diesel is actually cheaper despite the higher pump price. The Vehicle Finance calculator helps you compare the total cost of ownership.'
+      }
+    ]
+  },
+  investing: {
+    title: 'Growing Your Money in South Africa',
+    sub: 'TFSA, retirement annuities, compound growth and protecting against inflation',
+    gradient: 'linear-gradient(150deg,#3B0764 0%,#7C3AED 100%)',
+    facts: [
+      { val: 'R36,000', label: 'TFSA Annual Limit', note: 'All growth, income and withdrawals tax-free' },
+      { val: 'R500,000', label: 'TFSA Lifetime Cap', note: 'Penalties apply if exceeded — track carefully' },
+      { val: 'R350,000', label: 'RA Max Deduction', note: '27.5% of income — reduces taxable income now' },
+      { val: 'R40,000', label: 'CGT Annual Exclusion', note: 'First R40K capital gain per year is tax-free' }
+    ],
+    sections: [
+      {
+        heading: 'The Power of Compound Interest in Practice',
+        body: 'South African equities have historically delivered CPI + 7% over 20-year periods. At current CPI of 3.4%, that implies roughly 10.4% nominal returns. Investing R2,000/month for 30 years at 10% annual return grows to over R4.5 million — yet your total contributions were only R720,000. The remaining R3.8 million is pure compound growth. The most powerful variable is time: starting 10 years earlier roughly doubles your final balance. Time in the market consistently beats timing the market.'
+      },
+      {
+        heading: 'TFSA vs Retirement Annuity: How to Choose',
+        body: 'Both are powerful tax wrappers but serve different purposes. A Tax-Free Savings Account (TFSA) is flexible — withdraw anytime, invest in ETFs, and all growth is genuinely tax-free forever with no lock-in. A Retirement Annuity (RA) gives you a tax deduction today (saving you tax now) but funds are locked until age 55. The general approach: max your RA first for the immediate tax saving on your highest-taxed income, then fill your TFSA for accessible long-term growth. Easy Equities and Satrix offer both with zero brokerage on ETFs.',
+        tip: 'At a 36% marginal tax rate, a R1,000 RA contribution only costs you R640 out of pocket. That\'s an immediate 56% return on your actual cash outflow before any investment growth.'
+      },
+      {
+        heading: 'Inflation: The Silent Wealth Destroyer',
+        body: 'R1,000 in the year 2000 bought what costs R3,740 today — a 73% loss in purchasing power over 25 years. Any investment returning less than inflation is losing real value. The SARB targets CPI within the 3–6% band, but SA has historically averaged closer to 5–6%. This is why cash savings accounts (paying 7–8%) barely break even in real terms. Equity investments targeting CPI + 5% to CPI + 7% are the standard benchmark for long-term wealth accumulation in South Africa.'
+      }
+    ]
+  },
+  business: {
+    title: 'Running a South African Business',
+    sub: 'VAT compliance, electricity costs, loan rates and employee obligations',
+    gradient: 'linear-gradient(150deg,#7C2D12 0%,#EA580C 100%)',
+    facts: [
+      { val: 'R1M', label: 'VAT Threshold', note: 'Compulsory registration above R1M taxable turnover' },
+      { val: '15%', label: 'Standard VAT Rate', note: 'Zero-rated: basic foods, exports, public transport' },
+      { val: '+12.74%', label: 'Eskom Increase', note: 'NERSA-approved April 2025 tariff increase' },
+      { val: 'Repo +21%', label: 'NCR Loan Cap', note: 'Maximum unsecured loan rate = 27.75% at current repo' }
+    ],
+    sections: [
+      {
+        heading: 'VAT Registration, Filing and Recovery',
+        body: 'VAT registration is compulsory when your taxable supplies exceed R1,000,000 in any 12-month period. Voluntary registration is allowed above R50,000. Once registered, you add 15% to your invoices (output VAT), claim back the 15% you paid on business expenses (input VAT), and pay SARS the net difference bi-monthly via eFiling. A 10% penalty applies on late submissions. Zero-rated supplies (exports, basic food items) charge 0% VAT but you still recover all input VAT on your expenses — making exporting effectively VAT-free on the output side.',
+        tip: 'If your business buys more than it sells in a VAT period (e.g. during a large equipment purchase), SARS owes you a refund. Always file on time even when you\'re owed money — delays in filing delay your refund.'
+      },
+      {
+        heading: 'Managing South Africa\'s Rising Electricity Costs',
+        body: 'Electricity is one of the fastest-growing overheads for South African businesses. Eskom direct customers pay an average of R2.21/kWh (2025/26 standard rate), but most businesses receive municipal supply at R2.50–R4.50/kWh. Cumulative tariff increases since 2010 total approximately 650%. Solar photovoltaic with battery storage typically offers a 3–5 year payback and provides load-shedding insurance. The Section 12B renewable energy tax incentive allows 125% depreciation in year one for qualifying solar installations under 1MW.'
+      },
+      {
+        heading: 'BCEA Overtime: Your Legal Obligations',
+        body: 'The Basic Conditions of Employment Act covers employees earning below R254,371/year. For covered employees: ordinary hours are capped at 45/week, overtime is capped at 10 hours/week, weekday overtime must be paid at 1.5× the hourly rate, and Sunday work (on a non-working day) at 2×. Employees above the BCEA earnings threshold are not covered by these minimum overtime rates — pay rates are negotiable but should always be agreed in writing. Non-compliance with BCEA can result in CCMA claims and Department of Labour penalties.'
+      }
+    ]
+  }
+};
+
 // ── Formatters ────────────────────────────────────────────────────
 function R(n, dec) {
   if (dec === undefined) dec = 0;
@@ -2141,11 +2275,21 @@ function showHome() {
   if (_chartInstance) { try { _chartInstance.destroy(); } catch(e){} _chartInstance = null; }
   document.getElementById('home-view').style.display = '';
   document.getElementById('calc-view').style.display = 'none';
+  var jv = document.getElementById('journey-view');
+  if (jv) jv.style.display = 'none';
   var bar = document.getElementById('mobile-bar');
   if (bar) bar.classList.remove('visible');
+  _activeJourney = null;
   document.title = 'Mzanzi Cals — South Africa\'s Free Calculator Suite';
   window.location.hash = '';
-  renderGrid();
+}
+
+function calcBack() {
+  if (_activeJourney) {
+    showJourneyArticle(_activeJourney);
+  } else {
+    showHome();
+  }
 }
 
 function showCalc(id) {
@@ -2153,6 +2297,17 @@ function showCalc(id) {
   if (!calc) { showHome(); return; }
 
   document.getElementById('home-view').style.display = 'none';
+  var jv = document.getElementById('journey-view');
+  if (jv) jv.style.display = 'none';
+  var backLabel = document.getElementById('calc-back-label');
+  if (backLabel) {
+    if (_activeJourney) {
+      var aj = JOURNEYS.find(function(j) { return j.id === _activeJourney; });
+      backLabel.textContent = aj ? aj.label : 'Back';
+    } else {
+      backLabel.textContent = 'Back';
+    }
+  }
   var cv = document.getElementById('calc-view');
   cv.style.display = '';
   cv.classList.remove('calc-view-entering');
@@ -2440,40 +2595,92 @@ function renderJourneys() {
     '</button>';
 }
 
-function showJourney(id) {
+function showJourneyArticle(id) {
   var journey = JOURNEYS.find(function(j) { return j.id === id; });
-  if (!journey) return;
+  var article = JOURNEY_ARTICLES[id];
+  if (!journey || !article) return;
 
+  _activeJourney = id;
   _journeyCalcs  = journey.calcs;
-  _activeJourney = journey.id;
 
-  // Update journey header
-  var header = document.getElementById('journey-header');
-  var headerTitle = document.getElementById('journey-header-title');
-  var headerSub   = document.getElementById('journey-header-sub');
-  if (header) {
-    header.classList.add('visible');
-    if (headerTitle) headerTitle.textContent = journey.label;
-    if (headerSub)   headerSub.textContent   = journey.sub;
-  }
+  // Build calculator tiles for this journey
+  var tiles = journey.calcs.map(function(cid) {
+    var c = CALCS.find(function(x) { return x.id === cid; });
+    if (!c) return '';
+    var ico = ICONS[c.iconName] || '';
+    return '<button class="ja-calc-tile" onclick="showCalc(\'' + c.id + '\')" aria-label="Open ' + _escHTML(c.title) + '">' +
+      '<span class="ja-tile-icon">' + ico + '</span>' +
+      '<span class="ja-tile-label">' + _escHTML(c.title.split('/')[0].trim()) + '</span>' +
+      '<span class="ja-tile-arrow">&#8594;</span>' +
+    '</button>';
+  }).join('');
 
-  renderGrid();
+  // Build facts strip
+  var facts = article.facts.map(function(f) {
+    return '<div class="ja-fact">' +
+      '<div class="jaf-val">' + _escHTML(f.val) + '</div>' +
+      '<div class="jaf-label">' + _escHTML(f.label) + '</div>' +
+      '<div class="jaf-note">' + _escHTML(f.note) + '</div>' +
+    '</div>';
+  }).join('');
 
-  // Scroll to the calc grid section smoothly
-  var gridSection = document.getElementById('home-grid-section');
-  if (gridSection) {
-    gridSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
+  // Build article sections
+  var sections = article.sections.map(function(s) {
+    var tip = s.tip ? '<div class="ja-tip-box">' + _escHTML(s.tip) + '</div>' : '';
+    return '<div class="ja-section">' +
+      '<h3 class="ja-section-heading">' + _escHTML(s.heading) + '</h3>' +
+      '<p class="ja-section-body">' + _escHTML(s.body) + '</p>' +
+      tip +
+    '</div>';
+  }).join('');
+
+  var html =
+    '<div class="ja-wrap">' +
+      '<div class="ja-banner" style="background:' + article.gradient + '">' +
+        '<button class="ja-back" onclick="showHome()" aria-label="Back to home">' +
+          ICONS['home'] + ' Home' +
+        '</button>' +
+        '<div class="ja-banner-inner">' +
+          '<div class="ja-hero-ico">' + (ICONS[journey.icon] || '') + '</div>' +
+          '<h1 class="ja-title">' + _escHTML(article.title) + '</h1>' +
+          '<p class="ja-sub">' + _escHTML(article.sub) + '</p>' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="ja-facts-strip">' + facts + '</div>' +
+
+      '<div class="ja-body">' +
+        '<div class="ja-calcs-section">' +
+          '<h2 class="ja-calcs-heading">Jump straight to a calculator</h2>' +
+          '<div class="ja-calcs-grid">' + tiles + '</div>' +
+        '</div>' +
+
+        '<div class="ja-article">' + sections + '</div>' +
+
+        '<div class="ja-sources">' +
+          'Sources: SARS 2026/27 · DMRE · SARB · Stats SA CPI · National Credit Act' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+
+  var container = document.getElementById('journey-article-content');
+  if (container) container.innerHTML = html;
+
+  document.getElementById('home-view').style.display = 'none';
+  document.getElementById('calc-view').style.display = 'none';
+  var jv = document.getElementById('journey-view');
+  if (jv) jv.style.display = '';
+
+  document.title = article.title + ' | Mzanzi Cals';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showJourney(id) {
+  showJourneyArticle(id);
 }
 
 function clearJourney() {
-  _journeyCalcs  = null;
-  _activeJourney = null;
-
-  var header = document.getElementById('journey-header');
-  if (header) header.classList.remove('visible');
-
-  renderGrid();
+  showHome();
 }
 
 // ── Hero Bento Update ─────────────────────────────────────────────
@@ -2491,8 +2698,6 @@ function updateHeroBento() {
 
 // ── Init ───────────────────────────────────────────────────────────
 function init() {
-  renderGrid();
-  initSearch();
   initScrollAnimations();
   renderRates();
   renderJourneys();

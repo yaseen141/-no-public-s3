@@ -2369,3 +2369,228 @@ input[type="range"] { background: rgba(255,255,255,.1) !important; }
   .hb-live { animation: none !important; }
   .hero-bento .hb-card { transition: none !important; }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   JOURNEY ARTICLE VIEW (.ja-*)
+═══════════════════════════════════════════════════════════ */
+#journey-view {
+  min-height: 100vh;
+  background: #050D09;
+}
+
+.ja-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  padding-bottom: 80px;
+}
+
+/* Banner */
+.ja-banner {
+  position: relative;
+  padding: 48px 24px 40px;
+  overflow: hidden;
+}
+.ja-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.35);
+}
+.ja-banner > * { position: relative; z-index: 1; }
+
+.ja-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.2);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 7px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 28px;
+  transition: background 200ms;
+}
+.ja-back:hover { background: rgba(255,255,255,.22); }
+.ja-back svg { flex-shrink: 0; }
+
+.ja-banner-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ja-hero-ico {
+  width: 52px;
+  height: 52px;
+  background: rgba(255,255,255,.15);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+.ja-hero-ico svg {
+  width: 28px;
+  height: 28px;
+  stroke: #fff;
+}
+
+.ja-title {
+  font-size: clamp(22px, 5vw, 32px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+  margin: 0;
+}
+.ja-sub {
+  font-size: 15px;
+  color: rgba(255,255,255,.75);
+  margin: 0;
+}
+
+/* Facts strip */
+.ja-facts-strip {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,.06);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+@media (min-width: 560px) {
+  .ja-facts-strip { grid-template-columns: repeat(4, 1fr); }
+}
+
+.ja-fact {
+  background: #0B1610;
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.jaf-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 700;
+  color: #4ADE80;
+  line-height: 1;
+}
+
+.jaf-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #F0FDF4;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.jaf-note {
+  font-size: 11px;
+  color: rgba(240,253,244,.45);
+  line-height: 1.4;
+}
+
+/* Body */
+.ja-body {
+  padding: 0 16px;
+}
+@media (min-width: 640px) {
+  .ja-body { padding: 0 24px; }
+}
+
+/* Calculator tiles */
+.ja-calcs-section {
+  padding: 32px 0 24px;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+
+.ja-calcs-heading {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(240,253,244,.45);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin: 0 0 14px;
+}
+
+.ja-calcs-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ja-calc-tile {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  color: #F0FDF4;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 180ms, border-color 180ms, transform 150ms;
+  text-align: left;
+}
+.ja-calc-tile:hover {
+  background: rgba(74,222,128,.1);
+  border-color: rgba(74,222,128,.35);
+  transform: translateY(-1px);
+}
+.ja-tile-icon svg { width: 18px; height: 18px; flex-shrink: 0; }
+.ja-tile-arrow {
+  color: rgba(240,253,244,.35);
+  font-size: 13px;
+  margin-left: 4px;
+}
+
+/* Article sections */
+.ja-article {
+  padding: 32px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.ja-section {}
+
+.ja-section-heading {
+  font-size: 18px;
+  font-weight: 700;
+  color: #F0FDF4;
+  margin: 0 0 12px;
+  line-height: 1.3;
+}
+
+.ja-section-body {
+  font-size: 15px;
+  line-height: 1.75;
+  color: rgba(240,253,244,.75);
+  margin: 0;
+}
+
+.ja-tip-box {
+  margin-top: 14px;
+  background: rgba(74,222,128,.08);
+  border-left: 3px solid #4ADE80;
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(240,253,244,.8);
+}
+
+/* Sources footer */
+.ja-sources {
+  font-size: 11px;
+  color: rgba(240,253,244,.3);
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding: 20px 0;
+  letter-spacing: .03em;
+}
+

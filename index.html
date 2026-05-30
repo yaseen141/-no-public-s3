@@ -343,56 +343,19 @@
     <div class="journey-section" id="journey-section" aria-label="Calculator journeys"></div>
   </div>
 
-  <div class="container home-grid-wrap" id="home-grid-section">
-    <!-- Journey Header (shown when a journey is active) -->
-    <div class="journey-header" id="journey-header" role="navigation" aria-label="Current journey">
-      <button class="journey-header-back" onclick="clearJourney()" aria-label="Back to all calculators">&#8592; All</button>
-      <div>
-        <div class="journey-header-title" id="journey-header-title"></div>
-        <div class="journey-header-sub" id="journey-header-sub"></div>
-      </div>
-    </div>
-    <!-- Search + Filters -->
-    <div class="search-section">
-      <div class="search-wrap" role="search">
-        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input type="search" id="search" placeholder="Search calculators — PAYE, bond, VAT, fuel…" autocomplete="off" aria-label="Search calculators" spellcheck="false">
-        <button class="search-clear" id="search-clear" aria-label="Clear search" tabindex="-1">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
-        </button>
-      </div>
-      <div class="cat-pills" id="cat-pills" role="group" aria-label="Filter by category"></div>
-      <p class="calc-count" id="calc-count" aria-live="polite"></p>
-    </div>
+</div><!-- end home-view -->
 
-    <div class="calc-grid" id="calc-grid" aria-label="Calculator categories"></div>
-  </div>
-
-  <!-- About Section -->
-  <div class="container">
-    <section class="about-section">
-      <h2>About Mzanzi Cals</h2>
-      <p>Mzanzi Cals is South Africa's most complete free financial calculator suite — built for South Africans, by South Africans. Every calculator uses official data from SARS, SARB, DMRE and Stats SA.</p>
-      <h3>Why use Mzanzi Cals?</h3>
-      <ul class="about-list">
-        <li><strong>Accurate 2026/27 data</strong> — Updated with the latest SARS tax tables, SARB rates, and DMRE fuel prices</li>
-        <li><strong>Completely free</strong> — No subscriptions, no sign-up, no hidden fees. Free forever.</li>
-        <li><strong>Privacy first</strong> — All calculations happen in your browser. No data is ever sent to any server.</li>
-        <li><strong>17 calculators</strong> — PAYE, salary, VAT, UIF, bond, transfer duty, vehicle finance, compound interest, CGT, and more</li>
-      </ul>
-      <h3>Data sources</h3>
-      <p>Tax tables: <strong>SARS 2026/27</strong> · Interest rates: <strong>SARB</strong> · Fuel prices: <strong>DMRE</strong> · Inflation: <strong>Stats SA CPI</strong> · Eskom tariffs: <strong>NERSA</strong></p>
-      <p><em>For informational purposes only. Not financial advice. Consult a registered tax practitioner or financial adviser for personalised guidance.</em></p>
-    </section>
-  </div>
+<!-- JOURNEY ARTICLE VIEW -->
+<div id="journey-view" style="display:none">
+  <div id="journey-article-content"></div>
 </div>
 
 <!-- CALCULATOR VIEW -->
 <div id="calc-view" style="display:none">
   <div class="container">
-    <button class="back-btn" onclick="showHome()" aria-label="Back to all calculators">
+    <button class="back-btn" onclick="calcBack()" aria-label="Back" id="calc-back-btn">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
-      All Calculators
+      <span id="calc-back-label">Back</span>
     </button>
     <div class="calc-layout">
       <div class="calc-left">
