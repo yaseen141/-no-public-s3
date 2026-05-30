@@ -93,6 +93,52 @@ var ICONS = {
 // ── Search State ──────────────────────────────────────────────────
 var _currentSearch = '';
 var _activeCategory = 'all';
+var _journeyCalcs   = null;   // null = show all; array of IDs = journey filter
+var _activeJourney  = null;   // ID of active journey
+
+// ── Journey Data ──────────────────────────────────────────────────
+var JOURNEYS = [
+  {
+    id: 'homebuyer',
+    label: 'Buying a Home',
+    sub: 'Bond, transfer duty & rental yield',
+    icon: 'home',
+    gradient: '135deg,#0D9488,#0F766E',
+    calcs: ['bond','transfer-duty','rental-yield']
+  },
+  {
+    id: 'mypay',
+    label: 'My Pay & Tax',
+    sub: 'PAYE, UIF, salary breakdown & medical aid',
+    icon: 'briefcase',
+    gradient: '135deg,#2563EB,#1D4ED8',
+    calcs: ['paye','salary','uif','medical-aid','overtime']
+  },
+  {
+    id: 'roadtrip',
+    label: 'Road Trip',
+    sub: 'Fuel costs, vehicle finance & trip planner',
+    icon: 'map',
+    gradient: '135deg,#DC2626,#B91C1C',
+    calcs: ['trip-fuel','fuel','vehicle-finance']
+  },
+  {
+    id: 'investing',
+    label: 'Growing Money',
+    sub: 'TFSA, RA, CGT & inflation calculator',
+    icon: 'trending-up',
+    gradient: '135deg,#7C3AED,#6D28D9',
+    calcs: ['compound-interest','retirement-annuity','cgt','inflation']
+  },
+  {
+    id: 'business',
+    label: 'Business & VAT',
+    sub: 'VAT, electricity, overtime & loans',
+    icon: 'building',
+    gradient: '135deg,#EA580C,#C2410C',
+    calcs: ['vat','electricity','loan','compound-interest']
+  }
+];
 
 // ── Formatters ────────────────────────────────────────────────────
 function R(n, dec) {
@@ -2173,6 +2219,10 @@ function renderGrid() {
   var cat = _activeCategory;
 
   var filtered = CALCS.filter(function(c) {
+    // Journey filter takes precedence — show only those calc IDs
+    if (_journeyCalcs !== null) {
+      if (_journeyCalcs.indexOf(c.id) === -1) return false;
+    }
     var matchCat = (cat === 'all') || c.cat === cat;
     var matchQ   = !q || c.title.toLowerCase().indexOf(q) !== -1 || c.desc.toLowerCase().indexOf(q) !== -1;
     return matchCat && matchQ;
@@ -2314,6 +2364,7 @@ function fetchLiveFuel() {
     D._brent    = Math.round(brent);
     D._zarRate  = zar.toFixed(2);
     renderRates();
+    updateHeroBento();
     if (window._calc) window._calc();
   }).catch(function() { /* keep hardcoded values */ });
 }
@@ -2333,6 +2384,7 @@ function renderRates() {
     '<div class="rate-item"><span class="rv">R' + D.petrol95.toFixed(2) + live + '</span><span class="rl">Petrol 95/L</span></div>' +
     '<div class="rate-item"><span class="rv">R' + D.diesel50i.toFixed(2) + live + '</span><span class="rl">Diesel/L</span></div>' +
     '<div class="rate-item rates-updated"><span class="rl">SARS 2026/27 &middot; May 2026</span></div>';
+  updateHeroBento();
 }
 
 // ── Scroll animations (IntersectionObserver) ─────────────────────
@@ -2359,12 +2411,92 @@ function initScrollAnimations() {
   });
 }
 
+// ── Journey Functions ──────────────────────────────────────────────
+
+function renderJourneys() {
+  var el = document.getElementById('journey-section');
+  if (!el) return;
+
+  var cards = JOURNEYS.map(function(j) {
+    var ico = ICONS[j.icon] || '';
+    // Replace the icon's width/height with 24 for journey display
+    var icoLarge = ico.replace(/width="20" height="20"/g, 'width="24" height="24"');
+    var count = j.calcs.filter(function(id) {
+      return CALCS.find(function(c) { return c.id === id; });
+    }).length;
+    return '<button class="journey-card" onclick="showJourney(\'' + j.id + '\')" aria-label="Explore ' + _escHTML(j.label) + '">' +
+      '<div class="journey-ico-wrap" style="background:linear-gradient(' + j.gradient + ')">' + icoLarge + '</div>' +
+      '<div class="journey-title">' + _escHTML(j.label) + '</div>' +
+      '<div class="journey-sub">' + _escHTML(j.sub) + '</div>' +
+      '<div class="journey-count">&#8594; ' + count + ' calculator' + (count !== 1 ? 's' : '') + '</div>' +
+      '</button>';
+  }).join('');
+
+  el.innerHTML =
+    '<div class="journey-heading">Start your journey <span>— pick a category below</span></div>' +
+    '<div class="journey-grid">' + cards + '</div>' +
+    '<button class="journey-browse-all" onclick="clearJourney()" aria-label="Browse all calculators">' +
+      'Browse all 17 calculators &#8594;' +
+    '</button>';
+}
+
+function showJourney(id) {
+  var journey = JOURNEYS.find(function(j) { return j.id === id; });
+  if (!journey) return;
+
+  _journeyCalcs  = journey.calcs;
+  _activeJourney = journey.id;
+
+  // Update journey header
+  var header = document.getElementById('journey-header');
+  var headerTitle = document.getElementById('journey-header-title');
+  var headerSub   = document.getElementById('journey-header-sub');
+  if (header) {
+    header.classList.add('visible');
+    if (headerTitle) headerTitle.textContent = journey.label;
+    if (headerSub)   headerSub.textContent   = journey.sub;
+  }
+
+  renderGrid();
+
+  // Scroll to the calc grid section smoothly
+  var gridSection = document.getElementById('home-grid-section');
+  if (gridSection) {
+    gridSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function clearJourney() {
+  _journeyCalcs  = null;
+  _activeJourney = null;
+
+  var header = document.getElementById('journey-header');
+  if (header) header.classList.remove('visible');
+
+  renderGrid();
+}
+
+// ── Hero Bento Update ─────────────────────────────────────────────
+function updateHeroBento() {
+  var elPrime = document.getElementById('hb-prime');
+  var elP95   = document.getElementById('hb-p95');
+  if (elPrime) elPrime.textContent = D.primeRate + '%';
+  if (elP95) {
+    var live = D._fuelLive
+      ? '<span class="hb-live" aria-label="live data">&#9679;</span>'
+      : '';
+    elP95.innerHTML = 'R' + D.petrol95.toFixed(2) + live;
+  }
+}
+
 // ── Init ───────────────────────────────────────────────────────────
 function init() {
   renderGrid();
   initSearch();
   initScrollAnimations();
   renderRates();
+  renderJourneys();
+  updateHeroBento();
   fetchLiveFuel();
   var hash = window.location.hash.replace('#', '');
   if (hash && CALCS.find(function(c) { return c.id === hash; })) {

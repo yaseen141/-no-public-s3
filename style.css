@@ -1920,3 +1920,452 @@ input[type="number"]:focus, select:focus {
   .calc-card   { transition: none !important; }
   .calc-view-entering { animation: none !important; }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   DARK CINEMA FULL SITE — Mzanzi Cals Premium Fintech
+   Background: #050D09  Primary: #007A4D  Accent: #FFB612
+═══════════════════════════════════════════════════════════ */
+
+/* ── Dark Body ───────────────────────────────────────────── */
+body {
+  background: #050D09 !important;
+  color: #F0FDF4 !important;
+}
+
+/* ── Dark Header ─────────────────────────────────────────── */
+.site-header {
+  background: rgba(5,13,9,0.88) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid rgba(255,255,255,.07) !important;
+  box-shadow: 0 2px 20px rgba(0,0,0,.4) !important;
+}
+.logo { color: #F0FDF4 !important; }
+.logo strong { color: #FFB612 !important; }
+
+/* ── Dark Calculator Cards ───────────────────────────────── */
+.calc-card {
+  background: rgba(255,255,255,.04) !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+  color: #F0FDF4 !important;
+  border-radius: 20px !important;
+}
+.calc-card h3 { color: #F0FDF4 !important; }
+.calc-card p { color: rgba(255,255,255,.55) !important; }
+.calc-card:hover {
+  background: rgba(255,255,255,.08) !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,.4) !important;
+  border-color: rgba(255,255,255,.16) !important;
+}
+/* Remove category-colored top borders — dark mode has uniform glass */
+.cat-section[data-cat="tax"]        .calc-card,
+.cat-section[data-cat="property"]   .calc-card,
+.cat-section[data-cat="loans"]      .calc-card,
+.cat-section[data-cat="auto"]       .calc-card,
+.cat-section[data-cat="investment"] .calc-card,
+.cat-section[data-cat="utilities"]  .calc-card {
+  border-top: 1px solid rgba(255,255,255,.08) !important;
+}
+
+/* Popular cards glow */
+.calc-card .popular-badge {
+  box-shadow: 0 0 0 1px rgba(0,168,102,.3), 0 4px 24px rgba(0,122,77,.15);
+}
+
+/* ── Dark Category Section Headers ──────────────────────── */
+.cat-head {
+  background: rgba(255,255,255,.03) !important;
+  border-left: 3px solid var(--primary) !important;
+  border-bottom: none !important;
+}
+.cat-section-title { color: #F0FDF4 !important; }
+.cat-section-count {
+  background: rgba(0,122,77,.15) !important;
+  color: #86efac !important;
+}
+
+/* ── Dark Search ─────────────────────────────────────────── */
+#search {
+  background: rgba(255,255,255,.06) !important;
+  color: #F0FDF4 !important;
+  border-color: rgba(255,255,255,.12) !important;
+}
+#search::placeholder { color: rgba(255,255,255,.35) !important; }
+#search:focus {
+  background: rgba(255,255,255,.09) !important;
+  border-color: var(--primary) !important;
+}
+.search-icon { color: rgba(255,255,255,.35) !important; }
+.search-clear { color: rgba(255,255,255,.4) !important; }
+.search-clear:hover { color: #F0FDF4 !important; background: rgba(255,255,255,.08) !important; }
+
+/* ── Dark Category Pills ─────────────────────────────────── */
+.cat-pill {
+  background: rgba(255,255,255,.05) !important;
+  border-color: rgba(255,255,255,.12) !important;
+  color: rgba(255,255,255,.6) !important;
+}
+.cat-pill:hover { border-color: var(--primary) !important; color: #86efac !important; }
+.cat-pill.active {
+  background: var(--primary) !important;
+  color: white !important;
+  border-color: var(--primary) !important;
+  box-shadow: 0 3px 12px rgba(0,122,77,.4) !important;
+}
+
+/* ── Dark Form Inputs ────────────────────────────────────── */
+input[type="number"], input[type="text"], select, textarea {
+  background: rgba(255,255,255,.06) !important;
+  border-color: rgba(255,255,255,.12) !important;
+  color: #F0FDF4 !important;
+}
+input[type="number"]:focus, input[type="text"]:focus, select:focus {
+  background: rgba(255,255,255,.09) !important;
+  border-color: var(--primary) !important;
+}
+.ipfx, .isfx { color: rgba(255,255,255,.45) !important; }
+.field label { color: rgba(255,255,255,.8) !important; }
+.omni-label {
+  background: rgba(255,255,255,.04) !important;
+  color: rgba(255,255,255,.75) !important;
+  border-right-color: rgba(255,255,255,.08) !important;
+}
+.omni-form { background: rgba(255,255,255,.03) !important; border-color: rgba(255,255,255,.08) !important; }
+.omni-row { border-bottom-color: rgba(255,255,255,.06) !important; }
+.omni-section-head { background: rgba(255,255,255,.04) !important; border-bottom-color: rgba(255,255,255,.06) !important; }
+.omni-input-cell input, .omni-input-cell select { color: #F0FDF4 !important; }
+.omni-result-row, .omni-result-row .omni-label { background: rgba(255,255,255,.03) !important; }
+
+/* ── Dark Form Card ──────────────────────────────────────── */
+.form-card {
+  background: rgba(255,255,255,.04) !important;
+  border-color: rgba(255,255,255,.08) !important;
+}
+
+/* ── Dark About Section ──────────────────────────────────── */
+.about-section h2 {
+  background: linear-gradient(135deg,#86efac,#FFB612) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+.about-section h3 { color: #F0FDF4 !important; }
+.about-section p, .about-list li { color: rgba(255,255,255,.6) !important; }
+.about-list li::before { color: #86efac !important; }
+.about-list strong { color: rgba(255,255,255,.85) !important; }
+.fdivider { color: rgba(255,255,255,.35) !important; border-bottom-color: rgba(255,255,255,.08) !important; }
+.fsect { color: rgba(255,255,255,.35) !important; }
+.fsect::after { background: rgba(255,255,255,.08) !important; }
+
+/* ── Dark Calc View ──────────────────────────────────────── */
+.calc-view { background: transparent !important; }
+#cv-title { color: #F0FDF4 !important; }
+#cv-desc { color: rgba(255,255,255,.6) !important; }
+.back-btn { color: rgba(255,255,255,.5) !important; }
+.back-btn:hover { color: #86efac !important; }
+.disclaimer {
+  background: rgba(255,255,255,.04) !important;
+  border-left-color: rgba(255,255,255,.15) !important;
+  color: rgba(255,255,255,.35) !important;
+}
+
+/* ── Dark Info Card ──────────────────────────────────────── */
+.info-card {
+  background: rgba(255,255,255,.04) !important;
+  border-color: rgba(255,255,255,.08) !important;
+}
+.info-card h4 { color: rgba(255,255,255,.5) !important; }
+.info-card p, .info-card li { color: rgba(255,255,255,.6) !important; }
+.info-card strong { color: rgba(255,255,255,.85) !important; }
+
+/* ── Dark Related Chips ──────────────────────────────────── */
+.rchip {
+  background: rgba(255,255,255,.05) !important;
+  border-color: rgba(255,255,255,.1) !important;
+  color: rgba(255,255,255,.7) !important;
+}
+.rchip:hover { border-color: var(--primary) !important; color: #86efac !important; }
+.related-label { color: rgba(255,255,255,.4) !important; }
+
+/* ── Dark FAQ ────────────────────────────────────────────── */
+.faq-section { border-top-color: rgba(255,255,255,.08) !important; }
+.faq-section > h3 { color: #F0FDF4 !important; }
+.faq-item {
+  background: rgba(255,255,255,.04) !important;
+  border-color: rgba(255,255,255,.08) !important;
+}
+.faq-q { background: rgba(255,255,255,.04) !important; color: rgba(255,255,255,.85) !important; }
+.faq-chevron { background: rgba(255,255,255,.07) !important; color: rgba(255,255,255,.4) !important; }
+.faq-a { background: rgba(255,255,255,.02) !important; border-top-color: rgba(255,255,255,.08) !important; color: rgba(255,255,255,.6) !important; }
+
+/* ── Dark Amortisation Table ─────────────────────────────── */
+.amort-wrap { border-color: rgba(255,255,255,.08) !important; }
+.amort-table th { background: rgba(255,255,255,.06) !important; }
+.amort-table td { border-bottom-color: rgba(255,255,255,.06) !important; color: rgba(255,255,255,.8) !important; }
+.amort-table tr:nth-child(even) td { background: rgba(255,255,255,.03) !important; }
+.amort-btn {
+  background: rgba(255,255,255,.06) !important;
+  border-color: rgba(255,255,255,.12) !important;
+  color: rgba(255,255,255,.6) !important;
+}
+.amort-btn:hover { border-color: var(--primary) !important; color: #86efac !important; }
+
+/* ── Dark Slider ─────────────────────────────────────────── */
+input[type="range"] { background: rgba(255,255,255,.1) !important; }
+
+/* ── Dark Result Placeholder ─────────────────────────────── */
+.result-placeholder {
+  background: rgba(255,255,255,.03) !important;
+  border-color: rgba(255,255,255,.1) !important;
+  color: rgba(255,255,255,.4) !important;
+}
+.placeholder-icon svg { color: rgba(255,255,255,.15) !important; }
+
+/* ── Dark Radio Group ────────────────────────────────────── */
+.ro label {
+  background: rgba(255,255,255,.05) !important;
+  border-color: rgba(255,255,255,.12) !important;
+  color: rgba(255,255,255,.55) !important;
+}
+.ro input:checked + label {
+  background: rgba(0,122,77,.2) !important;
+  border-color: var(--primary) !important;
+  color: #86efac !important;
+}
+
+/* ── Dark Autocomplete Dropdown ──────────────────────────── */
+.ac-dropdown {
+  background: #0D1F14 !important;
+  border-color: rgba(255,255,255,.1) !important;
+}
+.ac-item { border-bottom-color: rgba(255,255,255,.06) !important; }
+.ac-item:hover { background: rgba(0,122,77,.2) !important; }
+.ac-name { color: #F0FDF4 !important; }
+.ac-sub { color: rgba(255,255,255,.45) !important; }
+
+/* ── Dark Fuel Live Badge ────────────────────────────────── */
+.fuel-live {
+  background: rgba(0,168,102,.12) !important;
+  color: #86efac !important;
+  border-color: rgba(134,239,172,.2) !important;
+}
+.fuel-stale {
+  background: rgba(255,182,18,.1) !important;
+  color: #FFB612 !important;
+  border-color: rgba(255,182,18,.2) !important;
+}
+
+/* ── Dark Top Section ────────────────────────────────────── */
+.top-section {
+  background: rgba(255,255,255,.04) !important;
+  border-color: rgba(255,255,255,.08) !important;
+}
+.top-group { border-right-color: rgba(255,255,255,.08) !important; }
+.top-grp-hd { color: #86efac !important; border-bottom-color: rgba(0,122,77,.2) !important; }
+.top-card { color: rgba(255,255,255,.65) !important; }
+.top-card:hover { background: rgba(0,122,77,.2) !important; }
+
+/* ── Dark No Results ─────────────────────────────────────── */
+.no-results { color: rgba(255,255,255,.4) !important; }
+.no-results strong { color: rgba(255,255,255,.75) !important; }
+
+/* ── Dark Footer ─────────────────────────────────────────── */
+.site-footer {
+  background: linear-gradient(160deg,#020806 0%,#050D09 100%) !important;
+  border-top: 1px solid rgba(255,255,255,.06) !important;
+}
+.footer-brand-name { color: #F0FDF4 !important; }
+.footer-brand-name strong { color: #FFB612 !important; }
+.footer-brand-sub { color: rgba(255,255,255,.35) !important; }
+.footer-nav-head { color: rgba(255,255,255,.65) !important; }
+.footer-nav a { color: rgba(255,255,255,.38) !important; }
+.footer-nav a:hover { color: #86efac !important; }
+.footer-bottom p { color: rgba(255,255,255,.25) !important; }
+
+/* ═══════════════════════════════════════════════════════════
+   JOURNEY CARDS — Bento Grid Showcase
+═══════════════════════════════════════════════════════════ */
+
+.journey-section { padding: 3rem 0 2rem; }
+.journey-heading {
+  font-size: 1.3rem; font-weight: 800; color: #F0FDF4;
+  margin-bottom: 1.5rem; letter-spacing: -.02em;
+}
+.journey-heading span { color: rgba(255,255,255,.4); font-weight: 400; }
+.journey-browse-all {
+  display: inline-flex; align-items: center; gap: .4rem;
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+  color: rgba(255,255,255,.6); border-radius: 99px;
+  padding: .38rem 1.1rem; font-size: .8rem; font-weight: 600;
+  cursor: pointer; transition: all .18s; margin-top: 1.5rem;
+  font-family: var(--font);
+}
+.journey-browse-all:hover { background: rgba(255,255,255,.1); color: #F0FDF4; border-color: rgba(255,255,255,.2); }
+.journey-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: .875rem;
+}
+.journey-card {
+  border-radius: 20px;
+  padding: 1.5rem 1.25rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.09);
+  transition: transform .25s cubic-bezier(.16,1,.3,1), box-shadow .25s ease, border-color .25s ease;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+  text-align: left;
+  font-family: var(--font);
+}
+.journey-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 60px rgba(0,0,0,.5);
+  border-color: rgba(255,255,255,.18);
+}
+.journey-card:active { transform: translateY(-2px) scale(.97); }
+.journey-ico-wrap {
+  width: 52px; height: 52px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.journey-ico-wrap svg { width: 24px; height: 24px; color: white; }
+.journey-title {
+  font-size: .95rem; font-weight: 800; color: #F0FDF4; line-height: 1.2;
+}
+.journey-sub {
+  font-size: .75rem; color: rgba(255,255,255,.5); line-height: 1.5; flex: 1;
+}
+.journey-count {
+  font-size: .72rem; font-weight: 700; color: rgba(255,255,255,.4); margin-top: .5rem;
+}
+.journey-card::before {
+  content: '';
+  position: absolute; inset: 0; opacity: 0;
+  transition: opacity .25s; border-radius: 20px;
+}
+.journey-card:hover::before { opacity: .06; background: white; }
+@media (max-width: 900px) { .journey-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 600px) {
+  .journey-grid {
+    display: flex; overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: .75rem; padding-bottom: .5rem;
+    -webkit-overflow-scrolling: touch;
+  }
+  .journey-card { min-width: 180px; scroll-snap-align: start; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HERO BENTO — Live SA Stats Mini Dashboard
+═══════════════════════════════════════════════════════════ */
+
+.hero-bento {
+  display: grid;
+  grid-template-columns: 1.5fr 1.5fr 1fr 1fr;
+  gap: .75rem;
+  margin-top: 2.5rem;
+  max-width: 580px;
+  width: 100%;
+}
+.hb-card {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 16px;
+  padding: 1rem 1.1rem;
+  position: relative; overflow: hidden;
+  transition: background .2s;
+}
+.hb-card:hover { background: rgba(255,255,255,.1); }
+.hb-label {
+  font-size: .68rem; font-weight: 600; color: rgba(255,255,255,.45);
+  text-transform: uppercase; letter-spacing: .07em; margin-bottom: .4rem;
+}
+.hb-val {
+  font-size: 1.5rem; font-weight: 900; color: #86efac;
+  font-variant-numeric: tabular-nums;
+  font-family: 'JetBrains Mono', monospace;
+  line-height: 1;
+}
+.hb-note { font-size: .65rem; color: rgba(255,255,255,.3); margin-top: .35rem; }
+.hb-live {
+  color: #4ade80; font-size: .5rem; margin-left: 3px;
+  vertical-align: super;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+.hb-big {
+  font-size: 2.8rem; font-weight: 900; color: #FFB612;
+  line-height: 1;
+  font-family: 'JetBrains Mono', monospace;
+}
+@keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.3} }
+.hb-count {
+  background: rgba(255,182,18,.1) !important;
+  border-color: rgba(255,182,18,.2) !important;
+}
+@media (max-width: 600px) {
+  .hero-bento { grid-template-columns: 1fr 1fr; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   JOURNEY HEADER — Shown above calc grid when journey active
+═══════════════════════════════════════════════════════════ */
+
+.journey-header {
+  display: none;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  align-items: center;
+  gap: 1rem;
+}
+.journey-header.visible { display: flex; }
+.journey-header-back {
+  background: rgba(255,255,255,.08);
+  border: none; border-radius: 99px;
+  padding: .4rem .9rem;
+  color: rgba(255,255,255,.7);
+  font-size: .8rem; font-weight: 600;
+  cursor: pointer; transition: all .18s;
+  font-family: var(--font); flex-shrink: 0;
+}
+.journey-header-back:hover { background: rgba(255,255,255,.14); color: #F0FDF4; }
+.journey-header-title { font-size: 1rem; font-weight: 800; color: #F0FDF4; }
+.journey-header-sub { font-size: .8rem; color: rgba(255,255,255,.5); }
+
+/* ═══════════════════════════════════════════════════════════
+   NUMBERS IN JETBRAINS MONO
+═══════════════════════════════════════════════════════════ */
+.rc-value {
+  font-family: 'JetBrains Mono', monospace !important;
+}
+.rv {
+  font-family: 'JetBrains Mono', monospace !important;
+}
+.mrb-value {
+  font-family: 'JetBrains Mono', monospace !important;
+}
+.rcs-value {
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+/* ── Dark home-grid-wrap ──────────────────────────────────── */
+.home-grid-wrap { background: transparent !important; }
+
+/* ── Dark rates strip in dark mode ──────────────────────── */
+.rates-strip {
+  background: rgba(5,13,9,0.9) !important;
+  border-bottom: 1px solid rgba(255,255,255,.06) !important;
+}
+
+/* ── Reduced motion additions ────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .journey-card { transition: none !important; }
+  .hb-live { animation: none !important; }
+  .hero-bento .hb-card { transition: none !important; }
+}

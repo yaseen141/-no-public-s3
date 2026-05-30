@@ -28,7 +28,7 @@
   <!-- Performance: preconnect before stylesheet -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
@@ -285,6 +285,29 @@
           No login needed
         </span>
       </div>
+
+      <!-- Hero Bento Mini Stats -->
+      <div class="hero-bento" id="hero-bento" aria-label="Live SA financial data">
+        <div class="hb-card hb-prime">
+          <div class="hb-label">Prime Rate</div>
+          <div class="hb-val" id="hb-prime">10.25%</div>
+          <div class="hb-note">SARB 2026/27</div>
+        </div>
+        <div class="hb-card hb-petrol">
+          <div class="hb-label">Petrol 95</div>
+          <div class="hb-val" id="hb-p95">R26.63<span class="hb-live" aria-label="live data">&#9679;</span></div>
+          <div class="hb-note">Per litre, inland</div>
+        </div>
+        <div class="hb-card hb-vat">
+          <div class="hb-label">VAT Rate</div>
+          <div class="hb-val">15%</div>
+          <div class="hb-note">Standard rate</div>
+        </div>
+        <div class="hb-card hb-count">
+          <div class="hb-big">17</div>
+          <div class="hb-label">Free calculators</div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -315,7 +338,20 @@
     </div>
   </noscript>
 
-  <div class="container home-grid-wrap">
+  <!-- Journey Section -->
+  <div class="container">
+    <div class="journey-section" id="journey-section" aria-label="Calculator journeys"></div>
+  </div>
+
+  <div class="container home-grid-wrap" id="home-grid-section">
+    <!-- Journey Header (shown when a journey is active) -->
+    <div class="journey-header" id="journey-header" role="navigation" aria-label="Current journey">
+      <button class="journey-header-back" onclick="clearJourney()" aria-label="Back to all calculators">&#8592; All</button>
+      <div>
+        <div class="journey-header-title" id="journey-header-title"></div>
+        <div class="journey-header-sub" id="journey-header-sub"></div>
+      </div>
+    </div>
     <!-- Search + Filters -->
     <div class="search-section">
       <div class="search-wrap" role="search">
