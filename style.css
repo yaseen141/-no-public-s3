@@ -3387,3 +3387,163 @@ input[type="range"] { background: rgba(255,255,255,.1) !important; }
 .tp-green-cell { color: #4ade80; font-weight: 600; }
 .tp-amber-cell { color: #fbbf24; font-weight: 600; }
 .tp-red-cell   { color: #f87171; font-weight: 600; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   ANIMATION SYSTEM v2 — spring physics, counters, stagger, ripple
+═══════════════════════════════════════════════════════════════════ */
+
+/* ── 1. Ripple wave ───────────────────────────────────────────────── */
+@keyframes ripple-out {
+  0%   { transform: scale(0); opacity: 1; }
+  100% { transform: scale(5); opacity: 0; }
+}
+.ripple-wave {
+  position: absolute;
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.14);
+  transform: scale(0);
+  animation: ripple-out .6s cubic-bezier(.4,0,.2,1) forwards;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ── 2. Navbar scroll glass state ─────────────────────────────────── */
+.site-header {
+  transition: background .3s ease, backdrop-filter .3s ease, box-shadow .3s ease !important;
+}
+.site-header.nav-scrolled {
+  background: rgba(3,9,5,.97) !important;
+  backdrop-filter: blur(24px) saturate(1.4) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.4) !important;
+  box-shadow: 0 1px 0 rgba(0,200,80,.1), 0 4px 28px rgba(0,0,0,.55) !important;
+}
+
+/* ── 3. Upgraded slideUp — spring easing ────────────────────────── */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(14px) scale(.985); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.result-card {
+  animation: slideUp .32s cubic-bezier(.16,1,.3,1) both !important;
+}
+.inline-result {
+  animation: slideUp .32s cubic-bezier(.16,1,.3,1) both !important;
+}
+
+/* ── 4. Calc-view enter — longer spring ────────────────────────── */
+@keyframes slide-up-fade {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.calc-view-entering {
+  animation: slide-up-fade .4s cubic-bezier(.16,1,.3,1) both !important;
+}
+
+/* ── 5. Progress bar spring ─────────────────────────────────────── */
+.bar-fill {
+  transition: width .7s cubic-bezier(.16,1,.3,1) !important;
+}
+
+/* ── 6. Calc-card hover glow ──────────────────────────────────────── */
+.calc-card {
+  isolation: isolate;
+}
+.calc-card::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  box-shadow: 0 0 0 2px rgba(0,122,77,.22), 0 8px 36px rgba(0,122,77,.16), 0 2px 8px rgba(0,200,80,.1);
+  opacity: 0;
+  transition: opacity .28s cubic-bezier(.16,1,.3,1);
+  pointer-events: none;
+  z-index: -1;
+}
+.calc-card:hover::after { opacity: 1; }
+.calc-card:active::after { opacity: .6; }
+
+/* ── 7. Mobile bar slide-up ───────────────────────────────────────── */
+@keyframes mrb-slide-up {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+.mobile-result-bar.mrb-pop {
+  animation: mrb-slide-up .4s cubic-bezier(.16,1,.3,1) both;
+}
+
+/* ── 8. Input focus glow pulse ─────────────────────────────────── */
+@keyframes focus-glow {
+  0%   { box-shadow: 0 0 0 3px rgba(0,122,77,.12); }
+  50%  { box-shadow: 0 0 0 4px rgba(0,122,77,.2); }
+  100% { box-shadow: 0 0 0 3px rgba(0,122,77,.12); }
+}
+input[type="number"]:focus,
+input[type="text"]:focus,
+select:focus {
+  animation: focus-glow 2s ease-in-out infinite !important;
+}
+
+/* ── 9. Result card shimmer border on appear ────────────────────── */
+@keyframes result-border-pulse {
+  0%   { opacity: 1; }
+  50%  { opacity: .5; }
+  100% { opacity: 1; }
+}
+.result-card::before {
+  animation: result-border-pulse 3s ease-in-out 0.5s 2 !important;
+}
+
+/* ── 10. Stagger: calc-card fade-up within sections ────────────── */
+@keyframes card-rise {
+  from { opacity: 0; transform: translateY(18px) scale(.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── 11. Scroll-to-top button ─────────────────────────────────── */
+.scroll-top-btn {
+  position: fixed; bottom: 5rem; right: 1.25rem;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(0,122,77,.85); border: 1px solid rgba(0,200,80,.2);
+  backdrop-filter: blur(12px);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; cursor: pointer;
+  opacity: 0; transform: translateY(12px) scale(.9);
+  transition: opacity .3s cubic-bezier(.16,1,.3,1), transform .3s cubic-bezier(.16,1,.3,1);
+  z-index: 60; pointer-events: none;
+  box-shadow: 0 4px 16px rgba(0,122,77,.35);
+}
+.scroll-top-btn.visible {
+  opacity: 1; transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+.scroll-top-btn:hover {
+  background: rgba(0,168,77,.95);
+  box-shadow: 0 6px 24px rgba(0,122,77,.5);
+  transform: translateY(-2px) scale(1.04) !important;
+}
+.scroll-top-btn:active { transform: scale(.96) !important; }
+
+/* ── 12. Journey cards stagger ─────────────────────────────────── */
+.journey-card {
+  transition: transform .28s cubic-bezier(.16,1,.3,1), box-shadow .28s cubic-bezier(.16,1,.3,1), border-color .28s !important;
+}
+.journey-card:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: 0 24px 56px rgba(0,0,0,.35), 0 0 0 1px rgba(255,255,255,.12) !important;
+}
+.journey-card:active { transform: scale(.97) !important; }
+
+/* ── 13. Reduced motion overrides ──────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .ripple-wave,
+  .mobile-result-bar.mrb-pop,
+  .result-card,
+  .inline-result,
+  .calc-view-entering { animation: none !important; }
+  .bar-fill { transition: none !important; }
+  .calc-card::after { transition: none !important; }
+  input[type="number"]:focus,
+  input[type="text"]:focus,
+  select:focus { animation: none !important; }
+}

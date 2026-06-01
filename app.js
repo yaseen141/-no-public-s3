@@ -2626,7 +2626,7 @@ function showCalc(id) {
   if (calc.faqs && calc.faqs.length) {
     faqEl.innerHTML = '<div class="faq-section"><h3>Frequently Asked Questions</h3>' +
       calc.faqs.map(function(f) {
-        return '<div class="faq-item"><button class="faq-q" onclick="this.parentNode.classList.toggle(\'open\')">' + f.q + ' <span class="faq-chevron">▼</span></button><div class="faq-a">' + f.a + '</div></div>';
+        return '<div class="faq-item"><button class="faq-q" onclick="window._toggleFaq(this)" aria-expanded="false">' + f.q + ' <span class="faq-chevron" aria-hidden="true">▼</span></button><div class="faq-a">' + f.a + '</div></div>';
       }).join('') + '</div>';
   } else { faqEl.innerHTML = ''; }
 
@@ -2844,6 +2844,23 @@ function renderRates() {
 
 // ── Scroll animations (IntersectionObserver) ─────────────────────
 var _scrollObserver = null;
+var _SPRING_EASE    = 'cubic-bezier(.16,1,.3,1)';
+
+function _staggerSectionCards(section) {
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  section.querySelectorAll('.calc-card').forEach(function(card, ci) {
+    card.style.opacity    = '0';
+    card.style.transform  = 'translateY(16px)';
+    card.style.transition = 'none';
+    var d = ci * 45;
+    setTimeout(function() {
+      card.style.transition = 'opacity .42s ' + _SPRING_EASE + ',transform .42s ' + _SPRING_EASE;
+      card.style.opacity    = '';
+      card.style.transform  = '';
+    }, d);
+    setTimeout(function() { card.style.transition = ''; }, d + 520);
+  });
+}
 
 function initScrollAnimations() {
   if (typeof IntersectionObserver === 'undefined') {
@@ -2856,10 +2873,11 @@ function initScrollAnimations() {
     entries.forEach(function(e) {
       if (e.isIntersecting) {
         e.target.classList.add('visible');
+        _staggerSectionCards(e.target);
         _scrollObserver.unobserve(e.target);
       }
     });
-  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
 
   document.querySelectorAll('.cat-section').forEach(function(el) {
     _scrollObserver.observe(el);
@@ -3885,3 +3903,136 @@ function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
+// ═══════════════════════════════════════════════════════════════════
+//  ANIMATION SYSTEM — counters, stagger, ripple, spring interactions
+// ═══════════════════════════════════════════════════════════════════
+
+// ── 1. FAQ smooth accordion ───────────────────────────────────────
+window._toggleFaq = function(btn) {
+  var item   = btn.closest ? btn.closest('.faq-item') : btn.parentNode;
+  var answer = item && item.querySelector('.faq-a');
+  if (!item) return;
+
+  var noMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!answer || noMotion) { item.classList.toggle('open'); return; }
+
+  var isOpen = item.classList.contains('open');
+  var sp     = 'cubic-bezier(.16,1,.3,1)';
+
+  if (isOpen) {
+    var h = answer.scrollHeight;
+    answer.style.cssText = 'display:block;overflow:hidden;max-height:' + h + 'px;transition:max-height .3s ' + sp;
+    requestAnimationFrame(function() { answer.style.maxHeight = '0'; });
+    setTimeout(function() { item.classList.remove('open'); answer.style.cssText = ''; }, 320);
+    btn.setAttribute('aria-expanded', 'false');
+  } else {
+    item.classList.add('open');
+    answer.style.cssText = 'display:block;overflow:hidden;max-height:0';
+    var sh = answer.scrollHeight;
+    requestAnimationFrame(function() {
+      answer.style.transition = 'max-height .38s ' + sp;
+      answer.style.maxHeight  = sh + 'px';
+    });
+    setTimeout(function() { if (item.classList.contains('open')) answer.style.cssText = ''; }, 420);
+    btn.setAttribute('aria-expanded', 'true');
+  }
+};
+
+// ── 2. Number counter on result cards ────────────────────────────
+function _countUp(el) {
+  if (!el || el._counting) return;
+  var orig    = el.textContent.trim();
+  var isRand  = orig.charAt(0) === 'R';
+  var isPct   = orig.slice(-1) === '%';
+  var cleaned = orig.replace(/[R,%\s ]/g, '').replace(/,/g, '');
+  var target  = parseFloat(cleaned);
+  if (!isFinite(target) || target < 100) return;
+
+  el._counting = true;
+  var dec  = cleaned.includes('.') ? (cleaned.split('.')[1] || '').length : 0;
+  var dur  = Math.max(500, Math.min(950, 300 + target * 0.008));
+  var st   = null;
+  function eoc(t) { return 1 - Math.pow(1 - t, 3); }
+  (function tick(ts) {
+    if (!st) st = ts;
+    var p = Math.min((ts - st) / dur, 1);
+    var v = target * eoc(p);
+    el.textContent = (isRand ? 'R' : '') +
+      (dec ? v.toFixed(dec) : Math.round(v).toLocaleString('en-ZA')) +
+      (isPct ? '%' : '');
+    if (p < 1) requestAnimationFrame(tick);
+    else { el.textContent = orig; el._counting = false; }
+  })(performance.now());
+}
+
+// ── 3. Breakdown row stagger ──────────────────────────────────────
+function _staggerRows() {
+  document.querySelectorAll('#result-area .br').forEach(function(row, i) {
+    row.style.opacity    = '0';
+    row.style.transform  = 'translateX(-7px)';
+    row.style.transition = 'none';
+    var d = 65 + i * 38;
+    setTimeout(function() {
+      row.style.transition = 'opacity .26s cubic-bezier(.16,1,.3,1),transform .26s cubic-bezier(.16,1,.3,1)';
+      row.style.opacity    = '';
+      row.style.transform  = '';
+    }, d);
+    setTimeout(function() { row.style.transition = ''; }, d + 340);
+  });
+}
+
+// Patch showResult to trigger result animations
+var _srOrig = showResult;
+showResult = function(html) {
+  _srOrig(html);
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  _staggerRows();
+  setTimeout(function() {
+    document.querySelectorAll('#result-area .rc-big, #result-area .tp-net-value').forEach(_countUp);
+  }, 55);
+};
+
+// ── 4. Ripple on buttons / pills ──────────────────────────────────
+document.addEventListener('click', function(e) {
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var t = e.target.closest('.cat-pill,.hero-chip,.btn,.calc-route-btn,.ja-back,.cta-offer-btn,.calc-card');
+  if (!t) return;
+  var rect = t.getBoundingClientRect();
+  var rip  = document.createElement('span');
+  rip.className = 'ripple-wave';
+  rip.style.left = (e.clientX - rect.left - 25) + 'px';
+  rip.style.top  = (e.clientY - rect.top  - 25) + 'px';
+  if (!getComputedStyle(t).position || getComputedStyle(t).position === 'static') t.style.position = 'relative';
+  t.style.overflow = 'hidden';
+  t.appendChild(rip);
+  setTimeout(function() { if (rip.parentNode) rip.parentNode.removeChild(rip); }, 650);
+}, false);
+
+// ── 5. Navbar scroll glass state + scroll-to-top button ──────────
+(function() {
+  var hdr = document.querySelector('.site-header');
+  var stb = document.getElementById('scroll-top-btn');
+  var lastHdr = false, lastStb = false;
+
+  window.addEventListener('scroll', function() {
+    var sy   = window.scrollY;
+    var nowH = sy > 30;
+    var nowS = sy > 320;
+    if (hdr && nowH !== lastHdr) { hdr.classList.toggle('nav-scrolled', nowH); lastHdr = nowH; }
+    if (stb && nowS !== lastStb) { stb.classList.toggle('visible', nowS); lastStb = nowS; }
+  }, { passive: true });
+})();
+
+// ── 6. Mobile bar slide-up on first show ─────────────────────────
+var _umbOrig = updateMobileBar;
+updateMobileBar = function(label, value) {
+  var bar     = document.getElementById('mobile-bar');
+  var wasVis  = bar && bar.classList.contains('visible');
+  _umbOrig(label, value);
+  if (bar && !wasVis && !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+    bar.classList.remove('mrb-pop');
+    void bar.offsetWidth;
+    bar.classList.add('mrb-pop');
+  }
+};
