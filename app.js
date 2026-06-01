@@ -1268,7 +1268,7 @@ var CALCS = [
   render: renderAPS
 },{
   id: 'two-pot', iconName: 'layers', title: 'Two-Pot Retirement Calculator',
-  icon: '🏦', cat: 'investment', popular: true,
+  icon: '🏦', cat: 'investment', featured: true,
   desc: 'South Africa\'s most accurate Two-Pot calculator — exact withdrawal tax, seeding, pot projections and the real rand cost of accessing your savings pot early',
   info: '<h4>The Three-Pot System Explained (1 Sep 2024)</h4>' +
     '<p>From <strong>1 September 2024</strong> all new retirement fund contributions are split into three pots:</p>' +
@@ -2814,7 +2814,7 @@ function renderGrid() {
           '<span class="card-emoji ' + c.cat + '-bg" aria-hidden="true">' + iconHtml + '</span>' +
           '<h3>' + shortTitle + '</h3>' +
           '<p>' + c.desc + '</p>' +
-          (c.popular ? '<span class="popular-badge" aria-label="Popular">Popular</span>' : '') +
+          (c.featured ? '<span class="featured-badge" aria-label="Featured">&#9733; Featured</span>' : c.popular ? '<span class="popular-badge" aria-label="Popular">Popular</span>' : '') +
         '</button>';
       }).join('') +
       '</div></section>';
