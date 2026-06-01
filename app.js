@@ -594,6 +594,35 @@ function showResult(html) {
   document.getElementById('result-area').innerHTML = html + cta;
 }
 
+// ── Preset quick-pick chips ──────────────────────────────────────
+function presetChips(fieldId, opts, label) {
+  return '<div class="preset-chips" role="group" aria-label="' + (label || 'Quick select') + '">' +
+    opts.map(function(o) {
+      var v = typeof o === 'object' ? o.v : o;
+      var l = typeof o === 'object' ? o.l : _chipLabel(v);
+      return '<button type="button" class="preset-chip" onclick="window._setPreset(\'' + fieldId + '\',' + v + ',this)">' + l + '</button>';
+    }).join('') + '</div>';
+}
+function _chipLabel(v) {
+  if (v >= 1000000) return 'R' + (v/1000000) + 'M';
+  if (v >= 1000)    return 'R' + (v/1000) + 'k';
+  return String(v);
+}
+window._setPreset = function(fieldId, value, btn) {
+  var el = document.getElementById(fieldId);
+  if (!el) return;
+  el.value = value;
+  var sl = document.getElementById(fieldId + '_sl');
+  if (sl) sl.value = value;
+  el.dispatchEvent(new Event('input', { bubbles: true }));
+  if (window._calc) window._calc();
+  if (btn) {
+    var wrap = btn.closest('.preset-chips');
+    if (wrap) wrap.querySelectorAll('.preset-chip').forEach(function(c) { c.classList.remove('active'); });
+    btn.classList.add('active');
+  }
+};
+
 function updateMobileBar(label, value) {
   var bar = document.getElementById('mobile-bar');
   if (!bar) return;
@@ -1337,11 +1366,12 @@ function renderPAYE() {
   document.getElementById('calc-form').innerHTML =
     sliderField('paye_income','Annual gross income', 50000, 3000000, 1000, 400000, '', 'R',
       null, 'Your total salary/wages before any deductions. Use your CTC (cost to company) if unsure.') +
+    presetChips('paye_income',[{l:'R5k/mo',v:60000},{l:'R10k/mo',v:120000},{l:'R20k/mo',v:240000},{l:'R30k/mo',v:360000},{l:'R50k/mo',v:600000},{l:'R80k/mo',v:960000}],'Monthly salary quick-pick') +
     '<div class="frow">' +
-      field('paye_age', 'Age', selectInput('paye_age', [['30','Under 65'],['65','65 – 74'],['75','75 or older']]),
+      field('paye_age', 'Age group', selectInput('paye_age', [['30','Under 65'],['65','65 – 74'],['75','75 or older']]),
         null, 'Determines your rebate. Age 65+ earns a secondary rebate of R9,444/year.') +
-      field('paye_med', 'Medical aid members', plainInput('paye_med','0','0','members'),'incl. yourself',
-        'Include yourself + all dependants on your medical aid. Each earns a monthly tax credit against your PAYE.') +
+      field('paye_med', 'Medical aid members', selectInput('paye_med',[['0','0 — no medical aid'],['1','1 member (just me)'],['2','2 members'],['3','3 members'],['4','4 members'],['5','5 members'],['6','6+ members']]),'incl. yourself',
+        'Include yourself + all dependants. Each member earns a monthly medical tax credit of R364 (main) or R246 (dependants) against your PAYE.') +
     '</div>' +
     '<button class="adv-toggle" id="paye_adv_btn" onclick="toggleAdv(\'paye_adv_btn\',\'paye_adv\')" type="button">' +
       '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72 1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>' +
@@ -1806,12 +1836,18 @@ function renderRentalYield() {
 // 8. Personal Loan
 function renderLoan() {
   document.getElementById('calc-form').innerHTML =
-    field('ln_amount','Loan amount', moneyInput('ln_amount','100000','100000')) +
-    '<div class="frow">' +
-      field('ln_rate','Annual interest rate', pctInput('ln_rate','11.00','11.00')) +
-      field('ln_term','Loan term', plainInput('ln_term','60','60','months')) +
+    '<div class="purpose-chips" role="group" aria-label="Loan purpose">' +
+      ['🏠 Home repairs','🚗 Vehicle','📚 Education','🏥 Medical','💳 Debt consolidation','✈️ Holiday','📦 Other'].map(function(p,i) {
+        return '<button type="button" class="purpose-chip' + (i===6?' active':'') + '" onclick="this.closest(\'.purpose-chips\').querySelectorAll(\'.purpose-chip\').forEach(function(c){c.classList.remove(\'active\')});this.classList.add(\'active\')">' + p + '</button>';
+      }).join('') +
     '</div>' +
-    field('ln_fee','Initiation fee', moneyInput('ln_fee','0','0'), 'added to loan');
+    sliderField('ln_amount','Loan amount', 5000, 500000, 5000, 100000, '', 'R') +
+    presetChips('ln_amount',[{l:'R10k',v:10000},{l:'R25k',v:25000},{l:'R50k',v:50000},{l:'R100k',v:100000},{l:'R200k',v:200000},{l:'R500k',v:500000}]) +
+    '<div class="frow">' +
+      field('ln_rate','Annual interest rate', pctInput('ln_rate','11.00','11.00'),'NCR cap ≈ 27.75%') +
+      field('ln_term','Loan term', selectInput('ln_term',[['6','6 months'],['12','1 year'],['24','2 years'],['36','3 years'],['48','4 years'],['60','5 years'],['72','6 years'],['84','7 years']]),'','Select 60 months (5 yrs) for most personal loans') +
+    '</div>' +
+    field('ln_fee','Initiation fee', moneyInput('ln_fee','0','0'), 'added to loan — typically R1,207 for R100k loans');
 
   function calc() {
     var amount = num('ln_amount');
@@ -1845,7 +1881,8 @@ function renderLoan() {
     ));
   }
   window._calc = calc;
-  on(['ln_amount','ln_rate','ln_term','ln_fee'], calc);
+  on(['ln_amount','ln_amount_sl','ln_rate','ln_term','ln_fee'], calc);
+  syncAllSliders();
   calc();
 }
 
@@ -1853,13 +1890,16 @@ function renderLoan() {
 function renderVehicleFinance() {
   document.getElementById('calc-form').innerHTML =
     sliderField('vf_price','Vehicle price', 100000, 2000000, 5000, 450000, '', 'R') +
+    presetChips('vf_price',[{l:'R150k',v:150000},{l:'R250k',v:250000},{l:'R350k',v:350000},{l:'R500k',v:500000},{l:'R750k',v:750000},{l:'R1M',v:1000000}]) +
     '<div class="frow">' +
-      field('vf_deposit','Deposit', moneyInput('vf_deposit','45000','45000')) +
+      field('vf_deposit','Deposit', moneyInput('vf_deposit','45000','45000'),'10–20% recommended') +
       field('vf_balloon','Balloon payment', pctInput('vf_balloon','20','20'), '0 for none') +
     '</div>' +
+    '<div class="preset-label">Balloon quick-pick</div>' +
+    presetChips('vf_balloon',[{l:'None (0%)',v:0},{l:'20%',v:20},{l:'30%',v:30},{l:'40%',v:40}]) +
     '<div class="frow">' +
       field('vf_rate','Interest rate', pctInput('vf_rate','11.0','11.0')) +
-      field('vf_term','Term', plainInput('vf_term','72','72','months')) +
+      field('vf_term','Term', selectInput('vf_term',[['24','24 months'],['36','36 months'],['48','48 months'],['60','60 months'],['72','72 months (recommended)']]),'','72 months is the typical maximum offered by SA banks') +
     '</div>';
 
   function calc() {
@@ -1919,9 +1959,12 @@ function renderFuel() {
   document.getElementById('calc-form').innerHTML =
     _fuelSourceBadge() +
     field('fuel_dist','Trip distance', plainInput('fuel_dist','500','500','km')) +
+    presetChips('fuel_dist',[{l:'100km',v:100},{l:'300km',v:300},{l:'500km',v:500},{l:'1,000km',v:1000},{l:'1,500km',v:1500}],'Distance quick-pick') +
     field('fuel_cons','Fuel consumption', plainInput('fuel_cons','10','10','L/100km'), 'check your vehicle spec') +
+    presetChips('fuel_cons',[{l:'Small (7L)',v:7},{l:'Sedan (10L)',v:10},{l:'SUV (13L)',v:13},{l:'Bakkie (15L)',v:15}],'Vehicle type') +
     field('fuel_type','Fuel type', selectInput('fuel_type', _fuelPriceOpts())) +
-    field('fuel_monthly_km','Monthly kilometres', plainInput('fuel_monthly_km','1500','1500','km'), 'for monthly cost estimate');
+    field('fuel_monthly_km','Monthly kilometres', plainInput('fuel_monthly_km','1500','1500','km'), 'for monthly cost estimate') +
+    presetChips('fuel_monthly_km',[{l:'500km',v:500},{l:'1,000km',v:1000},{l:'1,500km',v:1500},{l:'2,500km',v:2500},{l:'3,500km',v:3500}],'Monthly km quick-pick');
 
   function calc() {
     var dist = num('fuel_dist');
@@ -2013,10 +2056,17 @@ function renderCompoundInterest() {
 function renderRetirementAnnuity() {
   document.getElementById('calc-form').innerHTML =
     field('ra_income','Annual gross income', moneyInput('ra_income','600000','600000')) +
+    presetChips('ra_income',[{l:'R240k',v:240000},{l:'R360k',v:360000},{l:'R600k',v:600000},{l:'R900k',v:900000},{l:'R1.2M',v:1200000}]) +
     field('ra_contrib','Annual RA contribution', moneyInput('ra_contrib','60000','60000')) +
+    '<div class="preset-chips" role="group" aria-label="% of income">' +
+      '<button type="button" class="preset-chip" onclick="window._setPreset(\'ra_contrib\',Math.round((num(\'ra_income\')||600000)*0.05),this)">5% of income</button>' +
+      '<button type="button" class="preset-chip" onclick="window._setPreset(\'ra_contrib\',Math.round((num(\'ra_income\')||600000)*0.10),this)">10% of income</button>' +
+      '<button type="button" class="preset-chip" onclick="window._setPreset(\'ra_contrib\',Math.round((num(\'ra_income\')||600000)*0.15),this)">15% of income</button>' +
+      '<button type="button" class="preset-chip" onclick="window._setPreset(\'ra_contrib\',Math.min(Math.round((num(\'ra_income\')||600000)*0.275),350000),this)">27.5% (max)</button>' +
+    '</div>' +
     '<div class="frow">' +
-      field('ra_age','Current age', plainInput('ra_age','40','40','yrs')) +
-      field('ra_retire','Retirement age', plainInput('ra_retire','65','65','yrs')) +
+      field('ra_age','Current age', selectInput('ra_age',[['25','25'],['30','30'],['35','35'],['40','40'],['45','45'],['50','50'],['55','55']])) +
+      field('ra_retire','Retirement age', selectInput('ra_retire',[['55','55 (earliest)'],['60','60'],['65','65 (standard)'],['70','70']])) +
     '</div>' +
     field('ra_growth','Expected growth inside RA', pctInput('ra_growth','10','10'), 'annual');
 
@@ -2561,6 +2611,57 @@ function calcBack() {
   }
 }
 
+// ── Did You Know nuggets ─────────────────────────────────────────
+var CALC_DYK = {
+  'paye':             [{text:'SARS collected R1.86 trillion in total tax revenue in 2023/24. Personal income tax was the single largest contributor at 38.8% of all tax collected.',src:'SARS Annual Report 2023/24',url:'https://www.sars.gov.za/about/sars-annual-reports/'},{text:'The 2026/27 personal income tax threshold — below which you pay zero tax — is R95,750/year for people under 65. Age 65–74 enjoy a secondary rebate, and 75+ a tertiary rebate.',src:'SARS Tax Tables',url:'https://www.sars.gov.za/tax-rates/income-tax/rates-of-tax-for-individuals/'},{text:"South Africa's top marginal income tax rate of 45% applies to income above R1,817,000 per year. Fewer than 1% of taxpayers pay at this bracket.",src:'SARS',url:'https://www.sars.gov.za/tax-rates/income-tax/rates-of-tax-for-individuals/'}],
+  'bond':             [{text:"South Africa's prime lending rate is always set 1.5% above the SARB repo rate. The Monetary Policy Committee meets 6 times a year to decide on rate changes.",src:'SARB',url:'https://www.resbank.co.za/en/home/what-we-do/monetary-policy/monetary-policy-committee'},{text:'First-time homebuyers with a combined household income below R22,000/month may qualify for a FLISP (Finance Linked Individual Subsidy) of up to R121,626 from the NHFC.',src:'NHFC FLISP',url:'https://www.nhfc.co.za/flisp/'},{text:'Paying just R1,000 extra per month on a R1.5 million bond at prime can save over R340,000 in interest and cut 4–5 years off your repayment term.',src:'SARB Financial Literacy',url:'https://www.resbank.co.za/en/home/what-we-do/financial-education'}],
+  'transfer-duty':    [{text:'Transfer duty is paid to SARS within 6 months of the transaction date. Late payment attracts 10% interest per year on the outstanding amount.',src:'SARS',url:'https://www.sars.gov.za/businesses-and-employers/transfer-duty/'},{text:'Properties below R1,100,000 are exempt from transfer duty in 2026/27. This exemption threshold is adjusted in the national budget each year.',src:'SARS Transfer Duty',url:'https://www.sars.gov.za/businesses-and-employers/transfer-duty/'},{text:'New property bought from a VAT-registered developer is exempt from transfer duty — you pay VAT (included in the price) instead. You cannot pay both.',src:'SARS',url:'https://www.sars.gov.za/businesses-and-employers/transfer-duty/'}],
+  'building-cost':    [{text:'All new homes must be enrolled with the NHBRC before construction begins. NHBRC enrolment protects buyers against major structural defects for 5 years.',src:'NHBRC',url:'https://www.nhbrc.org.za/enrolment/'},{text:'South African building costs rose approximately 8–12% in 2024/25, driven by steel, cement and labour. The ASAQS (quantity surveyors) publishes quarterly cost indices.',src:'ASAQS',url:'https://asaqs.co.za/'},{text:'The Section 25C solar energy tax credit allows homeowners to claim 25% of new solar panel costs (up to R15,000) directly against income tax.',src:'SARS Solar Credit',url:'https://www.sars.gov.za/types-of-tax/personal-income-tax/solar-energy-tax-credit/'}],
+  'rental-yield':     [{text:'Rental income must be declared to SARS. You may deduct bond interest, rates, levies, repairs, insurance and agent fees. Keep all receipts — SARS may audit rental income claims.',src:'SARS Rental Income',url:'https://www.sars.gov.za/types-of-tax/personal-income-tax/rental-income/'},{text:'South African residential property gross yields typically run 6–9%. Net yields (after rates, levies, maintenance and vacancy) are usually 1.5–2.5% lower than gross.',src:'FNB Property Barometer',url:'https://www.fnb.co.za/downloads/economics/propertynewsletter.html'},{text:'A 5–8% vacancy rate is typical for SA residential rentals. The Western Cape coastal market has historically had lower vacancies and stronger nominal price growth.',src:'TPN Credit Bureau',url:'https://www.tpn.co.za/'}],
+  'loan':             [{text:'The National Credit Act caps personal loan interest at the repo rate + 21%. At current rates that is approximately 27.75% per year — know your maximum before signing.',src:'National Credit Regulator',url:'https://www.ncr.org.za/'},{text:'A R50,000 loan at 24% over 60 months costs R82,700 in total repayments — R32,700 in interest alone. Paying it off in 36 months cuts the interest bill to R19,900.',src:'NCR Consumer Education',url:'https://www.ncr.org.za/'},{text:'South Africa had R2.4 trillion in total consumer credit outstanding in 2024. Impaired accounts (3+ months in arrears) represent approximately 25% of all active credit agreements.',src:'NCR Credit Bureau Monitor',url:'https://www.ncr.org.za/statistics/credit-bureau-monitor/'}],
+  'vehicle-finance':  [{text:'A 30% balloon payment on a R350,000 vehicle over 72 months can cost you R80,000–R120,000 more than no balloon — because you defer capital, re-finance it, and pay interest twice.',src:'NAAMSA',url:'https://naamsa.co.za/'},{text:'South Africa sells approximately 500,000 new vehicles per year. Banks require an affordability assessment under the NCA before approving vehicle finance.',src:'NAAMSA / NCR',url:'https://naamsa.co.za/'},{text:"Vehicle finance rates are typically prime + 0–3% for new vehicles and prime + 1–5% for used. Your deposit size and credit score determine where in that range you'll land.",src:'SARB',url:'https://www.resbank.co.za/'}],
+  'fuel-cost':        [{text:"South Africa's fuel price is adjusted on the first Wednesday of each month by the DMRE, based on the international Brent crude price and the rand/dollar exchange rate.",src:'DMRE',url:'https://www.energy.gov.za/files/esources/petroleum/petroleum_frame.html'},{text:'The General Fuel Levy + Road Accident Fund Levy total approximately R6.16/L on petrol 95 in 2025/26 — government collects roughly 40% of what you spend on fuel.',src:'National Treasury',url:'https://www.treasury.gov.za/'},{text:'Driving at 120 km/h instead of 100 km/h increases fuel consumption by approximately 20%. On a 1,000 km trip, that is 4–6 extra litres of fuel.',src:'AA South Africa',url:'https://www.aa.co.za/'}],
+  'electricity':      [{text:"Eskom's average tariff has increased by over 650% cumulatively since 2010 — far above CPI inflation. NERSA approves tariff increases through a regulatory process each year.",src:'NERSA',url:'https://www.nersa.org.za/'},{text:'Your geyser accounts for roughly 40–50% of your electricity bill. A geyser timer (R800–R1,500 installed) typically pays back in 3–6 months.',src:'Eskom Energy Advice',url:'https://www.eskom.co.za/distribution/customer-service/energy-advice/home-energy-management/'},{text:'The Section 25C tax credit allows homeowners to claim 25% of new solar PV panel costs (up to R15,000 credit) against income tax for qualifying years.',src:'SARS Solar Credit',url:'https://www.sars.gov.za/types-of-tax/personal-income-tax/solar-energy-tax-credit/'}],
+  'two-pot':          [{text:'Over 1.8 million South Africans made Two-Pot savings pot withdrawals in the first 3 months after 1 September 2024, collectively withdrawing approximately R40 billion.',src:'National Treasury',url:'https://www.treasury.gov.za/'},{text:'The FSCA estimates that a 35-year-old who withdraws R30,000 today will forgo approximately R240,000 in retirement value by age 65 — assuming a 10% annual return.',src:'FSCA Two-Pot Guidance',url:'https://www.fsca.co.za/Regulatory%20Frameworks/Pages/Two-Pot-Retirement-System.aspx'},{text:'SARS deducts any outstanding tax debt from a Two-Pot withdrawal before you receive it. Your fund must request a SARS Tax Directive before any payment can be made.',src:'SARS Two-Pot',url:'https://www.sars.gov.za/two-pot/'}],
+  'retirement-annuity':[{text:'RA contributions are deductible up to 27.5% of your taxable income, capped at R350,000/year. Unused deductions roll forward — they are never permanently lost.',src:'SARS Retirement',url:'https://www.sars.gov.za/types-of-tax/personal-income-tax/retirement/'},{text:'At retirement, the first R550,000 of lump sum withdrawals across all retirement funds is tax-free. This is a once-in-a-lifetime combined exemption.',src:'SARS Retirement Lump Sums',url:'https://www.sars.gov.za/tax-rates/income-tax/retirement-fund-lump-sum-benefits/'},{text:'Only about 6% of South Africans can maintain their standard of living in retirement. The rest rely on family support, SASSA, or continued employment.',src:'National Treasury / ASISA',url:'https://www.treasury.gov.za/'}],
+  'compound-interest':[{text:"South African equities (JSE All Share Index) have delivered approximately CPI + 7% over rolling 20-year periods — roughly 10–11% nominal annually at current inflation.",src:'JSE / ASISA',url:'https://www.jse.co.za/'},{text:'Starting R500/month at age 25 instead of 35 roughly doubles your retirement balance by age 65 at 10% returns. Time beats contribution size.',src:'ASISA',url:'https://www.asisa.org.za/'},{text:'R1,000 invested at 10% annually becomes R17,449 after 30 years with zero additional contributions — the remaining R16,449 is pure compound growth.',src:'SARB Financial Education',url:'https://www.resbank.co.za/en/home/what-we-do/financial-education'}],
+  'cgt':              [{text:"South Africa's annual CGT exclusion is R40,000 for individuals — your first R40,000 of capital gains each year is completely tax-free.",src:'SARS CGT',url:'https://www.sars.gov.za/types-of-tax/capital-gains-tax/'},{text:'Your primary residence has a special R2,000,000 CGT exclusion on disposal. Only gains above R2 million are included in your taxable income.',src:'SARS Primary Residence Exclusion',url:'https://www.sars.gov.za/types-of-tax/capital-gains-tax/primary-residence-exclusion/'},{text:'For individuals, only 40% of a capital gain is included in taxable income (the inclusion rate). At a 45% marginal rate, the effective CGT rate is 18%, not 45%.',src:'SARS CGT',url:'https://www.sars.gov.za/types-of-tax/capital-gains-tax/'}],
+  'inflation':        [{text:'The SARB targets CPI within a 3–6% band. Since adopting the inflation-targeting framework in 2000, SA CPI has averaged approximately 5.3% per year.',src:'SARB Inflation Target',url:'https://www.resbank.co.za/en/home/what-we-do/monetary-policy/inflation-target'},{text:'Stats SA measures CPI monthly using approximately 400 goods and services. Housing (26%), food and non-alcoholic beverages (21%) and transport (19%) are the biggest components.',src:'Stats SA CPI',url:'https://www.statssa.gov.za/?page_id=1866&PPN=P0141'},{text:'R1,000 in 2000 had the same purchasing power as approximately R3,740 in 2024 — a 73% erosion over 24 years. Any savings growing below inflation is losing real value.',src:'Stats SA',url:'https://www.statssa.gov.za/'}],
+  'uif':              [{text:'Both employee and employer each contribute 1% of monthly remuneration to UIF, capped at a ceiling of R17,712/month. Maximum UIF benefit is approximately R8,160/month.',src:'UIF / Department of Labour',url:'https://www.labour.gov.za/uif'},{text:'You need at least 13 weeks of UIF contributions in the 36 months before claiming to qualify for unemployment benefits.',src:'UIF',url:'https://www.labour.gov.za/uif'},{text:'UIF maternity benefits cover up to 17.32 weeks and can be claimed from one month before the expected birth date. Illness benefits kick in after 14 consecutive sick days.',src:'UIF',url:'https://www.labour.gov.za/uif'}],
+  'vat':              [{text:"South Africa raised the standard VAT rate from 14% to 15% on 1 April 2018 — the first increase in 25 years. Zero-rated items include 19 basic foods, paraffin and public transport.",src:'SARS VAT',url:'https://www.sars.gov.za/businesses-and-employers/vat/'},{text:'VAT registration is compulsory once taxable supplies exceed R1 million in any 12-month period. Voluntary registration is allowed above R50,000.',src:'SARS VAT Registration',url:'https://www.sars.gov.za/businesses-and-employers/vat/registering-for-vat/'},{text:'A 10% penalty applies to late VAT submissions, plus interest at the prescribed rate. Filing on time — even when SARS owes you a refund — avoids delays and penalties.',src:'SARS',url:'https://www.sars.gov.za/businesses-and-employers/vat/'}],
+  'fuel-levy':        [{text:'The General Fuel Levy + Road Accident Fund Levy total approximately R6.16/L on petrol 95 in 2025/26. Government collects around 40 cents of every rand spent on fuel.',src:'National Treasury Budget Review',url:'https://www.treasury.gov.za/'},{text:'The Road Accident Fund levy is ring-fenced to compensate road accident victims. The RAF paid out R31.5 billion in claims in 2023/24.',src:'Road Accident Fund',url:'https://www.raf.co.za/'},{text:"South Africa's fuel levy has not been increased since 2022 as part of government's relief measures on rising fuel costs.",src:'National Treasury',url:'https://www.treasury.gov.za/'}],
+  'fuel-efficiency':  [{text:'South Africa spent approximately R289 billion on petroleum imports in 2023. The country imports roughly 40% of its petrol.',src:'DMRE',url:'https://www.energy.gov.za/'},{text:"South Africa's average light vehicle fuel consumption improved from about 9.5 L/100km in 2010 to approximately 8.5 L/100km in 2024 due to more efficient engines.",src:'NAAMSA',url:'https://naamsa.co.za/'},{text:'Under-inflated tyres can increase fuel consumption by 3–5%. Correct tyre pressure is the cheapest and easiest improvement to your fuel economy.',src:'AA South Africa',url:'https://www.aa.co.za/'}],
+  'appliances':       [{text:'A 5-star heat pump uses approximately 3–4 times less electricity than a conventional resistance element geyser to produce the same hot water.',src:'SABS / SANS 941',url:'https://www.sabs.co.za/'},{text:'Eskom direct residential customers pay approximately R2.25/kWh in 2025/26. Most municipal customers pay R2.50–R4.50/kWh depending on their municipality.',src:'NERSA / Eskom',url:'https://www.nersa.org.za/'},{text:'Switching off the geyser for 8 hours overnight (via a timer) typically saves R200–R400/month depending on geyser size and usage habits.',src:'Eskom Energy Advice',url:'https://www.eskom.co.za/distribution/customer-service/energy-advice/home-energy-management/'}],
+  'nsfas':            [{text:'NSFAS funded approximately 923,000 students in 2024 at a total cost of over R50 billion — the largest student bursary scheme in Africa.',src:'NSFAS',url:'https://www.nsfas.org.za/'},{text:'The NSFAS university income threshold was raised to R600,000/year in 2023, bringing an estimated 200,000 additional students into eligibility.',src:'DHET',url:'https://www.dhet.gov.za/'},{text:'Missing the NSFAS application window means waiting a full year. Applications open in August. The application is completely free on nsfas.org.za — never pay an agent to apply.',src:'NSFAS',url:'https://www.nsfas.org.za/content/how-to-apply.html'}],
+  'sassa':            [{text:'SASSA distributes grants to approximately 18.6 million South Africans every month — roughly 1 in 3 people. Total annual grants expenditure exceeds R250 billion.',src:'SASSA',url:'https://www.sassa.gov.za/'},{text:'Research shows the Child Support Grant improves school attendance, nutrition and long-term earnings of the children who receive it.',src:'DSD / SASSA',url:'https://www.dsd.gov.za/'},{text:'SASSA grant amounts are adjusted annually in the national budget, usually tracking CPI. The Old Age and Disability Grants are the highest value at R2,190/month in 2026.',src:'SASSA Grant Values',url:'https://www.sassa.gov.za/Pages/Social-Grants.aspx'}],
+  'aps':              [{text:'South Africa has 26 public universities, each setting their own APS requirements by faculty. Medical degrees at UCT and Wits typically require 36–42 APS.',src:'DHET',url:'https://www.dhet.gov.za/'},{text:'Life Orientation is excluded from most university APS calculations. Your 6 best subjects (excluding LO) determine your score — maximum 42 points.',src:'UMALUSI',url:'https://www.umalusi.org.za/'},{text:"A National Senior Certificate 'Bachelor's pass' requires 50%+ in your home language plus 3 other designated subjects, plus 40% in 2 other subjects.",src:'DBE',url:'https://www.education.gov.za/'}],
+  'overtime':         [{text:'BCEA overtime provisions apply only to employees earning below R254,371/year (2024/25). Employees above this threshold must negotiate overtime contractually.',src:'Department of Employment and Labour',url:'https://www.labour.gov.za/'},{text:'The BCEA caps overtime at 10 hours per week (3 hours per day). Employers cannot legally require more than this from covered employees.',src:'BCEA',url:'https://www.labour.gov.za/'},{text:'Sunday work by an employee who does not ordinarily work Sundays must be paid at 2× the ordinary rate. Regular Sunday workers are paid at 1.5×.',src:'BCEA',url:'https://www.labour.gov.za/'}],
+  'salary-split':     [{text:'The national minimum wage is R28.79/hour from March 2025 — approximately R5,000/month for a full-time worker. It is reviewed annually by the National Minimum Wage Commission.',src:'Department of Employment and Labour',url:'https://www.labour.gov.za/minimum-wage'},{text:"South Africa's Gini coefficient is one of the highest in the world. The top 10% of earners receive approximately 65% of all income; the bottom 40% receive under 7%.",src:'Stats SA',url:'https://www.statssa.gov.za/'},{text:"CTC (Cost to Company) packages are common in SA and include employer UIF, pension contributions, medical aid subsidy and other benefits — not just your cash salary.",src:'SARS',url:'https://www.sars.gov.za/types-of-tax/personal-income-tax/'}]
+};
+
+function renderDYK(calcId) {
+  var el = document.getElementById('cv-dyk');
+  if (!el) return;
+  var nuggets = CALC_DYK[calcId];
+  if (!nuggets || !nuggets.length) { el.innerHTML = ''; return; }
+  el.innerHTML =
+    '<div class="dyk-section">' +
+      '<div class="dyk-heading">' +
+        '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"/></svg>' +
+        'Did you know?' +
+      '</div>' +
+      nuggets.map(function(n) {
+        return '<div class="dyk-item">' +
+          '<p class="dyk-text">' + _escHTML(n.text) + '</p>' +
+          '<a class="dyk-source" href="' + n.url + '" target="_blank" rel="noopener noreferrer">' +
+            '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>' +
+            'Source: ' + _escHTML(n.src) +
+          '</a>' +
+        '</div>';
+      }).join('') +
+    '</div>';
+}
+
 function showCalc(id) {
   var calc = CALCS.find(function(c) { return c.id === id; });
   if (!calc) { showHome(); return; }
@@ -2642,6 +2743,7 @@ function showCalc(id) {
   calc.render();
   syncAllSliders();
   if (calc.chart) renderCalcChart(calc.chart);
+  renderDYK(id);
 
   window.location.hash = id;
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -3276,6 +3378,7 @@ function renderTwoPot() {
     '</div>' +
     '<div id="tp_wsec" style="display:none">' +
       field('tp_wamt','Amount to withdraw',moneyInput('tp_wamt','','10000'),'minimum R2,000 · cannot exceed your savings pot balance') +
+      presetChips('tp_wamt',[{l:'R2k (min)',v:2000},{l:'R5k',v:5000},{l:'R10k',v:10000},{l:'R20k',v:20000},{l:'R30k (max seed)',v:30000}]) +
       field('tp_salary','Annual taxable income (before withdrawal)',moneyInput('tp_salary','','350000'),'salary/wages before the withdrawal — withdrawal adds on top for marginal rate calculation',
         'Enter your gross employment income. The Two-Pot withdrawal amount is added on top and the combined total determines your marginal tax rate for the withdrawal.') +
       field('tp_admin','Admin fee charged by your fund',moneyInput('tp_admin','','300'),'deducted BEFORE tax · Old Mutual R250–R300 · Momentum R250–R350 · 10X R300 excl VAT · Sanlam R330+VAT') +
