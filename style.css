@@ -4106,19 +4106,36 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 
 /* DYK full-width: widen the section and lay nuggets in a 3-col grid */
 #cv-dyk .dyk-section {
-  padding: 1.5rem 1.75rem 1.25rem;
+  padding: 1.4rem 1.5rem 1.4rem;
+  overflow: visible;      /* fix: base has overflow:hidden which clips the grid */
+  margin-top: 0;          /* cv-below-section provides the spacing */
 }
 #cv-dyk .dyk-items {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  gap: .85rem;
+  margin-top: .6rem;
+}
+/* Each nugget becomes a self-contained card in the grid */
+#cv-dyk .dyk-item {
+  border: 1px solid rgba(255,182,18,.12) !important;
+  border-bottom: 1px solid rgba(255,182,18,.12) !important;
+  border-radius: 10px !important;
+  background: rgba(255,182,18,.03) !important;
+  padding: .85rem 1rem !important;
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+}
+#cv-dyk .dyk-item:last-child {
+  border-bottom: 1px solid rgba(255,182,18,.12) !important;
 }
 @media (max-width: 900px) {
   #cv-dyk .dyk-items { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 560px) {
   #cv-dyk .dyk-items { grid-template-columns: 1fr; }
-  #cv-dyk .dyk-section { padding: 1.1rem 1.1rem 1rem; }
+  #cv-dyk .dyk-section { padding: 1rem 1.1rem 1rem; }
 }
 
 /* Chart full-width: remove max-width cap so it uses the container width */

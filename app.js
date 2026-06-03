@@ -1593,7 +1593,11 @@ function renderVAT() {
 function renderUIF() {
   document.getElementById('calc-form').innerHTML =
     sliderField('uif_salary','Monthly gross salary', 2000, 50000, 100, 20000, '', 'R') +
-    field('uif_months','Months contributed', plainInput('uif_months','48','48','months'),'max 48') +
+    field('uif_months','Months contributed', selectInput('uif_months',[
+      ['6','6 months'],['12','12 months (1 yr)'],['24','24 months (2 yrs)'],
+      ['36','36 months (3 yrs)'],['48','48 months (4 yrs — max)']
+    ]),'max 48 months') +
+    presetChips('uif_months',[{l:'12 mo',v:12},{l:'24 mo',v:24},{l:'36 mo',v:36},{l:'48 mo',v:48}]) +
     field('uif_type','Claim type', selectInput('uif_type',[
       ['unemp','Unemployment / Retrenchment'],
       ['mat','Maternity (max 121 days)'],
@@ -2052,8 +2056,13 @@ function renderCompoundInterest() {
     field('ci_monthly','Monthly contribution', moneyInput('ci_monthly','1000','1000'), 'optional') +
     '<div class="frow">' +
       field('ci_rate','Annual return rate', pctInput('ci_rate','10','10')) +
-      field('ci_years','Investment period', plainInput('ci_years','20','20','years')) +
+      field('ci_years','Investment period', selectInput('ci_years',[
+        ['1','1 year'],['2','2 years'],['3','3 years'],['5','5 years'],
+        ['7','7 years'],['10','10 years'],['15','15 years'],['20','20 years'],
+        ['25','25 years'],['30','30 years'],['40','40 years']
+      ])) +
     '</div>' +
+    presetChips('ci_years',[{l:'5 yrs',v:5},{l:'10 yrs',v:10},{l:'15 yrs',v:15},{l:'20 yrs',v:20},{l:'30 yrs',v:30}]) +
     field('ci_compound','Compounding frequency', selectInput('ci_compound',[['12','Monthly'],['4','Quarterly'],['1','Annually']]));
 
   function calc() {
@@ -3446,7 +3455,10 @@ function renderTwoPot() {
       'Your total retirement fund balance as at 31 August 2024. The system automatically transferred 10% (max R30,000; GEPF: R25,000) to your Savings Pot on 1 September 2024.') +
     field('tp_contrib','Monthly contribution (your share)',moneyInput('tp_contrib','','3000'),'after T-Day: 1/3 → savings pot · 2/3 → retirement pot') +
     sliderField('tp_rate','Expected annual return',4,18,0.5,10,'','','%','Balanced 8–12% · Conservative 5–8% · Aggressive 12–16% · SA equity avg ≈ CPI+7%') +
-    field('tp_age','Current age',plainInput('tp_age','35','35',' yrs')) +
+    field('tp_age','Current age', selectInput('tp_age',[
+      ['20','20'],['25','25'],['30','30'],['35','35'],['40','40'],
+      ['45','45'],['50','50'],['55','55'],['60','60']
+    ])) +
     sliderField('tp_years','Years until retirement',1,40,1,20,'','','yrs') +
 
     fsect('Savings pot withdrawal (this tax year)') +
