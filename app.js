@@ -2694,6 +2694,7 @@ function renderDYK(calcId) {
         '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"/></svg>' +
         'Did you know?' +
       '</div>' +
+      '<div class="dyk-items">' +
       nuggets.map(function(n) {
         return '<div class="dyk-item">' +
           '<p class="dyk-text">' + _escHTML(n.text) + '</p>' +
@@ -2703,6 +2704,7 @@ function renderDYK(calcId) {
           '</a>' +
         '</div>';
       }).join('') +
+      '</div>' +
     '</div>';
 }
 

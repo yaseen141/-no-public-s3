@@ -4096,3 +4096,38 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .ql-card, .ql-card::before, .rc-copy-btn, .trust-badge, .skip-link { transition: none !important; }
   .hb-big { animation: none !important; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   BELOW-CALCULATOR SECTIONS — DYK + Chart full-width layout
+═══════════════════════════════════════════════════════════════════ */
+.cv-below-section {
+  margin-top: 1.75rem;
+}
+
+/* DYK full-width: widen the section and lay nuggets in a 3-col grid */
+#cv-dyk .dyk-section {
+  padding: 1.5rem 1.75rem 1.25rem;
+}
+#cv-dyk .dyk-items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 900px) {
+  #cv-dyk .dyk-items { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  #cv-dyk .dyk-items { grid-template-columns: 1fr; }
+  #cv-dyk .dyk-section { padding: 1.1rem 1.1rem 1rem; }
+}
+
+/* Chart full-width: remove max-width cap so it uses the container width */
+#cv-chart .trend-card {
+  max-width: 100% !important;
+}
+#cv-chart .trend-canvas-wrap {
+  max-height: 280px;
+}
+#cv-chart canvas {
+  max-height: 280px;
+}
