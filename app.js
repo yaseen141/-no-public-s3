@@ -91,6 +91,28 @@ var ICONS = {
   'graduation-cap': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>',
   'layers': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>',
   'book-open': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
+  'lightbulb':    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="9" y1="21" x2="15" y2="21"/><line x1="12" y1="21" x2="12" y2="17"/><path d="M12 2a7 7 0 0 1 7 7c0 2.9-1.8 5.4-4.4 6.5A2 2 0 0 1 13 17h-2a2 2 0 0 1-1.6-.5C6.8 15.4 5 12.9 5 10a7 7 0 0 1 7-7z"/></svg>',
+  'tool':         '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>',
+  'dollar-sign':  '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
+  'scale':        '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="3" x2="12" y2="21"/><path d="M3 6l9 6 9-6"/><path d="M3 6l3 9H0L3 6z"/><path d="M21 6l3 9h-6l3-9z"/></svg>',
+  'sun':          '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>',
+  'trending-down':'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg>',
+  'users':        '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+  'award':        '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>',
+  'check-circle': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
+  'copy':         '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
+  'share':        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>',
+};
+
+// Maps emoji CTA icons to SVG icon names
+var CTA_ICON_MAP = {
+  '💡': 'lightbulb', '💼': 'briefcase', '🧾': 'file-text', '🛡️': 'shield',
+  '🏠': 'home', '📋': 'clipboard', '🏘️': 'building', '🏗️': 'tool',
+  '💸': 'dollar-sign', '💳': 'credit-card', '🚗': 'car', '🗺️': 'map',
+  '⛽': 'droplets', '📈': 'trending-up', '📉': 'trending-down',
+  '🏦': 'landmark', '📊': 'bar-chart', '🏥': 'heart', '❤️': 'heart',
+  '⏰': 'clock', '⚡': 'zap', '☀️': 'sun', '⚖️': 'scale',
+  '🎓': 'graduation-cap', '📐': 'tool'
 };
 
 // ── Search State ──────────────────────────────────────────────────
@@ -594,6 +616,20 @@ function showResult(html) {
   document.getElementById('result-area').innerHTML = html + cta;
 }
 
+window._copyResult = function(btn, text) {
+  if (!navigator.clipboard) {
+    try { var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); } catch(e){}
+  } else {
+    navigator.clipboard.writeText(text).catch(function(){});
+  }
+  btn.classList.add('copied');
+  btn.innerHTML = ICONS['check-circle'] + ' Copied!';
+  setTimeout(function() {
+    btn.classList.remove('copied');
+    btn.innerHTML = ICONS['copy'] + ' Copy result';
+  }, 2200);
+};
+
 // ── Preset quick-pick chips ──────────────────────────────────────
 function presetChips(fieldId, opts, label) {
   return '<div class="preset-chips" role="group" aria-label="' + (label || 'Quick select') + '">' +
@@ -653,11 +689,17 @@ function resultCard(label, value, sub, rows, barPct, barType) {
       return '<div class="br' + divider + '"><span class="bl">' + r[0] + '</span><span class="bv' + cls + '">' + r[1] + '</span></div>';
     }).join('') + '</div>';
   }
+  var shareText = label + ': ' + value + (sub ? ' (' + sub + ')' : '') + ' — Mzanzi Cals (zacalc.co.za)';
   return '<div class="result-card">' +
     '<span class="rc-label">' + label + '</span>' +
     '<span class="rc-value">' + value + '</span>' +
     (sub ? '<span class="rc-sub">' + sub + '</span>' : '') +
     barHTML + rowsHTML +
+    '<div class="rc-share-row">' +
+      '<button class="rc-copy-btn" onclick="window._copyResult(this,\'' + shareText.replace(/'/g, "\\'") + '\')" aria-label="Copy result to clipboard">' +
+        ICONS['copy'] + ' Copy result' +
+      '</button>' +
+    '</div>' +
     '</div>';
 }
 
@@ -765,9 +807,11 @@ function renderCTA(cta) {
     return '<a href="' + o.url + '" class="cta-offer-btn' + (o.secondary ? ' secondary' : '') + '" target="_blank" rel="noopener sponsored">' +
       o.label + ' <span class="cta-arrow">→</span></a>';
   }).join('');
+  var ctaIconName = CTA_ICON_MAP[cta.icon] || 'lightbulb';
+  var ctaIconSvg = ICONS[ctaIconName] || ICONS['lightbulb'];
   return '<div class="cta-card">' +
     '<div class="cta-head">' +
-      '<span class="cta-icon">' + cta.icon + '</span>' +
+      '<span class="cta-icon" aria-hidden="true">' + ctaIconSvg + '</span>' +
       '<div><p class="cta-title">' + cta.title + '</p>' +
       '<p class="cta-sub">' + cta.sub + '</p></div>' +
     '</div>' +
@@ -2986,6 +3030,39 @@ function initScrollAnimations() {
   });
 }
 
+// ── Quick-Launch: top 6 most-used calculators ─────────────────────
+function renderQuickLaunch() {
+  var el = document.getElementById('quick-launch-section');
+  if (!el) return;
+  var TOP = ['paye','bond','vat','two-pot','vehicle-finance','fuel'];
+  var catColors = {
+    tax:        {bg:'rgba(51,138,243,.18)', border:'rgba(51,138,243,.3)', color:'#93c5fd'},
+    property:   {bg:'rgba(13,148,136,.18)', border:'rgba(13,148,136,.3)', color:'#5eead4'},
+    investment: {bg:'rgba(255,182,18,.18)', border:'rgba(255,182,18,.3)', color:'#FFB612'},
+    auto:       {bg:'rgba(220,38,38,.18)',  border:'rgba(220,38,38,.3)',  color:'#fca5a5'},
+    loans:      {bg:'rgba(234,88,12,.18)',  border:'rgba(234,88,12,.3)',  color:'#fdba74'},
+    utilities:  {bg:'rgba(202,138,4,.18)',  border:'rgba(202,138,4,.3)',  color:'#fde68a'},
+    education:  {bg:'rgba(12,74,110,.28)',  border:'rgba(12,74,110,.4)',  color:'#7dd3fc'},
+  };
+  var html = '<div class="quick-launch-section">' +
+    '<div class="ql-heading">Most used calculators</div>' +
+    '<div class="ql-grid">' +
+    TOP.map(function(id) {
+      var c = CALCS.find(function(x){ return x.id === id; });
+      if (!c) return '';
+      var col = catColors[c.cat] || catColors.tax;
+      var shortName = c.title.replace(/ Calculator\b.*$/,'').replace(/ South Africa\b.*$/,'').replace(/ Tax Saving\b.*$/,'').trim();
+      var ico = ICONS[c.iconName] || '';
+      return '<button class="ql-card" onclick="showCalc(\'' + c.id + '\')" aria-label="Open ' + _escHTML(c.title) + '" style="--ql-border:' + col.border + ';--ql-bg:' + col.bg + '">' +
+        '<span class="ql-icon" style="background:' + col.bg + ';border:1px solid ' + col.border + ';color:' + col.color + '">' + ico.replace('width="20" height="20"','width="16" height="16"') + '</span>' +
+        '<span class="ql-name">' + shortName + '</span>' +
+        (c.featured ? '<span class="ql-badge">Featured</span>' : c.popular ? '<span class="ql-badge" style="background:rgba(99,102,241,.2);color:#a5b4fc">Popular</span>' : '') +
+      '</button>';
+    }).join('') +
+    '</div></div>';
+  el.innerHTML = html;
+}
+
 // ── Journey Functions ──────────────────────────────────────────────
 
 function renderJourneys() {
@@ -3996,6 +4073,9 @@ function init() {
   initScrollAnimations();
   renderRates();
   renderJourneys();
+  renderQuickLaunch();
+  initSearch();
+  renderGrid();
   updateHeroBento();
   fetchLiveFuel();
   fetchLiveRates();
@@ -4127,7 +4207,23 @@ document.addEventListener('click', function(e) {
   }, { passive: true });
 })();
 
-// ── 6. Mobile bar slide-up on first show ─────────────────────────
+// ── 6. Keyboard shortcut: press / to focus search ────────────────
+document.addEventListener('keydown', function(e) {
+  if (e.key === '/' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+    var homeView = document.getElementById('home-view');
+    if (!homeView || homeView.style.display === 'none') return;
+    var activeEl = document.activeElement;
+    if (activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA' || activeEl.tagName === 'SELECT')) return;
+    e.preventDefault();
+    var searchEl = document.getElementById('search');
+    if (searchEl) {
+      searchEl.focus();
+      searchEl.select();
+    }
+  }
+});
+
+// ── 7. Mobile bar slide-up on first show ─────────────────────────
 var _umbOrig = updateMobileBar;
 updateMobileBar = function(label, value) {
   var bar     = document.getElementById('mobile-bar');
