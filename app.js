@@ -639,6 +639,23 @@ function presetChips(fieldId, opts, label) {
       return '<button type="button" class="preset-chip" onclick="window._setPreset(\'' + fieldId + '\',' + v + ',this)">' + l + '</button>';
     }).join('') + '</div>';
 }
+
+// termChips — large tap-friendly buttons for term/period/age selection
+function termChips(fieldId, opts, defaultVal, label) {
+  var defVal = defaultVal !== undefined ? String(defaultVal) : String(Array.isArray(opts[0]) ? opts[0][0] : opts[0].v);
+  var html = '<div class="field">';
+  if (label) html += '<label class="flabel">' + label + '</label>';
+  html += '<div class="term-chips" role="group" aria-label="' + (label || fieldId) + '">';
+  html += '<input type="hidden" id="' + fieldId + '" value="' + defVal + '">';
+  opts.forEach(function(o) {
+    var v = String(Array.isArray(o) ? o[0] : o.v);
+    var l = Array.isArray(o) ? o[1] : o.l;
+    html += '<button type="button" class="term-chip' + (v === defVal ? ' active' : '') + '" ' +
+      'onclick="window._setPreset(\'' + fieldId + '\',' + v + ',this)" aria-label="' + (label || '') + ' ' + l + '">' + l + '</button>';
+  });
+  html += '</div></div>';
+  return html;
+}
 function _chipLabel(v) {
   if (v >= 1000000) return 'R' + (v/1000000) + 'M';
   if (v >= 1000)    return 'R' + (v/1000) + 'k';
@@ -1593,11 +1610,7 @@ function renderVAT() {
 function renderUIF() {
   document.getElementById('calc-form').innerHTML =
     sliderField('uif_salary','Monthly gross salary', 2000, 50000, 100, 20000, '', 'R') +
-    field('uif_months','Months contributed', selectInput('uif_months',[
-      ['6','6 months'],['12','12 months (1 yr)'],['24','24 months (2 yrs)'],
-      ['36','36 months (3 yrs)'],['48','48 months (4 yrs — max)']
-    ]),'max 48 months') +
-    presetChips('uif_months',[{l:'12 mo',v:12},{l:'24 mo',v:24},{l:'36 mo',v:36},{l:'48 mo',v:48}]) +
+    termChips('uif_months',[['6','6 mo'],['12','12 mo'],['24','24 mo'],['36','36 mo'],['48','48 mo (max)']],'48','Months contributed') +
     field('uif_type','Claim type', selectInput('uif_type',[
       ['unemp','Unemployment / Retrenchment'],
       ['mat','Maternity (max 121 days)'],
@@ -1650,11 +1663,9 @@ function renderBond() {
       'The total purchase price of the property as agreed with the seller.') +
     sliderField('bond_deposit','Deposit', 0, 1000000, 5000, 150000, '', 'R', null,
       'Amount you pay upfront. A larger deposit means a smaller loan, lower monthly payments and often a better interest rate.') +
-    '<div class="frow">' +
-      field('bond_rate','Interest rate', pctInput('bond_rate','11.00','11.00'), 'prime = 11.00%',
-        'Home loans are priced as prime ± a margin. Current prime rate is 11.00%. Your rate depends on your credit score and deposit size.') +
-      field('bond_term','Loan term', selectInput('bond_term',[['10','10 years'],['15','15 years'],['20','20 years'],['25','25 years'],['30','30 years']])) +
-    '</div>' +
+    field('bond_rate','Interest rate', pctInput('bond_rate','11.00','11.00'), 'prime = 11.00%',
+      'Home loans are priced as prime ± a margin. Current prime rate is 11.00%. Your rate depends on your credit score and deposit size.') +
+    termChips('bond_term',[['10','10 yrs'],['15','15 yrs'],['20','20 yrs'],['25','25 yrs'],['30','30 yrs']],'20','Loan term') +
     '<button class="adv-toggle" id="bond_adv_btn" onclick="toggleAdv(\'bond_adv_btn\',\'bond_adv\')" type="button">' +
       '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72 1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>' +
       'Extra payment calculator' +
@@ -1891,10 +1902,8 @@ function renderLoan() {
     '</div>' +
     sliderField('ln_amount','Loan amount', 5000, 500000, 5000, 100000, '', 'R') +
     presetChips('ln_amount',[{l:'R10k',v:10000},{l:'R25k',v:25000},{l:'R50k',v:50000},{l:'R100k',v:100000},{l:'R200k',v:200000},{l:'R500k',v:500000}]) +
-    '<div class="frow">' +
-      field('ln_rate','Annual interest rate', pctInput('ln_rate','11.00','11.00'),'NCR cap ≈ 27.75%') +
-      field('ln_term','Loan term', selectInput('ln_term',[['6','6 months'],['12','1 year'],['24','2 years'],['36','3 years'],['48','4 years'],['60','5 years'],['72','6 years'],['84','7 years']]),'','Select 60 months (5 yrs) for most personal loans') +
-    '</div>' +
+    field('ln_rate','Annual interest rate', pctInput('ln_rate','11.00','11.00'),'NCR cap ≈ 27.75%') +
+    termChips('ln_term',[['6','6 mo'],['12','1 yr'],['24','2 yrs'],['36','3 yrs'],['48','4 yrs'],['60','5 yrs'],['72','6 yrs'],['84','7 yrs']],'60','Loan term') +
     field('ln_fee','Initiation fee', moneyInput('ln_fee','0','0'), 'added to loan — typically R1,207 for R100k loans');
 
   function calc() {
@@ -1945,10 +1954,8 @@ function renderVehicleFinance() {
     '</div>' +
     '<div class="preset-label">Balloon quick-pick</div>' +
     presetChips('vf_balloon',[{l:'None (0%)',v:0},{l:'20%',v:20},{l:'30%',v:30},{l:'40%',v:40}]) +
-    '<div class="frow">' +
-      field('vf_rate','Interest rate', pctInput('vf_rate','11.0','11.0')) +
-      field('vf_term','Term', selectInput('vf_term',[['24','24 months'],['36','36 months'],['48','48 months'],['60','60 months'],['72','72 months (recommended)']]),'','72 months is the typical maximum offered by SA banks') +
-    '</div>';
+    field('vf_rate','Interest rate', pctInput('vf_rate','11.0','11.0')) +
+    termChips('vf_term',[['24','24 mo'],['36','36 mo'],['48','48 mo'],['60','60 mo'],['72','72 mo']],'72','Finance term');
 
   function calc() {
     var price = num('vf_price');
@@ -2054,15 +2061,8 @@ function renderCompoundInterest() {
   document.getElementById('calc-form').innerHTML =
     field('ci_principal','Initial investment', moneyInput('ci_principal','50000','50000')) +
     field('ci_monthly','Monthly contribution', moneyInput('ci_monthly','1000','1000'), 'optional') +
-    '<div class="frow">' +
-      field('ci_rate','Annual return rate', pctInput('ci_rate','10','10')) +
-      field('ci_years','Investment period', selectInput('ci_years',[
-        ['1','1 year'],['2','2 years'],['3','3 years'],['5','5 years'],
-        ['7','7 years'],['10','10 years'],['15','15 years'],['20','20 years'],
-        ['25','25 years'],['30','30 years'],['40','40 years']
-      ])) +
-    '</div>' +
-    presetChips('ci_years',[{l:'5 yrs',v:5},{l:'10 yrs',v:10},{l:'15 yrs',v:15},{l:'20 yrs',v:20},{l:'30 yrs',v:30}]) +
+    field('ci_rate','Annual return rate', pctInput('ci_rate','10','10')) +
+    termChips('ci_years',[['1','1 yr'],['3','3 yrs'],['5','5 yrs'],['10','10 yrs'],['15','15 yrs'],['20','20 yrs'],['30','30 yrs']],'20','Investment period') +
     field('ci_compound','Compounding frequency', selectInput('ci_compound',[['12','Monthly'],['4','Quarterly'],['1','Annually']]));
 
   function calc() {
@@ -2117,10 +2117,8 @@ function renderRetirementAnnuity() {
       '<button type="button" class="preset-chip" onclick="window._setPreset(\'ra_contrib\',Math.round((num(\'ra_income\')||600000)*0.15),this)">15% of income</button>' +
       '<button type="button" class="preset-chip" onclick="window._setPreset(\'ra_contrib\',Math.min(Math.round((num(\'ra_income\')||600000)*0.275),350000),this)">27.5% (max)</button>' +
     '</div>' +
-    '<div class="frow">' +
-      field('ra_age','Current age', selectInput('ra_age',[['25','25'],['30','30'],['35','35'],['40','40'],['45','45'],['50','50'],['55','55']])) +
-      field('ra_retire','Retirement age', selectInput('ra_retire',[['55','55 (earliest)'],['60','60'],['65','65 (standard)'],['70','70']])) +
-    '</div>' +
+    termChips('ra_age',[['25','25'],['30','30'],['35','35'],['40','40'],['45','45'],['50','50'],['55','55']],'40','Current age') +
+    termChips('ra_retire',[['55','55'],['60','60'],['65','65'],['70','70']],'65','Retirement age') +
     field('ra_growth','Expected growth inside RA', pctInput('ra_growth','10','10'), 'annual');
 
   function calc() {
@@ -3455,10 +3453,7 @@ function renderTwoPot() {
       'Your total retirement fund balance as at 31 August 2024. The system automatically transferred 10% (max R30,000; GEPF: R25,000) to your Savings Pot on 1 September 2024.') +
     field('tp_contrib','Monthly contribution (your share)',moneyInput('tp_contrib','','3000'),'after T-Day: 1/3 → savings pot · 2/3 → retirement pot') +
     sliderField('tp_rate','Expected annual return',4,18,0.5,10,'','','%','Balanced 8–12% · Conservative 5–8% · Aggressive 12–16% · SA equity avg ≈ CPI+7%') +
-    field('tp_age','Current age', selectInput('tp_age',[
-      ['20','20'],['25','25'],['30','30'],['35','35'],['40','40'],
-      ['45','45'],['50','50'],['55','55'],['60','60']
-    ])) +
+    termChips('tp_age',[['20','20'],['25','25'],['30','30'],['35','35'],['40','40'],['45','45'],['50','50'],['55','55'],['60','60']],'35','Current age') +
     sliderField('tp_years','Years until retirement',1,40,1,20,'','','yrs') +
 
     fsect('Savings pot withdrawal (this tax year)') +
